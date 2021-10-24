@@ -107,13 +107,16 @@ function AuthProvider({ children }) {
   }, []);
 
   const login = async (userName, password) => {
-    const response = await axios.post('/api/account/login', {
+    const response = await axios.post('/auth/login', {
       userName,
       password
     });
-    const { accessToken, user } = response.data;
+    const { data } = response.data;
+    const user = {
+      displayName: userName === 'cloud' ? '주식훈련소 회원님' : '관리자'
+    };
 
-    setSession(accessToken);
+    setSession(data);
     dispatch({
       type: 'LOGIN',
       payload: {
