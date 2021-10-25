@@ -111,7 +111,9 @@ function AuthProvider({ children }) {
       userName,
       password
     });
+
     const { data } = response.data;
+
     const user = {
       displayName: userName === 'cloud' ? '주식훈련소 회원님' : '관리자'
     };

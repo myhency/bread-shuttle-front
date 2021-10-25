@@ -53,11 +53,13 @@ export default function LoginForm() {
           setSubmitting(false);
         }
       } catch (error) {
-        console.error(error);
         resetForm();
         if (isMountedRef.current) {
           setSubmitting(false);
-          setErrors({ afterSubmit: error.message });
+          setErrors({
+            afterSubmit:
+              error.data === 'LoginFailException' ? '사용자명과 패스워드를 정확히 입력하셨습니까?' : '로그인 오류'
+          });
         }
       }
     }
