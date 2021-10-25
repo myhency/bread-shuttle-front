@@ -31,11 +31,11 @@ export default function GeneralApp() {
     <Page title="General: App | Minimal-UI">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={7}>
             <AppWelcome displayName={user.displayName} />
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={5}>
             <AppFeatured />
           </Grid>
 
