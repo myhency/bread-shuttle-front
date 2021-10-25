@@ -2,7 +2,7 @@ import Slider from 'react-slick';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { useState, useRef } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+// import { Link as RouterLink } from 'react-router-dom';
 // material
 import { alpha, useTheme, styled } from '@mui/material/styles';
 import { CardContent, Box, Card, Typography } from '@mui/material';
@@ -14,13 +14,20 @@ import { CarouselControlsPaging1, CarouselControlsArrowsBasic1 } from '../../car
 
 // ----------------------------------------------------------------------
 
-const TITLES = ['Harry Potter and the Deathly Hallows - Part 2', 'Disney Zombies 2', 'Lightroom mobile - Koloro'];
+const TITLES = ['새로오신 분들을 위한 영상', '비중 1위 종목', '좀 지켜보며 천천히 합류하세요'];
+const TEXTS = [
+  '10월 오리엔테이션 방문하기',
+  '현재 회원들의 비중 1위 종목에 대한 리뷰방송을  3거래일마다 한번씩 하고 있습니다.',
+  '2주정도는 거래보다는 적응에 집중하기를 권장합니다.'
+];
+const LINKS = ['https://youtu.be/DgRdP9JNWYg', '#', '#'];
 
 const MOCK_APPS = [...Array(3)].map((_, index) => ({
   id: mockData.id(index),
   title: TITLES[index],
-  description: mockData.text.title(index),
-  image: mockData.image.feed(index)
+  description: TEXTS[index],
+  image: mockData.image.feed(index),
+  link: LINKS[index]
 }));
 
 const CarouselImgStyle = styled('img')(({ theme }) => ({
@@ -40,33 +47,37 @@ CarouselItem.propTypes = {
 };
 
 function CarouselItem({ item, isActive }) {
-  const { image, title, description } = item;
+  const { image, title, description, link } = item;
+
+  function handleOnclick(link) {
+    if (link === '#') return;
+    window.open(link, '_blank');
+  }
 
   return (
-    <RouterLink to="#">
-      <Box sx={{ position: 'relative' }}>
-        <Box
-          sx={{
-            top: 0,
-            width: 1,
-            height: 1,
-            position: 'absolute',
-            bgcolor: (theme) => alpha(theme.palette.grey[900], 0.72)
-          }}
-        />
-        <CarouselImgStyle alt={title} src={image} />
-        <CardContent
-          sx={{
-            bottom: 0,
-            width: 1,
-            textAlign: 'left',
-            position: 'absolute',
-            color: 'common.white'
-          }}
-        >
-          <MotionContainer open={isActive}>
-            <motion.div variants={varFadeInRight}>
-              <Typography
+    <Box sx={{ position: 'relative' }} onClick={() => handleOnclick(link, '_blank')}>
+      <Box
+        sx={{
+          top: 0,
+          width: 1,
+          height: 1,
+          position: 'absolute',
+          bgcolor: (theme) => alpha(theme.palette.grey[900], 0.72)
+        }}
+      />
+      <CarouselImgStyle alt={title} src={image} />
+      <CardContent
+        sx={{
+          bottom: 0,
+          width: 1,
+          textAlign: 'left',
+          position: 'absolute',
+          color: 'common.white'
+        }}
+      >
+        <MotionContainer open={isActive}>
+          <motion.div variants={varFadeInRight}>
+            {/* <Typography
                 variant="overline"
                 sx={{
                   mb: 1,
@@ -75,22 +86,21 @@ function CarouselItem({ item, isActive }) {
                 }}
               >
                 Featured App
-              </Typography>
-            </motion.div>
-            <motion.div variants={varFadeInRight}>
-              <Typography variant="h5" gutterBottom noWrap>
-                {title}
-              </Typography>
-            </motion.div>
-            <motion.div variants={varFadeInRight}>
-              <Typography variant="body2" noWrap>
-                {description}
-              </Typography>
-            </motion.div>
-          </MotionContainer>
-        </CardContent>
-      </Box>
-    </RouterLink>
+              </Typography> */}
+          </motion.div>
+          <motion.div variants={varFadeInRight}>
+            <Typography variant="h5" gutterBottom noWrap>
+              {title}
+            </Typography>
+          </motion.div>
+          <motion.div variants={varFadeInRight}>
+            <Typography variant="body2" noWrap>
+              {description}
+            </Typography>
+          </motion.div>
+        </MotionContainer>
+      </CardContent>
+    </Box>
   );
 }
 
@@ -131,7 +141,7 @@ export default function AppFeatured() {
     <Card>
       <Slider ref={carouselRef} {...settings}>
         {MOCK_APPS.map((app, index) => (
-          <CarouselItem key={app.id} item={app} isActive={index === currentIndex} />
+          <CarouselItem key={app.id} item={app} isActive={index === currentIndex} link={app.link} />
         ))}
       </Slider>
 

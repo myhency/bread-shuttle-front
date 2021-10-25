@@ -1,9 +1,9 @@
 // ----------------------------------------------------------------------
 
 export const title = [
-  'Apply These 7 Secret Techniques To Improve Event',
-  'Believing These 7 Myths About Event Keeps You From Growing',
-  "Don't Waste Time! 7 Facts Until You Reach Your Event",
+  '10월 오리엔테이션  : https://youtu.be/DgRdP9JNWYg',
+  '현재 회원들의 비중 1위 종목에 대한 리뷰방송을  3거래일마다 한번씩 하고 있습니다.',
+  '2주정도는 거래보다는 적응에 집중하기를 권장합니다.',
   'How 7 Things Will Change The Way You Approach Event',
   "Event Awards: 7 Reasons Why They Don't Work & What You Can Do About It",
   "Event Doesn't Have To Be Hard. Read These 7 Tips",
