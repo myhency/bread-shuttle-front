@@ -2,7 +2,7 @@ import { createContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 // utils
 import axios from '../utils/axios';
-import { isValidToken, setSession } from '../utils/jwt';
+import { isValidToken, setSession, decodeJwt } from '../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -72,14 +72,15 @@ function AuthProvider({ children }) {
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
-          const response = await axios.get('/api/account/my-account');
-          const { user } = response.data;
+          // const response = await axios.get('/api/account/my-account');
+          // const { user } = response.data;
+          const decodedJwt = decodeJwt(accessToken);
 
           dispatch({
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
-              user
+              user: { displayName: decodedJwt.sub === 'cloud' ? '주식훈련소 회원님' : '주식훈련소 스탭님' }
             }
           });
         } else {
@@ -114,8 +115,10 @@ function AuthProvider({ children }) {
 
     const { data } = response.data;
 
+    const decodedJwt = decodeJwt(data);
+
     const user = {
-      displayName: userName === 'cloud' ? '주식훈련소 회원님' : '관리자'
+      displayName: decodedJwt.sub === 'cloud' ? '주식훈련소 회원님' : '주식훈련소 스탭님'
     };
 
     setSession(data);

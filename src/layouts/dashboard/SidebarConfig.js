@@ -61,8 +61,12 @@ const sidebarConfig = [
     items: [
       {
         title: '빅파이',
-        path: PATH_DASHBOARD.general.ecommerce,
-        icon: ICONS.bus
+        path: PATH_DASHBOARD.general.root,
+        icon: ICONS.bus,
+        children: [
+          { title: '빅파이 실시간', path: PATH_DASHBOARD.general.bigpie },
+          { title: '날짜별 빅파이', path: PATH_DASHBOARD.general.banking }
+        ]
       },
       {
         title: '007빵',

@@ -7,7 +7,7 @@ import mock from './mock';
 
 // ----------------------------------------------------------------------
 
-const JWT_SECRET = 'minimal-secret-key';
+const JWT_SECRET = 'breadstockcloud';
 const JWT_EXPIRES_IN = '5 days';
 
 const users = [
@@ -31,7 +31,7 @@ const users = [
 
 // ----------------------------------------------------------------------
 
-mock.onPost('/api/account/login').reply(async (config) => {
+mock.onPost('/auth/login').reply(async (config) => {
   try {
     await fakeRequest(1000);
 

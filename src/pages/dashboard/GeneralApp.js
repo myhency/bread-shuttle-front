@@ -59,7 +59,7 @@ export default function GeneralApp() {
             <AppAreaInstalled />
           </Grid>
 
-          <Grid item xs={12} lg={8}>
+          {/* <Grid item xs={12} lg={8}>
             <AppNewInvoice />
           </Grid>
 
@@ -80,7 +80,7 @@ export default function GeneralApp() {
               <AppWidgets1 />
               <AppWidgets2 />
             </Stack>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </Page>

@@ -3,21 +3,30 @@ import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Link, Stack, Button, Drawer, Tooltip, Typography, CardActionArea } from '@mui/material';
+import {
+  Box,
+  // Link,
+  Stack,
+  // Button,
+  Drawer,
+  Tooltip,
+  // Typography,
+  CardActionArea
+} from '@mui/material';
 // hooks
-import useAuth from '../../hooks/useAuth';
+// import useAuth from '../../hooks/useAuth';
 import useCollapseDrawer from '../../hooks/useCollapseDrawer';
 // routes
-import { PATH_DASHBOARD, PATH_DOCS } from '../../routes/paths';
+// import { PATH_DASHBOARD, PATH_DOCS } from '../../routes/paths';
 // components
 import Logo from '../../components/Logo';
-import MyAvatar from '../../components/MyAvatar';
+// import MyAvatar from '../../components/MyAvatar';
 import Scrollbar from '../../components/Scrollbar';
 import NavSection from '../../components/NavSection';
 import { MHidden } from '../../components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
-import { DocIllustration } from '../../assets';
+// import { DocIllustration } from '../../assets';
 
 // ----------------------------------------------------------------------
 
@@ -33,13 +42,13 @@ const RootStyle = styled('div')(({ theme }) => ({
   }
 }));
 
-const AccountStyle = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(2, 2.5),
-  borderRadius: theme.shape.borderRadiusSm,
-  backgroundColor: theme.palette.grey[500_12]
-}));
+// const AccountStyle = styled('div')(({ theme }) => ({
+//   display: 'flex',
+//   alignItems: 'center',
+//   padding: theme.spacing(2, 2.5),
+//   borderRadius: theme.shape.borderRadiusSm,
+//   backgroundColor: theme.palette.grey[500_12]
+// }));
 
 // ----------------------------------------------------------------------
 
@@ -93,7 +102,7 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
   const { isCollapse, collapseClick, collapseHover, onToggleCollapse, onHoverEnter, onHoverLeave } =
     useCollapseDrawer();
