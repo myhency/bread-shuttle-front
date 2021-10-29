@@ -1,22 +1,11 @@
-// export const firebaseConfig = {
-//   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-//   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-//   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-//   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-//   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-//   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-//   appId: process.env.REACT_APP_FIREBASE_APPID
-//   // measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
-// };
-
 export const firebaseConfig = {
-  apiKey: 'AIzaSyB3o2gcYsWanPVnw4k041HhsVO80OplJms',
-  authDomain: 'bread-stock.firebaseapp.com',
-  databaseURL: 'https://bread-stock.firebaseio.com',
-  projectId: 'bread-stock',
-  storageBucket: 'bread-stock.appspot.com',
-  messagingSenderId: '767847792643',
-  appId: '1:767847792643:web:38e067c7cd2204022fce36'
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APPID
 };
 
 export const cognitoConfig = {
