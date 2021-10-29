@@ -28,7 +28,7 @@ export default function Mail() {
   }, [dispatch]);
 
   return (
-    <Page title="Mail | Minimal-UI">
+    <Page title="Mail | 클라우드의 주식훈련소">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <HeaderBreadcrumbs
           heading="Mail"

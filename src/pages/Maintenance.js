@@ -21,7 +21,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function Maintenance() {
   return (
-    <RootStyle title="Maintenance | Minimal-UI">
+    <RootStyle title="Maintenance | 클라우드의 주식훈련소">
       <Container sx={{ textAlign: 'center' }}>
         <Typography variant="h3" paragraph>
           Website currently under maintenance

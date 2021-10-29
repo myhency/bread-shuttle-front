@@ -62,7 +62,7 @@ export default function FoundationShadows() {
   const colorShadows = ['primary', 'secondary', 'info', 'success', 'warning', 'error'];
 
   return (
-    <RootStyle title="Foundations: Shadows | Minimal-UI">
+    <RootStyle title="Foundations: Shadows | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

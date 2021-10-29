@@ -97,7 +97,7 @@ export default function EcommerceCheckout() {
   }, [dispatch, activeStep]);
 
   return (
-    <Page title="Ecommerce: Checkout | Minimal-UI">
+    <Page title="Ecommerce: Checkout | 클라우드의 주식훈련소">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Checkout"

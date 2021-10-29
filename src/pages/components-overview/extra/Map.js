@@ -77,7 +77,7 @@ const SkeletonLoad = (
 
 export default function Map() {
   return (
-    <RootStyle title="Components: Map | Minimal-UI">
+    <RootStyle title="Components: Map | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

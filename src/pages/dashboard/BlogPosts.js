@@ -72,7 +72,7 @@ export default function BlogPosts() {
   };
 
   return (
-    <Page title="Blog: Posts | Minimal-UI">
+    <Page title="Blog: Posts | 클라우드의 주식훈련소">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Blog"

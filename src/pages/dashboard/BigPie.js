@@ -131,7 +131,7 @@ export default function BigPie() {
   };
 
   return (
-    <Page title="Ecommerce: Shop | Minimal-UI">
+    <Page title="Ecommerce: Shop | 클라우드의 주식훈련소">
       {values && (
         <Backdrop open={isSubmitting} sx={{ zIndex: 9999 }}>
           <CircularProgress />

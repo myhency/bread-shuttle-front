@@ -103,7 +103,7 @@ export default function Payment() {
   });
 
   return (
-    <RootStyle title="Payment | Minimal-UI">
+    <RootStyle title="Payment | 클라우드의 주식훈련소">
       <Container maxWidth="lg">
         <Box sx={{ mb: 5 }}>
           <Typography variant="h3" align="center" paragraph>

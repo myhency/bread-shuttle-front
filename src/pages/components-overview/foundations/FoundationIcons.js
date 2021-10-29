@@ -43,7 +43,7 @@ const style = {
 
 export default function FoundationIcons() {
   return (
-    <RootStyle title="Foundations: Icons | Minimal-UI">
+    <RootStyle title="Foundations: Icons | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

@@ -21,7 +21,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function DataGridComponent() {
   return (
-    <RootStyle title="Components: DataGrid | Minimal-UI">
+    <RootStyle title="Components: DataGrid | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

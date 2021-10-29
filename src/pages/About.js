@@ -18,7 +18,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function About() {
   return (
-    <RootStyle title="About us | Minimal-UI">
+    <RootStyle title="About us | 클라우드의 주식훈련소">
       <AboutHero />
       <AboutWhat />
       <AboutVision />

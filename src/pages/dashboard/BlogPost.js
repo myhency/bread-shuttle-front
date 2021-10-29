@@ -50,7 +50,7 @@ export default function BlogPost() {
   }, [dispatch, title]);
 
   return (
-    <Page title="Blog: Post Details | Minimal-UI">
+    <Page title="Blog: Post Details | 클라우드의 주식훈련소">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Post Details"

@@ -79,7 +79,6 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <GeneralApp /> },
         // { path: 'ecommerce', element: <GeneralEcommerce /> },
-        // { path: 'bigpie', element: <GeneralBigPie /> },
         { path: 'analytics', element: <GeneralAnalytics /> },
         { path: 'banking', element: <GeneralBanking /> },
         { path: 'booking', element: <GeneralBooking /> },
@@ -87,7 +86,7 @@ export default function Router() {
           path: 'bigpie',
           children: [
             { element: <Navigate to="/dashboard/bigpie/realtime" replace /> },
-            { path: 'realtime', element: <GeneralBigPie /> }
+            { path: 'realtime', element: <BigPieRealTime /> }
           ]
         },
 
@@ -180,7 +179,7 @@ const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCod
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
 const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
-const GeneralBigPie = Loadable(lazy(() => import('../pages/dashboard/GeneralBigPie')));
+const BigPieRealTime = Loadable(lazy(() => import('../pages/dashboard/BigPieRealTime')));
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));
 const GeneralBanking = Loadable(lazy(() => import('../pages/dashboard/GeneralBanking')));
 const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));

@@ -105,7 +105,7 @@ export default function FoundationColors() {
   };
 
   return (
-    <RootStyle title="Foundations: Color | Minimal-UI">
+    <RootStyle title="Foundations: Color | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

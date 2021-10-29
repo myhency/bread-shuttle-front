@@ -21,11 +21,11 @@ import { BigPieGridTitle } from '../../components/_dashboard/general-bigpie';
 
 // ----------------------------------------------------------------------
 
-export default function GeneralBigPie() {
+export default function BigPieRealTime() {
   const { themeStretch } = useSettings();
 
   return (
-    <Page title="General: E-commerce | Minimal-UI">
+    <Page title="빅파이 실시간 | 클라우드의 주식훈련소">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3}>
           {/* <Grid item xs={12} md={8}>

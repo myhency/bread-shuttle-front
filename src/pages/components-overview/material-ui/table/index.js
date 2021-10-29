@@ -21,7 +21,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function TableComponent() {
   return (
-    <RootStyle title="Components: Table | Minimal-UI">
+    <RootStyle title="Components: Table | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

@@ -35,7 +35,7 @@ export default function RadioButtons() {
   };
 
   return (
-    <RootStyle title="Components: Radio Buttons | Minimal-UI">
+    <RootStyle title="Components: Radio Buttons | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

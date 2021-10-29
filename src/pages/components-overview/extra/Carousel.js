@@ -25,7 +25,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function Carousel() {
   return (
-    <RootStyle title="Components: Carousel | Minimal-UI">
+    <RootStyle title="Components: Carousel | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

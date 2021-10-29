@@ -93,7 +93,7 @@ export default function MenusComponent() {
   };
 
   return (
-    <RootStyle title="Components: Menus | Minimal-UI">
+    <RootStyle title="Components: Menus | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

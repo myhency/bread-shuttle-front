@@ -46,7 +46,7 @@ export default function PopoversComponent() {
   };
 
   return (
-    <RootStyle title="Components: Popover | Minimal-UI">
+    <RootStyle title="Components: Popover | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

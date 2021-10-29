@@ -104,7 +104,7 @@ export default function Kanban() {
   };
 
   return (
-    <Page title="Kanban | Minimal-UI" sx={{ height: '100%' }}>
+    <Page title="Kanban | 클라우드의 주식훈련소" sx={{ height: '100%' }}>
       <Container maxWidth={false} sx={{ height: '100%' }}>
         <HeaderBreadcrumbs
           heading="Kanban"

@@ -24,7 +24,7 @@ export default function GeneralBooking() {
   const { themeStretch } = useSettings();
 
   return (
-    <Page title="General: Banking | Minimal-UI">
+    <Page title="General: Banking | 클라우드의 주식훈련소">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>

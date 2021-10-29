@@ -25,7 +25,7 @@ export default function Chat() {
   }, [dispatch]);
 
   return (
-    <Page title="Chat | Minimal-UI">
+    <Page title="Chat | 클라우드의 주식훈련소">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <HeaderBreadcrumbs
           heading="Chat"

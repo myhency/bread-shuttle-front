@@ -95,7 +95,7 @@ export default function TimelineComponent() {
   const reduceTimeLine = slice(TIMELINES, TIMELINES.length - 3);
 
   return (
-    <RootStyle title="Components: Timeline | Minimal-UI">
+    <RootStyle title="Components: Timeline | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

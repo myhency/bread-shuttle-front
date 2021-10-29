@@ -30,7 +30,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function Charts() {
   return (
-    <RootStyle title="Components: Charts | Minimal-UI">
+    <RootStyle title="Components: Charts | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

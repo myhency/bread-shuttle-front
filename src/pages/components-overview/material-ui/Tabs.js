@@ -60,7 +60,7 @@ export default function TabsComponent() {
   };
 
   return (
-    <RootStyle title="Components: Tabs | Minimal-UI">
+    <RootStyle title="Components: Tabs | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

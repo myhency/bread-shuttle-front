@@ -38,7 +38,7 @@ export default function TextFieldComponent() {
   // ----------------------------------------------------------------------
 
   return (
-    <RootStyle title="Components: TextField | Minimal-UI">
+    <RootStyle title="Components: TextField | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

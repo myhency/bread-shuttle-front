@@ -74,7 +74,7 @@ export default function UserAccount() {
   };
 
   return (
-    <Page title="User: Account Settings | Minimal-UI">
+    <Page title="User: Account Settings | 클라우드의 주식훈련소">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Account"

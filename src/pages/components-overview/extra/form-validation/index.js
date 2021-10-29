@@ -86,7 +86,7 @@ export default function FormValidation() {
   };
 
   return (
-    <RootStyle title="Form Validation | Minimal-UI">
+    <RootStyle title="Form Validation | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

@@ -41,7 +41,7 @@ export default function PaginationComponent() {
   };
 
   return (
-    <RootStyle title="Components: Pagination | Minimal-UI">
+    <RootStyle title="Components: Pagination | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,

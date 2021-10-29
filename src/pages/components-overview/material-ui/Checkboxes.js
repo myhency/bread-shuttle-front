@@ -45,7 +45,7 @@ export default function RadioButtons() {
   };
 
   return (
-    <RootStyle title="Components: Checkboxes | Minimal-UI">
+    <RootStyle title="Components: Checkboxes | 클라우드의 주식훈련소">
       <Box
         sx={{
           pt: 6,
