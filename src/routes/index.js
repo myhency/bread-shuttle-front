@@ -79,10 +79,17 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <GeneralApp /> },
         // { path: 'ecommerce', element: <GeneralEcommerce /> },
-        { path: 'bigpie', element: <GeneralBigPie /> },
+        // { path: 'bigpie', element: <GeneralBigPie /> },
         { path: 'analytics', element: <GeneralAnalytics /> },
         { path: 'banking', element: <GeneralBanking /> },
         { path: 'booking', element: <GeneralBooking /> },
+        {
+          path: 'bigpie',
+          children: [
+            { element: <Navigate to="/dashboard/bigpie/realtime" replace /> },
+            { path: 'realtime', element: <GeneralBigPie /> }
+          ]
+        },
 
         {
           path: 'e-commerce',
