@@ -1,6 +1,7 @@
 // material
 import { Container, Grid } from '@mui/material';
 // hooks
+import { useEffect } from 'react';
 import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
@@ -18,11 +19,21 @@ import {
   EcommerceCurrentBalance
 } from '../../components/_dashboard/general-ecommerce';
 import { BigPieGridTitle } from '../../components/_dashboard/general-bigpie';
+import useFirebaseRealtime from '../../hooks/useFirebase';
 
 // ----------------------------------------------------------------------
 
 export default function BigPieRealTime() {
   const { themeStretch } = useSettings();
+  const { snapshots, loading, error } = useFirebaseRealtime();
+  useEffect(() => {
+    try {
+      snapshots.forEach((v) => console.log(v.val()));
+      console.log(loading);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [snapshots]);
 
   return (
     <Page title="빅파이 실시간 | 클라우드의 주식훈련소">
@@ -49,6 +60,10 @@ export default function BigPieRealTime() {
               subtitle="15시부근 매수해서 3일 유지"
               message="(스윙가능) 유통주식 상위종목+빅파이+마카롱에 떴었으나 현재는 마카롱조건에 해당되지 않는 종목이 노출됩니다. 오늘의 검색 종목에 표시되어있고 5%가 넘지 않았다면 15:00부근 종가매수가 가능합니다."
             />
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            {/* {getSevenBreadTestAsync} */}
           </Grid>
           {/* <Grid item xs={12} md={4}>
             <EcommerceSalesProfit />

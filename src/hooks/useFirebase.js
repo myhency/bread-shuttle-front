@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { FirebaseRealtimeContext } from '../contexts/FirebaseRealtimeContext';
+import { DatabaseContext } from '../contexts/FirebaseRealtimeContext';
 
-const useFirebaseRealtime = () => useContext(FirebaseRealtimeContext);
+const useFirebaseRealtime = () => useContext(DatabaseContext);
 
 export default useFirebaseRealtime;
