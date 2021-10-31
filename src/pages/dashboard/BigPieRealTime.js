@@ -38,8 +38,8 @@ export default function BigPieRealTime() {
   return (
     <Page title="빅파이 실시간 | 클라우드의 주식훈련소">
       <Container maxWidth={themeStretch ? false : 'xl'}>
-        <Grid container>
-          <Grid item xs={6} md={3}>
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={3}>
             <Container>
               <Grid container spacing={1}>
                 <Grid item xs={12} md={12}>
@@ -63,7 +63,7 @@ export default function BigPieRealTime() {
               </Grid>
             </Container>
           </Grid>
-          <Grid item xs={6} md={9}>
+          <Grid item xs={12} md={9}>
             <Container>
               <Grid container spacing={1}>
                 <Grid item xs={12} md={12}>

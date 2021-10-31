@@ -1,48 +1,11 @@
 import PropTypes from 'prop-types';
-import { merge } from 'lodash';
-import { Icon } from '@iconify/react';
-import ReactApexChart from 'react-apexcharts';
-import emailFill from '@iconify/icons-eva/email-fill';
 // material
-import { alpha, useTheme, styled } from '@mui/material/styles';
-import { Card, CardActions, Box, Typography, Stack } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Card, Box, Typography, Stack } from '@mui/material';
 // utils
-import { fNumber } from '../../../utils/formatNumber';
+import { fNumber, fPercent } from '../../../utils/formatNumber';
 //
-import { BaseOptionChart } from '../../charts';
 import CircleIconWrapper from './CircleIconWrapper';
-
-// ----------------------------------------------------------------------
-
-const RootStyle = styled(Card)(({ theme }) => ({
-  display: 'flex',
-  position: 'relative',
-  alignItems: 'center',
-  padding: theme.spacing(3),
-  backgroundColor: alpha(theme.palette.success.main, 0.16)
-}));
-
-const IconStyle = styled(Icon)(({ theme }) => ({
-  width: 120,
-  height: 120,
-  opacity: 0.12,
-  position: 'absolute',
-  right: theme.spacing(-3),
-  color: theme.palette.common.white
-}));
-
-const IconWrapperStyle = styled('div')(({ theme }) => ({
-  width: 24,
-  height: 24,
-  display: 'flex',
-  borderRadius: '50%',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: theme.palette.success.main,
-  backgroundColor: alpha(theme.palette.success.main, 0.16)
-}));
-
-// ----------------------------------------------------------------------
 
 BigPieGridItem1.propTypes = {
   movingAverage: PropTypes.number,
@@ -83,9 +46,9 @@ export default function BigPieGridItem1({
               variant="subtitle2"
               sx={{ color: fluctuationRate < 0 ? theme.palette.info.dark : theme.palette.error.dark, ml: 0.5 }}
             >
-              ({fluctuationRate}%)
+              ({fPercent(fluctuationRate)})
             </Typography>
-            <Typography variant="subtitle2">{new Intl.NumberFormat('ko-KR').format(closingPrice)}</Typography>
+            <Typography variant="subtitle2">{fNumber(closingPrice)}</Typography>
           </Box>
         </Box>
         <Box sx={{ flexGrow: 1 }}>
@@ -100,9 +63,24 @@ export default function BigPieGridItem1({
         </Box>
         <Box sx={{ flexGrow: 1 }}>
           <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
-            <Box component="img" src="/static/links/alpha.jpg" onClick={() => window.open(alphaLink)} />
-            <Box component="img" src="/static/links/naver.jpg" onClick={() => window.open(naverLink)} />
-            <Box component="img" src="/static/links/fn.jpg" onClick={() => window.open(fnLink)} />
+            <Box
+              component="img"
+              src="/static/links/alpha.jpg"
+              sx={{ cursor: 'pointer' }}
+              onClick={() => window.open(alphaLink)}
+            />
+            <Box
+              component="img"
+              src="/static/links/naver.jpg"
+              sx={{ cursor: 'pointer' }}
+              onClick={() => window.open(naverLink)}
+            />
+            <Box
+              component="img"
+              src="/static/links/fn.jpg"
+              sx={{ cursor: 'pointer' }}
+              onClick={() => window.open(fnLink)}
+            />
           </Box>
         </Box>
       </Stack>

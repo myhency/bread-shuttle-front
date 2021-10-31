@@ -61,7 +61,7 @@ const sidebarConfig = [
     items: [
       {
         title: '빅파이',
-        path: PATH_DASHBOARD.general.root,
+        path: PATH_DASHBOARD.bigpie.root,
         icon: ICONS.bus,
         children: [
           { title: '빅파이 실시간', path: PATH_DASHBOARD.bigpie.realtime },
