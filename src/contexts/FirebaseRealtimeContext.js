@@ -6,13 +6,20 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import { useList, useListKeys, useListVals, useObject } from 'react-firebase-hooks/database';
 import { firebaseConfig } from '../config';
+import { fDateString } from '../utils/formatTime';
 
 // ----------------------------------------------------------------------
 
 const DatabaseContext = createContext({
-  snapshots: [],
-  loading: null,
-  error: null
+  todaySnapshots: [],
+  tLoading: null,
+  tError: null,
+  macaronSnapshots: [],
+  mLoading: null,
+  mError: null,
+  bigpieSnapshots: [],
+  bLoading: null,
+  bError: null
 });
 
 if (!firebase.apps.length) {
@@ -25,9 +32,34 @@ DatabaseProvider.propTypes = {
 };
 
 function DatabaseProvider({ children }) {
-  const [snapshots, loading, error] = useList(firebase.database().ref('sevenbread-test/alarm/000640'));
+  // const [snapshots, loading, error] = useList(firebase.database().ref(`shuttle-${fDateString(new Date())}`));
+  const today = new Date();
+  today.setDate(today.getDate() - 2);
+  console.log(fDateString(today));
+  // this line is just for test when it comes to the previous date
+  const [todaySnapshots, tLoading, tError] = useList(firebase.database().ref(`shuttle-${fDateString(new Date())}`));
 
-  return <DatabaseContext.Provider value={{ snapshots, loading, error }}>{children}</DatabaseContext.Provider>;
+  const [macaronSnapshots, mLoading, mError] = useList(firebase.database().ref(`shuttle`));
+
+  const [bigpieSnapshots, bLoading, bError] = useList(firebase.database().ref('bigpie'));
+
+  return (
+    <DatabaseContext.Provider
+      value={{
+        todaySnapshots,
+        tLoading,
+        tError,
+        macaronSnapshots,
+        mLoading,
+        mError,
+        bigpieSnapshots,
+        bLoading,
+        bError
+      }}
+    >
+      {children}
+    </DatabaseContext.Provider>
+  );
 }
 
 export { DatabaseContext, DatabaseProvider };

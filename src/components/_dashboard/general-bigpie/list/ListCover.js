@@ -17,9 +17,9 @@ const RootStyle = styled('div')(({ theme }) => ({
     content: "''",
     height: '100%',
     position: 'absolute',
-    backdropFilter: 'blur(3px)',
-    WebkitBackdropFilter: 'blur(3px)', // Fix on Mobile
-    backgroundColor: alpha(theme.palette.primary.darker, 0.72)
+    backdropFilter: 'blur(2px)',
+    WebkitBackdropFilter: 'blur(2px)', // Fix on Mobile
+    backgroundColor: alpha(theme.palette.primary.lighter, 0.72)
   }
 }));
 

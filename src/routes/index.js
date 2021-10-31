@@ -86,7 +86,8 @@ export default function Router() {
           path: 'bigpie',
           children: [
             { element: <Navigate to="/dashboard/bigpie/realtime" replace /> },
-            { path: 'realtime', element: <BigPieRealTime /> }
+            { path: 'realtime', element: <BigPieRealTime /> },
+            { path: 'list', element: <BigPieList /> }
           ]
         },
 
@@ -180,11 +181,11 @@ const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCod
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
 const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
 const BigPieRealTime = Loadable(lazy(() => import('../pages/dashboard/BigPieRealTime')));
+const BigPieList = Loadable(lazy(() => import('../pages/dashboard/BigPieList')));
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));
 const GeneralBanking = Loadable(lazy(() => import('../pages/dashboard/GeneralBanking')));
 const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));
 const EcommerceShop = Loadable(lazy(() => import('../pages/dashboard/EcommerceShop')));
-const BigPie = Loadable(lazy(() => import('../pages/dashboard/BigPie')));
 const EcommerceProductDetails = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductDetails')));
 const EcommerceProductList = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductList')));
 const EcommerceProductCreate = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductCreate')));
