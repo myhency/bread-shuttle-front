@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
 // material
-import { alpha } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import { Box, Typography } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 // components
@@ -14,6 +14,7 @@ BigPieInstructionPopover.propTypes = {
 };
 
 export default function BigPieInstructionPopover({ subtitle, message }) {
+  const theme = useTheme();
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
 
@@ -46,7 +47,7 @@ export default function BigPieInstructionPopover({ subtitle, message }) {
           })
         }}
       >
-        <HelpIcon />
+        <HelpIcon sx={{ color: theme.palette.primary.darker }} />
       </MIconButton>
 
       <MenuPopover open={open} onClose={handleClose} anchorEl={anchorRef.current} sx={{ width: 300 }}>
