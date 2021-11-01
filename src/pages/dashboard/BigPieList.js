@@ -3,7 +3,7 @@ import { capitalCase } from 'change-case';
 import { useEffect, useState } from 'react';
 // material
 import { styled } from '@mui/material/styles';
-import { Tab, Box, Card, Tabs, Container } from '@mui/material';
+import { Tab, Box, Card, Tabs, Container, Grid } from '@mui/material';
 // redux
 import { random, sample } from 'lodash';
 import { useDispatch, useSelector } from '../../redux/store';
@@ -20,6 +20,8 @@ import { ListCover } from '../../components/_dashboard/general-bigpie/list';
 import mockData from '../../utils/mock-data';
 import useFirebaseRealtime from '../../hooks/useFirebase';
 import { fDateKr } from '../../utils/formatTime';
+import { BigPieGridTitle, BigPieGridSubTitle, BigPieGridItem1 } from '../../components/_dashboard/general-bigpie';
+import BigPieDaily from '../../components/_dashboard/general-bigpie/list/BigPieDaily';
 
 // ----------------------------------------------------------------------
 
@@ -45,42 +47,15 @@ export default function BigPieList() {
   const { themeStretch } = useSettings();
   const { bigpieSnapshots, bLoading, bError } = useFirebaseRealtime();
   const [bigpieList, setBigpieList] = useState([]);
-  const dispatch = useDispatch();
-  // const { myProfile, posts, followers, friends, gallery } = useSelector((state) => state.user);
-  const { myProfile, posts, followers, friends, gallery } = {
-    id: mockData.id(1),
-    cover: mockData.image.cover(1),
-    position: 'UI Designer',
-    follower: random(99999),
-    following: random(99999),
-    quote: 'Tart I love sugar plum I love oat cake. Sweet roll caramels I love jujubes. Topping cake wafer..',
-    country: mockData.address.country(1),
-    email: mockData.email(1),
-    company: mockData.company(1),
-    school: mockData.company(2),
-    role: 'Manager',
-    facebookLink: `https://www.facebook.com/caitlyn.kerluke`,
-    instagramLink: `https://www.instagram.com/caitlyn.kerluke`,
-    linkedinLink: `https://www.linkedin.com/in/caitlyn.kerluke`,
-    twitterLink: `https://www.twitter.com/caitlyn.kerluke`
-  };
-  const { user } = useAuth();
   const [currentTab, setCurrentTab] = useState('');
-  const [findFriends, setFindFriends] = useState('');
-
-  // useEffect(() => {
-  //   dispatch(getProfile());
-  //   dispatch(getPosts());
-  //   dispatch(getFollowers());
-  //   dispatch(getFriends());
-  //   dispatch(getGallery());
-  // }, [dispatch]);
 
   useEffect(() => {
-    // if (bigpieSnapshots.length === 0) return;
+    if (bLoading) {
+      return () => {};
+    }
+
     try {
       const arr = bigpieSnapshots.sort((a, b) => b.key - a.key);
-      console.log(fDateKr(arr[0].key));
       if (currentTab === '') setCurrentTab(fDateKr(arr[0].key));
       setBigpieList(arr);
     } catch (error) {
@@ -92,51 +67,13 @@ export default function BigPieList() {
     setCurrentTab(newValue);
   };
 
-  const handleToggleFollow = (followerId) => {
-    dispatch(onToggleFollow(followerId));
-  };
+  console.log(bLoading ? '' : bigpieSnapshots[0].val());
 
-  const handleFindFriends = (event) => {
-    setFindFriends(event.target.value);
-  };
-
-  // if (!myProfile) {
-  //   return null;
-  // }
-
-  console.log(currentTab);
-
-  // const PROFILE_TABS = [
-  //   {
-  //     value: '2021-10-29'
-  //     // icon: <Icon icon={roundAccountBox} width={20} height={20} />
-  //     // component: <Profile myProfile={myProfile} posts={posts} />
-  //   },
-  //   {
-  //     value: '2021-10-28'
-  //     // icon: <Icon icon={heartFill} width={20} height={20} />
-  //     // component: <ProfileFollowers followers={followers} onToggleFollow={handleToggleFollow} />
-  //   },
-  //   {
-  //     value: '2021-10-27'
-  //     // icon: <Icon icon={peopleFill} width={20} height={20} />
-  //     // component: <ProfileFriends friends={friends} findFriends={findFriends} onFindFriends={handleFindFriends} />
-  //   }
-  // ];
-
-  const PROFILE_TABS =
-    bigpieList.length === 0
-      ? [
-          {
-            value: ''
-          }
-        ]
-      : bigpieList
-          .sort((a, b) => b.key - a.key)
-          .map((item) => ({
-            value: fDateKr(item.key)
-            // component: <BigPieDailyList data={item.val()} />
-          }));
+  const PROFILE_TABS = bigpieList
+    .sort((a, b) => b.key - a.key)
+    .map((item) => ({
+      value: fDateKr(item.key)
+    }));
 
   return (
     <Page title="날짜별 빅파이 | 클라우드의 주식훈련소">
@@ -158,7 +95,13 @@ export default function BigPieList() {
         >
           <ListCover myProfile={{ cover: '' }} />
 
-          {!PROFILE_TABS[0].value === '' || currentTab === '' ? null : (
+          {bLoading ? (
+            <TabsWrapperStyle>
+              <Tabs value="loadingTab" scrollButtons="auto" variant="scrollable" allowScrollButtonsMobile>
+                <Tab disableRipple value="loadingTab" label="로딩중..." />
+              </Tabs>
+            </TabsWrapperStyle>
+          ) : (
             <TabsWrapperStyle>
               <Tabs
                 value={currentTab}
@@ -167,20 +110,18 @@ export default function BigPieList() {
                 allowScrollButtonsMobile
                 onChange={handleChangeTab}
               >
-                {PROFILE_TABS.map((tab) => {
-                  console.log(currentTab);
-                  return <Tab disableRipple key={tab.value} value={tab.value} icon={tab.icon} label={tab.value} />;
-                })}
+                {PROFILE_TABS.map((tab) => (
+                  <Tab disableRipple key={tab.value} value={tab.value} icon={tab.icon} label={tab.value} />
+                ))}
               </Tabs>
             </TabsWrapperStyle>
           )}
         </Card>
-
-        {/* {PROFILE_TABS.map((tab) => {
-          const isMatched = tab.value === currentTab;
-          return isMatched && <Box key={tab.value}>{tab.component}</Box>;
-        })} */}
-        <Box>{currentTab}</Box>
+        <BigPieDaily
+          loading={bLoading}
+          date={currentTab}
+          list={bigpieSnapshots.filter((item) => fDateKr(item.key) === currentTab)}
+        />
       </Container>
     </Page>
   );

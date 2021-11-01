@@ -12,7 +12,7 @@ BigPieGridItem1.propTypes = {
   movingAverage: PropTypes.number,
   itemCode: PropTypes.string,
   itemName: PropTypes.string,
-  createdAt: PropTypes.string.isRequired,
+  createdAt: PropTypes.string,
   updatedAt: PropTypes.string,
   fluctuationRate: PropTypes.number,
   closingPrice: PropTypes.number
@@ -55,10 +55,10 @@ export default function BigPieGridItem1({
         <Box sx={{ flexGrow: 1 }}>
           <Box sx={{ display: 'flex', flexDirection: 'row-reverse', justifyContent: 'space-between' }}>
             <Typography variant="caption" sx={{ color: theme.palette.primary.darker }}>
-              {!updatedAt ? '' : `최근 : ${fTimeShorten(updatedAt)}`}
+              {!updatedAt ? '-' : `최근 : ${fTimeShorten(updatedAt)}`}
             </Typography>
             <Typography variant="caption" sx={{ color: theme.palette.primary.darker }}>
-              최초 : {fTimeShorten(createdAt)}&nbsp;
+              {!createdAt ? '-' : `최초 : ${fTimeShorten(createdAt)}`}&nbsp;
             </Typography>
           </Box>
         </Box>
