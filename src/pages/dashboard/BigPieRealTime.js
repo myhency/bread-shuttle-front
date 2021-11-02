@@ -46,7 +46,7 @@ const ContainerWithoutRPadding = styled(Container)(({ theme }) => ({
 
 const CustomLoadingScreen = ({ message }) => (
   <Grid item xs={12} md={12}>
-    <Box sx={{ justifyContent: 'center', p: 10 }}>
+    <Box sx={{ justifyContent: 'center', p: 0, mt: 6 }}>
       <LoadingScreen />
       <Typography sx={{ mt: 8, textAlign: 'center' }}>{message}</Typography>
     </Box>

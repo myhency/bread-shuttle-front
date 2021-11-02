@@ -47,6 +47,10 @@ export const PATH_DASHBOARD = {
     realtime: path(ROOTS_DASHBOARD, '/bigpie/realtime'),
     list: path(ROOTS_DASHBOARD, '/bigpie/list')
   },
+  sevenBread: {
+    root: path(ROOTS_DASHBOARD, '/sevenBread'),
+    notice: path(ROOTS_DASHBOARD, '/sevenBread/notice')
+  },
   mail: {
     root: path(ROOTS_DASHBOARD, '/mail'),
     all: path(ROOTS_DASHBOARD, '/mail/all')
@@ -88,3 +92,12 @@ export const PATH_DASHBOARD = {
 };
 
 export const PATH_DOCS = 'https://docs-minimals.vercel.app/introduction';
+export const PATH_SEVENBREAD_NOTICE =
+  'https://www.evernote.com/shard/s408/sh/6791a237-1714-fc63-da31-d28d08a7fe4d/5d5d9714617de674fa9bf8952ad3877e';
+export const PATH_NOTICE_LECTURE =
+  'https://www.evernote.com/shard/s744/sh/a60e8d23-43c9-d4dc-29a9-b59f568748ea/af7e9d6722df0767219cd53891f07f68';
+export const PATH_STOCK_CALENDAR = 'http://www.paxnet.co.kr/stock/infoStock/issueCalendarMonth';
+export const PATH_NAVER_ECONOMIC_NEWS = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=101';
+export const PATH_COMPANY_GUIDE =
+  'http://comp.fnguide.com/SVO2/asp/SVD_comp_calendar.asp?pGB=1&gicode=A005930&gcd=&gnm=&curdt=&ctp=&cID=&MenuYn=Y&ReportGB=&NewMenuID=701&stkGb=701';
+export const PATH_TELEGRAM_THIS_MONTH = 'https://t.me/joinchat/VG97nFWHF74zZWI1';

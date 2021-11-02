@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { Navigate, useRoutes, useLocation } from 'react-router-dom';
+import { Navigate, useRoutes, useLocation, Link } from 'react-router-dom';
 // layouts
 import MainLayout from '../layouts/main';
 import DashboardLayout from '../layouts/dashboard';
@@ -90,7 +90,21 @@ export default function Router() {
             { path: 'list', element: <BigPieList /> }
           ]
         },
-
+        {
+          path: 'sevenBread',
+          // eslint-disable-next-line jsx-a11y/anchor-has-content
+          children: [
+            { element: <Navigate to="/dashboard/bigpie/realtime" replace /> },
+            {
+              path: 'notice',
+              element: (
+                <Navigate to="/dashboard/bigpie/realtime" replace>
+                  {() => window.open('https://github.com', '_blank')}
+                </Navigate>
+              )
+            }
+          ]
+        },
         {
           path: 'e-commerce',
           children: [

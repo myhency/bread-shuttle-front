@@ -1,5 +1,13 @@
 // routes
-import { PATH_DASHBOARD } from '../../routes/paths';
+import {
+  PATH_DASHBOARD,
+  PATH_SEVENBREAD_NOTICE,
+  PATH_NOTICE_LECTURE,
+  PATH_STOCK_CALENDAR,
+  PATH_NAVER_ECONOMIC_NEWS,
+  PATH_COMPANY_GUIDE,
+  PATH_TELEGRAM_THIS_MONTH
+} from '../../routes/paths';
 // components
 // import Label from '../../components/Label';
 import SvgIconStyle from '../../components/SvgIconStyle';
@@ -70,10 +78,14 @@ const sidebarConfig = [
       },
       {
         title: '007빵',
-        path: PATH_DASHBOARD.general.ecommerce,
+        path: PATH_DASHBOARD.sevenBread.root,
         icon: ICONS.filter7,
         children: [
-          { title: '007빵 공지', path: PATH_DASHBOARD.general.ecommerce },
+          {
+            title: '007빵 공지',
+            path: PATH_DASHBOARD.sevenBread.notice,
+            eLink: PATH_SEVENBREAD_NOTICE
+          },
           { title: '007빵 실시간', path: PATH_DASHBOARD.general.analytics },
           { title: '007빵 리스트', path: PATH_DASHBOARD.general.banking },
           { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
@@ -107,10 +119,11 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.general.ecommerce,
         icon: ICONS.bookmarks,
         children: [
-          { title: '증시스케줄', path: PATH_DASHBOARD.general.ecommerce },
-          { title: '네이버 경제뉴스', path: PATH_DASHBOARD.general.analytics },
-          { title: 'Company Guide', path: PATH_DASHBOARD.general.banking },
-          { title: '10월의 텔레그램', path: PATH_DASHBOARD.general.booking }
+          { title: '공지/강의', path: PATH_DASHBOARD.general.ecommerce, eLink: PATH_NOTICE_LECTURE },
+          { title: '증시스케줄', path: PATH_DASHBOARD.general.ecommerce, eLink: PATH_STOCK_CALENDAR },
+          { title: '네이버 경제뉴스', path: PATH_DASHBOARD.general.analytics, eLink: PATH_NAVER_ECONOMIC_NEWS },
+          { title: 'Company Guide', path: PATH_DASHBOARD.general.banking, eLink: PATH_COMPANY_GUIDE },
+          { title: '이달의 텔레그램', path: PATH_DASHBOARD.general.booking, eLink: PATH_TELEGRAM_THIS_MONTH }
         ]
       }
     ]

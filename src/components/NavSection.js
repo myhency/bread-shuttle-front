@@ -7,6 +7,7 @@ import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
 // material
 import { alpha, useTheme, styled } from '@mui/material/styles';
 import { Box, List, Collapse, ListItemText, ListItemIcon, ListSubheader, ListItemButton } from '@mui/material';
+import { fontSize } from '@mui/system';
 
 // ----------------------------------------------------------------------
 
@@ -109,14 +110,22 @@ function NavItem({ item, isShow }) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {children.map((item) => {
-                const { title, path } = item;
+                const { title, path, eLink } = item;
                 const isActiveSub = path ? !!matchPath({ path, end: false }, pathname) : false;
+
+                const optionalProps = !eLink
+                  ? {
+                      component: RouterLink,
+                      to: path
+                    }
+                  : {
+                      onClick: () => window.open(eLink, '_blank')
+                    };
 
                 return (
                   <ListItemStyle
                     key={title}
-                    component={RouterLink}
-                    to={path}
+                    {...optionalProps}
                     sx={{
                       ...(isActiveSub && activeSubStyle)
                     }}
