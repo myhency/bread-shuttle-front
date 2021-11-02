@@ -8,6 +8,8 @@ import { fTimeShorten } from '../../../utils/formatTime';
 //
 import CircleIconWrapper from './CircleIconWrapper';
 
+import { path, PATH_ALPHA_LINK, PATH_FN_LINK, PATH_NAVER_LINK } from '../../../routes/paths';
+
 BigPieGridItem1.propTypes = {
   movingAverage: PropTypes.number,
   itemCode: PropTypes.string,
@@ -28,9 +30,6 @@ export default function BigPieGridItem1({
   closingPrice
 }) {
   const theme = useTheme();
-  const alphaLink = `https://alphasquare.co.kr/home/stock/stock-summary?code=${itemCode}`;
-  const fnLink = `http://comp.fnguide.com/SVO2/ASP/SVD_Main.asp?pGB=1&gicode=A${itemCode}`;
-  const naverLink = `https://finance.naver.com/item/main.nhn?code=${itemCode}`;
 
   return (
     <Card sx={{ display: 'flex', flexDirection: 'column', p: 3 }}>
@@ -68,19 +67,19 @@ export default function BigPieGridItem1({
               component="img"
               src="https://m.alphasquare.co.kr/img/icons/apple-touch-icon-57x57.png"
               sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
-              onClick={() => window.open(alphaLink)}
+              onClick={() => window.open(path(PATH_ALPHA_LINK, itemCode))}
             />
             <Box
               component="img"
               src="https://www.naver.com/favicon.ico?1"
               sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
-              onClick={() => window.open(naverLink)}
+              onClick={() => window.open(path(PATH_NAVER_LINK, itemCode))}
             />
             <Box
               component="img"
               src="https://www.fnguide.com/Content/images/favicon.ico?v=2"
               sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
-              onClick={() => window.open(fnLink)}
+              onClick={() => window.open(path(PATH_FN_LINK, itemCode))}
             />
           </Box>
         </Box>

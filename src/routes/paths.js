@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------
 
-function path(root, sublink) {
+export function path(root, sublink) {
   return `${root}${sublink}`;
 }
 
@@ -101,3 +101,7 @@ export const PATH_NAVER_ECONOMIC_NEWS = 'https://news.naver.com/main/main.naver?
 export const PATH_COMPANY_GUIDE =
   'http://comp.fnguide.com/SVO2/asp/SVD_comp_calendar.asp?pGB=1&gicode=A005930&gcd=&gnm=&curdt=&ctp=&cID=&MenuYn=Y&ReportGB=&NewMenuID=701&stkGb=701';
 export const PATH_TELEGRAM_THIS_MONTH = 'https://t.me/joinchat/VG97nFWHF74zZWI1';
+
+export const PATH_ALPHA_LINK = 'https://alphasquare.co.kr/home/stock/stock-summary?code=';
+export const PATH_FN_LINK = 'http://comp.fnguide.com/SVO2/ASP/SVD_Main.asp?pGB=1&gicode=A';
+export const PATH_NAVER_LINK = 'https://finance.naver.com/item/main.nhn?code=';
