@@ -1,29 +1,37 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-nested-ternary */
 // material
-import { Container, Grid, Typography, Box, Skeleton } from '@mui/material';
-import { styled, useTheme } from '@mui/material/styles';
-// hooks
-import { useEffect, useState } from 'react';
-import useSettings from '../../../../hooks/useSettings';
-// components
-import Page from '../../../Page';
 import {
-  EcommerceWelcome,
-  EcommerceNewProducts,
-  EcommerceProductSold,
-  EcommerceSalesProfit,
-  EcommerceYearlySales,
-  EcommerceBestSalesman,
-  EcommerceTotalBalance,
-  EcommerceSaleByGender,
-  EcommerceSalesOverview,
-  EcommerceLatestProducts,
-  EcommerceCurrentBalance
-} from '../../general-ecommerce';
-import { BigPieGridTitle, BigPieGridSubTitle, BigPieGridItem1 } from '..';
-import useFirebaseRealtime from '../../../../hooks/useFirebase';
-import LoadingScreen from '../../../LoadingScreen';
+  Container,
+  Grid,
+  // Typography, Box,
+  Skeleton
+} from '@mui/material';
+import {
+  styled
+  // useTheme
+} from '@mui/material/styles';
+// hooks
+// import { useEffect, useState } from 'react';
+// import useSettings from '../../../../hooks/useSettings';
+// components
+// import Page from '../../../Page';
+// import {
+//   EcommerceWelcome,
+//   EcommerceNewProducts,
+//   EcommerceProductSold,
+//   EcommerceSalesProfit,
+//   EcommerceYearlySales,
+//   EcommerceBestSalesman,
+//   EcommerceTotalBalance,
+//   EcommerceSaleByGender,
+//   EcommerceSalesOverview,
+//   EcommerceLatestProducts,
+//   EcommerceCurrentBalance
+// } from '../../general-ecommerce';
+// import { BigPieGridTitle, BigPieGridSubTitle, BigPieGridItem1 } from '..';
+// import useFirebaseRealtime from '../../../../hooks/useFirebase';
+// import LoadingScreen from '../../../LoadingScreen';
 import BigPieMovingAverageTitle from '../BigPieMovingAverageTitle';
 import BigPieGridItem2 from '../BigPieGridItem2';
 
@@ -37,7 +45,11 @@ const ContainerWithoutLPadding = styled(Container)(({ theme }) => ({
   }
 }));
 
-export default function BigPieDaily({ loading, date, list }) {
+export default function BigPieDaily({
+  loading,
+  // date,
+  list
+}) {
   const ma5 = list.length === 0 ? null : list[0].val().hasOwnProperty('5일선') ? list[0].val()['5일선'] : null;
   const ma10 = list.length === 0 ? null : list[0].val().hasOwnProperty('10일선') ? list[0].val()['10일선'] : null;
   const ma20 = list.length === 0 ? null : list[0].val().hasOwnProperty('20일선') ? list[0].val()['20일선'] : null;

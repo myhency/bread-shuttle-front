@@ -1,25 +1,32 @@
 // material
 import { Container, Grid, Typography, Box } from '@mui/material';
-import { styled, useTheme } from '@mui/material/styles';
+import {
+  styled
+  // useTheme
+} from '@mui/material/styles';
 // hooks
 import { useEffect, useState } from 'react';
 import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
+// import {
+//   EcommerceWelcome,
+//   EcommerceNewProducts,
+//   EcommerceProductSold,
+//   EcommerceSalesProfit,
+//   EcommerceYearlySales,
+//   EcommerceBestSalesman,
+//   EcommerceTotalBalance,
+//   EcommerceSaleByGender,
+//   EcommerceSalesOverview,
+//   EcommerceLatestProducts,
+//   EcommerceCurrentBalance
+// } from '../../components/_dashboard/general-ecommerce';
 import {
-  EcommerceWelcome,
-  EcommerceNewProducts,
-  EcommerceProductSold,
-  EcommerceSalesProfit,
-  EcommerceYearlySales,
-  EcommerceBestSalesman,
-  EcommerceTotalBalance,
-  EcommerceSaleByGender,
-  EcommerceSalesOverview,
-  EcommerceLatestProducts,
-  EcommerceCurrentBalance
-} from '../../components/_dashboard/general-ecommerce';
-import { BigPieGridTitle, BigPieGridSubTitle, BigPieGridItem1 } from '../../components/_dashboard/general-bigpie';
+  BigPieGridTitle,
+  // BigPieGridSubTitle,
+  BigPieGridItem1
+} from '../../components/_dashboard/general-bigpie';
 import useFirebaseRealtime from '../../hooks/useFirebase';
 import LoadingScreen from '../../components/LoadingScreen';
 

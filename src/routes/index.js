@@ -1,7 +1,12 @@
 import { Suspense, lazy } from 'react';
-import { Navigate, useRoutes, useLocation, Link } from 'react-router-dom';
+import {
+  Navigate,
+  useRoutes,
+  useLocation
+  // Link
+} from 'react-router-dom';
 // layouts
-import MainLayout from '../layouts/main';
+// import MainLayout from '../layouts/main';
 import DashboardLayout from '../layouts/dashboard';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // guards
@@ -193,7 +198,7 @@ const ResetPassword = Loadable(lazy(() => import('../pages/authentication/ResetP
 const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCode')));
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
-const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
+// const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
 const BigPieRealTime = Loadable(lazy(() => import('../pages/dashboard/BigPieRealTime')));
 const BigPieList = Loadable(lazy(() => import('../pages/dashboard/BigPieList')));
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));
