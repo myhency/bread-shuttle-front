@@ -123,6 +123,26 @@ const sidebarConfig = [
         ]
       }
     ]
+  },
+
+  // Admin
+  // ----------------------------------------------------------------------
+  {
+    subheader: 'admin',
+    items: [
+      {
+        title: '관리자전용',
+        path: PATH_DASHBOARD.general.ecommerce,
+        icon: ICONS.bookmarks,
+        children: [
+          { title: '공지/강의', eLink: PATH_NOTICE_LECTURE },
+          { title: '증시스케줄', eLink: PATH_STOCK_CALENDAR },
+          { title: '네이버 경제뉴스', eLink: PATH_NAVER_ECONOMIC_NEWS },
+          { title: 'Company Guide', eLink: PATH_COMPANY_GUIDE },
+          { title: '이달의 텔레그램', eLink: PATH_TELEGRAM_THIS_MONTH }
+        ]
+      }
+    ]
   }
 
   // // MANAGEMENT
