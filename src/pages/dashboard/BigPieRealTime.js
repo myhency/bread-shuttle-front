@@ -9,24 +9,11 @@ import { useEffect, useState } from 'react';
 import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
-// import {
-//   EcommerceWelcome,
-//   EcommerceNewProducts,
-//   EcommerceProductSold,
-//   EcommerceSalesProfit,
-//   EcommerceYearlySales,
-//   EcommerceBestSalesman,
-//   EcommerceTotalBalance,
-//   EcommerceSaleByGender,
-//   EcommerceSalesOverview,
-//   EcommerceLatestProducts,
-//   EcommerceCurrentBalance
-// } from '../../components/_dashboard/general-ecommerce';
 import {
   BigPieGridTitle,
   // BigPieGridSubTitle,
   BigPieGridItem1
-} from '../../components/_dashboard/general-bigpie';
+} from '../../components/_dashboard/bigpie';
 import useFirebaseRealtime from '../../hooks/useFirebase';
 import LoadingScreen from '../../components/LoadingScreen';
 

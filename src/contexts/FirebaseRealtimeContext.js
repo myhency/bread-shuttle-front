@@ -43,6 +43,12 @@ function DatabaseProvider({ children }) {
 
   const [bigpieSnapshots, bLoading, bError] = useList(firebase.database().ref('bigpie'));
 
+  // const [sevenBreadSnapshots, sLoading, sError] = useList(
+  //   firebase.database().ref(`sevenbread/alarm/${fDateString(new Date())}`)
+  // );
+
+  const [sevenBreadSnapshots, sLoading, sError] = useList(firebase.database().ref(`sevenbread/alarm/20211105`));
+
   return (
     <DatabaseContext.Provider
       value={{
@@ -54,7 +60,10 @@ function DatabaseProvider({ children }) {
         mError,
         bigpieSnapshots,
         bLoading,
-        bError
+        bError,
+        sevenBreadSnapshots,
+        sLoading,
+        sError
       }}
     >
       {children}

@@ -9,6 +9,7 @@ import userReducer from './slices/user';
 import productReducer from './slices/product';
 import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
+import sevenBread from './slices/sevenBread';
 
 // ----------------------------------------------------------------------
 
@@ -26,6 +27,13 @@ const productPersistConfig = {
   whitelist: ['sortBy', 'checkout']
 };
 
+const sevenBreadPersistConfig = {
+  key: 'sevenBread',
+  storage,
+  keyPrefix: 'redux-',
+  whitelist: ['sortBy']
+};
+
 const rootReducer = combineReducers({
   mail: mailReducer,
   chat: chatReducer,
@@ -33,7 +41,8 @@ const rootReducer = combineReducers({
   user: userReducer,
   calendar: calendarReducer,
   kanban: kanbanReducer,
-  product: persistReducer(productPersistConfig, productReducer)
+  product: persistReducer(productPersistConfig, productReducer),
+  sevenBread: persistReducer(sevenBreadPersistConfig, sevenBread)
 });
 
 export { rootPersistConfig, rootReducer };

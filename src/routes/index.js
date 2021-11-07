@@ -99,15 +99,8 @@ export default function Router() {
           path: 'sevenBread',
           // eslint-disable-next-line jsx-a11y/anchor-has-content
           children: [
-            { element: <Navigate to="/dashboard/bigpie/realtime" replace /> },
-            {
-              path: 'notice',
-              element: (
-                <Navigate to="/dashboard/bigpie/realtime" replace>
-                  {() => window.open('https://github.com', '_blank')}
-                </Navigate>
-              )
-            }
+            { element: <Navigate to="/dashboard/sevenBread/realtime" replace /> },
+            { path: 'realtime', element: <SevenBreadRealTime /> }
           ]
         },
         {
@@ -201,6 +194,7 @@ const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')))
 // const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
 const BigPieRealTime = Loadable(lazy(() => import('../pages/dashboard/BigPieRealTime')));
 const BigPieList = Loadable(lazy(() => import('../pages/dashboard/BigPieList')));
+const SevenBreadRealTime = Loadable(lazy(() => import('../pages/dashboard/SevenBreadRealTime')));
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));
 const GeneralBanking = Loadable(lazy(() => import('../pages/dashboard/GeneralBanking')));
 const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));

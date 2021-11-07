@@ -16,12 +16,16 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { ListCover } from '../../components/_dashboard/general-bigpie/list';
+import {
+  ListCover,
+  BigPieDaily,
+  BigPieGridTitle,
+  BigPieGridSubTitle,
+  BigPieGridItem1
+} from '../../components/_dashboard/bigpie';
 import mockData from '../../utils/mock-data';
 import useFirebaseRealtime from '../../hooks/useFirebase';
 import { fDateKr } from '../../utils/formatTime';
-import { BigPieGridTitle, BigPieGridSubTitle, BigPieGridItem1 } from '../../components/_dashboard/general-bigpie';
-import BigPieDaily from '../../components/_dashboard/general-bigpie/list/BigPieDaily';
 
 // ----------------------------------------------------------------------
 
