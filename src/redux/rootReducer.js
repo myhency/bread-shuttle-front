@@ -9,7 +9,8 @@ import userReducer from './slices/user';
 import productReducer from './slices/product';
 import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
-import sevenBread from './slices/sevenBread';
+import sevenBreadReducer from './slices/sevenBread';
+import stockItemReducer from './slices/stockItem';
 
 // ----------------------------------------------------------------------
 
@@ -42,7 +43,8 @@ const rootReducer = combineReducers({
   calendar: calendarReducer,
   kanban: kanbanReducer,
   product: persistReducer(productPersistConfig, productReducer),
-  sevenBread: persistReducer(sevenBreadPersistConfig, sevenBread)
+  sevenBread: persistReducer(sevenBreadPersistConfig, sevenBreadReducer),
+  stockItem: stockItemReducer
 });
 
 export { rootPersistConfig, rootReducer };

@@ -6,7 +6,8 @@ import {
   PATH_STOCK_CALENDAR,
   PATH_NAVER_ECONOMIC_NEWS,
   PATH_COMPANY_GUIDE,
-  PATH_TELEGRAM_THIS_MONTH
+  PATH_TELEGRAM_THIS_MONTH,
+  PATH_ADMIN
 } from '../../routes/paths';
 // components
 // import Label from '../../components/Label';
@@ -48,6 +49,7 @@ const sidebarConfig = [
   // DASHBOARD
   // ----------------------------------------------------------------------
   {
+    isAdmin: false,
     subheader: 'Dashboard',
     items: [
       {
@@ -65,6 +67,7 @@ const sidebarConfig = [
   // GENERAL
   // ----------------------------------------------------------------------
   {
+    isAdmin: false,
     subheader: 'Trade',
     items: [
       {
@@ -108,6 +111,7 @@ const sidebarConfig = [
   // 즐겨찾기
   // ----------------------------------------------------------------------
   {
+    isAdmin: false,
     subheader: 'links',
     items: [
       {
@@ -128,19 +132,14 @@ const sidebarConfig = [
   // Admin
   // ----------------------------------------------------------------------
   {
+    isAdmin: true,
     subheader: 'admin',
     items: [
       {
         title: '관리자전용',
         path: PATH_DASHBOARD.general.ecommerce,
-        icon: ICONS.bookmarks,
-        children: [
-          { title: '공지/강의', eLink: PATH_NOTICE_LECTURE },
-          { title: '증시스케줄', eLink: PATH_STOCK_CALENDAR },
-          { title: '네이버 경제뉴스', eLink: PATH_NAVER_ECONOMIC_NEWS },
-          { title: 'Company Guide', eLink: PATH_COMPANY_GUIDE },
-          { title: '이달의 텔레그램', eLink: PATH_TELEGRAM_THIS_MONTH }
-        ]
+        icon: ICONS.user,
+        children: [{ title: '종목관리', path: PATH_ADMIN.admin.stockItems }]
       }
     ]
   }

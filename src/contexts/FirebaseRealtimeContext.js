@@ -35,7 +35,6 @@ function DatabaseProvider({ children }) {
   // const [snapshots, loading, error] = useList(firebase.database().ref(`shuttle-${fDateString(new Date())}`));
   const today = new Date();
   today.setDate(today.getDate() - 2);
-  console.log(fDateString(today));
   // this line is just for test when it comes to the previous date
   const [todaySnapshots, tLoading, tError] = useList(firebase.database().ref(`shuttle-${fDateString(new Date())}`));
 

@@ -12,6 +12,7 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // guards
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
+import RoleBasedGuard from '../guards/RoleBasedGuard';
 // import RoleBasedGuard from '../guards/RoleBasedGuard';
 // components
 import LoadingScreen from '../components/LoadingScreen';
@@ -69,6 +70,20 @@ export default function Router() {
         { path: 'register-unprotected', element: <Register /> },
         { path: 'reset-password', element: <ResetPassword /> },
         { path: 'verify', element: <VerifyCode /> }
+      ]
+    },
+
+    // Admin Routes
+    {
+      path: 'admin',
+      element: (
+        <RoleBasedGuard accessibleRoles={['ROLE_ADMIN']}>
+          <DashboardLayout />
+        </RoleBasedGuard>
+      ),
+      children: [
+        { element: <Navigate to="/admin/stockItems" replace /> },
+        { path: 'stockItems', element: <StockItems /> }
       ]
     },
 
@@ -189,6 +204,8 @@ const Login = Loadable(lazy(() => import('../pages/authentication/Login')));
 const Register = Loadable(lazy(() => import('../pages/authentication/Register')));
 const ResetPassword = Loadable(lazy(() => import('../pages/authentication/ResetPassword')));
 const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCode')));
+// Admin
+const StockItems = Loadable(lazy(() => import('../pages/admin/StockItems')));
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
 // const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
