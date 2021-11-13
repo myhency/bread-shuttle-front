@@ -137,9 +137,9 @@ const sidebarConfig = [
     items: [
       {
         title: '관리자전용',
-        path: PATH_DASHBOARD.general.ecommerce,
+        path: PATH_ADMIN.admin.stockItems,
         icon: ICONS.user,
-        children: [{ title: '종목관리', path: PATH_ADMIN.admin.stockItems }]
+        children: [{ title: '종목테마관리', path: PATH_ADMIN.admin.stockItems }]
       }
     ]
   }
