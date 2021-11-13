@@ -26,12 +26,11 @@ import { useDispatch, useSelector } from '../../redux/store';
 import { getUserList, deleteUser } from '../../redux/slices/user';
 import { getStockItemList } from '../../redux/slices/stockItem';
 // routes
-import { PATH_ADMIN, PATH_DASHBOARD } from '../../routes/paths';
+import { PATH_ADMIN } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
-import Label from '../../components/Label';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
