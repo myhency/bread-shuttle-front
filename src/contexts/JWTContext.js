@@ -72,15 +72,14 @@ function AuthProvider({ children }) {
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
-          // const response = await axios.get('/api/account/my-account');
-          // const { user } = response.data;
-          const decodedJwt = decodeJwt(accessToken);
+          const response = await axios.get('/auth/user/my-info');
+          const user = response.data.data;
 
           dispatch({
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
-              user: { displayName: decodedJwt.sub === 'cloud' ? '주식훈련소 회원님' : '주식훈련소 스탭님' }
+              user: { ...user, displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '주식훈련소 회원님' }
             }
           });
         } else {
@@ -113,19 +112,13 @@ function AuthProvider({ children }) {
       password
     });
 
-    const { data } = response.data;
+    const user = response.data.data;
 
-    const decodedJwt = decodeJwt(data);
-
-    const user = {
-      displayName: decodedJwt.sub === 'cloud' ? '주식훈련소 회원님' : '주식훈련소 스탭님'
-    };
-
-    setSession(data);
+    setSession(user.token);
     dispatch({
       type: 'LOGIN',
       payload: {
-        user
+        user: { ...user, displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '주식훈련소 회원님' }
       }
     });
   };
