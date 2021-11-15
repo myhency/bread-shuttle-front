@@ -7,10 +7,10 @@ import {
   // Typography, Box,
   Skeleton
 } from '@mui/material';
-import {
-  styled
-  // useTheme
-} from '@mui/material/styles';
+// useTheme
+import { styled } from '@mui/material/styles';
+// utils
+import useSettings from '../../../hooks/useSettings';
 // hooks
 // import { useEffect, useState } from 'react';
 // import useSettings from '../../../../hooks/useSettings';
@@ -36,6 +36,9 @@ import BigPieMovingAverageTitle from '../BigPieMovingAverageTitle';
 import BigPieGridItem2 from '../BigPieGridItem2';
 
 const ContainerWithoutLPadding = styled(Container)(({ theme }) => ({
+  [theme.breakpoints.up('lg')]: {
+    maxWidth: '100%'
+  },
   [theme.breakpoints.up('md')]: {
     paddingLeft: 0
   },
@@ -50,12 +53,14 @@ export default function BigPieDaily({
   // date,
   list
 }) {
+  const { themeStretch } = useSettings();
   const ma5 = list.length === 0 ? null : list[0].val().hasOwnProperty('5일선') ? list[0].val()['5일선'] : null;
   const ma10 = list.length === 0 ? null : list[0].val().hasOwnProperty('10일선') ? list[0].val()['10일선'] : null;
   const ma20 = list.length === 0 ? null : list[0].val().hasOwnProperty('20일선') ? list[0].val()['20일선'] : null;
   const ma40 = list.length === 0 ? null : list[0].val().hasOwnProperty('40일선') ? list[0].val()['40일선'] : null;
 
   return (
+    // <Container maxWidth={themeStretch ? false : 'lg'}>
     <ContainerWithoutLPadding>
       <Grid container spacing={1}>
         <Grid item xs={6} md={3}>
@@ -212,5 +217,6 @@ export default function BigPieDaily({
         </Grid>
       </Grid>
     </ContainerWithoutLPadding>
+    // </Container>
   );
 }

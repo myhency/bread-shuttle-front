@@ -20,6 +20,9 @@ import LoadingScreen from '../../components/LoadingScreen';
 // ----------------------------------------------------------------------
 
 const ContainerWithoutLPadding = styled(Container)(({ theme }) => ({
+  [theme.breakpoints.up('lg')]: {
+    maxWidth: '100%'
+  },
   [theme.breakpoints.up('md')]: {
     paddingLeft: 0
   },
