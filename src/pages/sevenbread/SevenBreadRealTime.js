@@ -11,11 +11,14 @@ import { useEffect, useState } from 'react';
 import SevenBreadGridItem1 from '../../components/_sevenbread/realtime/SevenBreadGridItem1';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
+// routes
+import { PATH_DASHBOARD } from '../../routes/paths';
 // utils
 import fakeRequest from '../../utils/fakeRequest';
 import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
+import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 
 import { ConditionFiltered, ConditionFilterSidebar, ConditionSort } from '../../components/_sevenbread';
 import useFirebaseRealtime from '../../hooks/useFirebase';
@@ -136,8 +139,6 @@ export default function SevenBreadRealTime() {
     filters
   );
 
-  console.log(filteredSevenBreadItems);
-
   const formik = useFormik({
     initialValues: {
       price: filters.price
@@ -195,8 +196,16 @@ export default function SevenBreadRealTime() {
   };
 
   return (
-    <Page title="빅파이 실시간 | 클라우드의 주식훈련소">
-      <Container maxWidth={themeStretch ? false : 'xl'}>
+    <Page title="007빵 실시간 | 클라우드의 주식훈련소">
+      <Container maxWidth={themeStretch ? false : 'lg'}>
+        <HeaderBreadcrumbs
+          heading="007빵 실시간"
+          links={[
+            { name: 'TRADE', href: PATH_DASHBOARD.sevenBread },
+            { name: '007빵', href: PATH_DASHBOARD.sevenBread.root },
+            { name: '실시간' }
+          ]}
+        />
         {!isDefault && (
           <Typography gutterBottom>
             <Typography component="span" variant="subtitle1">

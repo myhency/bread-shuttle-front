@@ -82,7 +82,7 @@ const sidebarConfig = [
         children: [
           { title: '007빵 공지', eLink: PATH_SEVENBREAD_NOTICE },
           { title: '007빵 실시간', path: PATH_DASHBOARD.sevenBread.realtime },
-          { title: '007빵 리스트', path: PATH_DASHBOARD.general.banking },
+          { title: '007빵 리스트', path: PATH_DASHBOARD.sevenBread.list },
           { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
         ]
       },

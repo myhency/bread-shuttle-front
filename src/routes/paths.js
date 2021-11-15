@@ -59,7 +59,8 @@ export const PATH_DASHBOARD = {
   sevenBread: {
     root: path(ROOTS_DASHBOARD, '/sevenBread'),
     notice: path(ROOTS_DASHBOARD, '/sevenBread/notice'),
-    realtime: path(ROOTS_DASHBOARD, '/sevenBread/realtime')
+    realtime: path(ROOTS_DASHBOARD, '/sevenBread/realtime'),
+    list: path(ROOTS_DASHBOARD, '/sevenBread/list')
   },
   mail: {
     root: path(ROOTS_DASHBOARD, '/mail'),
