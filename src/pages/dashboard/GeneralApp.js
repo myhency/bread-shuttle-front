@@ -39,7 +39,7 @@ export default function GeneralApp() {
             <AppFeatured />
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          {/* <Grid item xs={12} md={4}>
             <AppTotalActiveUsers />
           </Grid>
 
@@ -57,7 +57,7 @@ export default function GeneralApp() {
 
           <Grid item xs={12} md={6} lg={8}>
             <AppAreaInstalled />
-          </Grid>
+          </Grid> */}
 
           {/* <Grid item xs={12} lg={8}>
             <AppNewInvoice />

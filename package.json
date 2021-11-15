@@ -147,6 +147,5 @@
     "eslint-plugin-react": "^7.25.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.4.1"
-  },
-  "proxy": "http://cloud-backend-v2:8080/api/v1/platform"
+  }
 }
