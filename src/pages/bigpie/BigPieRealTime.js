@@ -13,7 +13,7 @@ import {
   BigPieGridTitle,
   // BigPieGridSubTitle,
   BigPieGridItem1
-} from '../../components/_dashboard/bigpie';
+} from '../../components/_bigpie';
 import useFirebaseRealtime from '../../hooks/useFirebase';
 import LoadingScreen from '../../components/LoadingScreen';
 

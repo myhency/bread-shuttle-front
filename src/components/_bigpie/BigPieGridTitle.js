@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 // material
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import { Typography, Card, CardContent, Button } from '@mui/material';
-import BigPieInstructionPopover from '../../../layouts/dashboard/BigPieInstructionPopover';
+import BigPieInstructionPopover from '../../layouts/dashboard/BigPieInstructionPopover';
 
 // ----------------------------------------------------------------------
 
@@ -28,13 +28,15 @@ const RootStyle = styled(Card)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-BigPieGridSubTitle.propTypes = {
+BigPieGridTitle.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   message: PropTypes.string
 };
 
-export default function BigPieGridSubTitle({ title, subtitle, message }) {
+export default function BigPieGridTitle({ title, subtitle, message }) {
+  const theme = useTheme();
+
   return (
     <RootStyle>
       <CardContent
@@ -43,12 +45,14 @@ export default function BigPieGridSubTitle({ title, subtitle, message }) {
         }}
       >
         {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-        {/* <Typography variant="body1">{!title ? '...' : title}</Typography> */}
-        <Typography variant="caption" sx={{ pb: { xs: 3, xl: 5 }, maxWidth: 480, mx: 'auto' }}>
+        <Typography variant="h5" sx={{ color: theme.palette.primary.darker }}>
           {!title ? '...' : title}
         </Typography>
+        {/* <Typography variant="caption" sx={{ pb: { xs: 3, xl: 5 }, maxWidth: 480, mx: 'auto' }}>
+          {message}
+        </Typography> */}
       </CardContent>
-      {/* <BigPieInstructionPopover subtitle={subtitle} message={message} /> */}
+      <BigPieInstructionPopover subtitle={subtitle} message={message} />
     </RootStyle>
   );
 }

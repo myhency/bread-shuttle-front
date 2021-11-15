@@ -7,7 +7,7 @@ import roundClearAll from '@iconify/icons-ic/round-clear-all';
 import { useTheme, styled } from '@mui/material/styles';
 import { Chip, Typography, Stack, Button } from '@mui/material';
 // utils
-import getColorName from '../../../../utils/getColorName';
+import getColorName from '../../../utils/getColorName';
 
 // ----------------------------------------------------------------------
 

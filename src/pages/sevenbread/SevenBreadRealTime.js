@@ -8,7 +8,7 @@ import {
 } from '@mui/material/styles';
 // hooks
 import { useEffect, useState } from 'react';
-import SevenBreadGridItem1 from '../../components/_dashboard/sevenbread/realtime/SevenBreadGridItem1';
+import SevenBreadGridItem1 from '../../components/_sevenbread/realtime/SevenBreadGridItem1';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
 // utils
@@ -17,11 +17,7 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 
-import {
-  ConditionFiltered,
-  ConditionFilterSidebar,
-  ConditionSort
-} from '../../components/_dashboard/sevenbread/realtime';
+import { ConditionFiltered, ConditionFilterSidebar, ConditionSort } from '../../components/_sevenbread';
 import useFirebaseRealtime from '../../hooks/useFirebase';
 import LoadingScreen from '../../components/LoadingScreen';
 import { filterSevenBreadItems } from '../../redux/slices/sevenBread';

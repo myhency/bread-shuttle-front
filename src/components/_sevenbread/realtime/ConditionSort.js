@@ -5,8 +5,8 @@ import chevronDownFill from '@iconify/icons-eva/chevron-down-fill';
 // material
 import { Menu, Button, MenuItem, Typography } from '@mui/material';
 // redux
-import { useDispatch, useSelector } from '../../../../redux/store';
-import { sortBySevenBreadItems } from '../../../../redux/slices/sevenBread';
+import { useDispatch, useSelector } from '../../../redux/store';
+import { sortBySevenBreadItems } from '../../../redux/slices/sevenBread';
 
 // ----------------------------------------------------------------------
 

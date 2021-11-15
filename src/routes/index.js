@@ -209,9 +209,9 @@ const StockItems = Loadable(lazy(() => import('../pages/admin/StockItems')));
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
 // const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
-const BigPieRealTime = Loadable(lazy(() => import('../pages/dashboard/BigPieRealTime')));
-const BigPieList = Loadable(lazy(() => import('../pages/dashboard/BigPieList')));
-const SevenBreadRealTime = Loadable(lazy(() => import('../pages/dashboard/SevenBreadRealTime')));
+const BigPieRealTime = Loadable(lazy(() => import('../pages/bigpie/BigPieRealTime')));
+const BigPieList = Loadable(lazy(() => import('../pages/bigpie/BigPieList')));
+const SevenBreadRealTime = Loadable(lazy(() => import('../pages/sevenbread/SevenBreadRealTime')));
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));
 const GeneralBanking = Loadable(lazy(() => import('../pages/dashboard/GeneralBanking')));
 const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));

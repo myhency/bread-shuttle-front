@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Typography } from '@mui/material';
 // hooks
-import useAuth from '../../../../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 //
-import MyAvatar from '../../../MyAvatar';
+import MyAvatar from '../../MyAvatar';
 
 // ----------------------------------------------------------------------
 

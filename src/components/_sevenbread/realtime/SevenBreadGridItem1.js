@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { useTheme, styled } from '@mui/material/styles';
 import { Card, Box, Typography, Stack, ListItemIcon, SvgIcon } from '@mui/material';
 // utils
-import { fNumber, fPercent } from '../../../../utils/formatNumber';
-import { fTimeShorten, fDateStringFormat } from '../../../../utils/formatTime';
+import { fNumber, fPercent } from '../../../utils/formatNumber';
+import { fTimeShorten, fDateStringFormat } from '../../../utils/formatTime';
 //
-import { path, PATH_ALPHA_LINK, PATH_FN_LINK, PATH_NAVER_LINK } from '../../../../routes/paths';
-import SvgIconStyle from '../../../SvgIconStyle';
+import { path, PATH_ALPHA_LINK, PATH_FN_LINK, PATH_NAVER_LINK } from '../../../routes/paths';
+import SvgIconStyle from '../../SvgIconStyle';
 
 const getIcon = (name) => <SvgIconStyle src={`/static/icons/${name}.svg`} sx={{ width: '100%', height: '100%' }} />;
 

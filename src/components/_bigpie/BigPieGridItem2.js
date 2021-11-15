@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 // material
 // import { useTheme } from '@mui/material/styles';
 import { Card, Box, Typography, Stack } from '@mui/material';
-import { path, PATH_ALPHA_LINK, PATH_FN_LINK, PATH_NAVER_LINK } from '../../../routes/paths';
+import { path, PATH_ALPHA_LINK, PATH_FN_LINK, PATH_NAVER_LINK } from '../../routes/paths';
 
 BigPieGridItem2.propTypes = {
   itemCode: PropTypes.string,

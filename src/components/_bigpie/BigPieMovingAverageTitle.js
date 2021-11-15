@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 // material
 import { styled, useTheme } from '@mui/material/styles';
 import { Typography, Card, CardContent, Button } from '@mui/material';
-import BigPieInstructionPopover from '../../../layouts/dashboard/BigPieInstructionPopover';
+import BigPieInstructionPopover from '../../layouts/dashboard/BigPieInstructionPopover';
+import CircleIconWrapper from './CircleIconWrapper';
 
 // ----------------------------------------------------------------------
 
@@ -28,31 +29,34 @@ const RootStyle = styled(Card)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-BigPieGridTitle.propTypes = {
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
-  message: PropTypes.string
+BigPieMovingAverageTitle.propTypes = {
+  movingAverage: PropTypes.string
 };
 
-export default function BigPieGridTitle({ title, subtitle, message }) {
+export default function BigPieMovingAverageTitle({ movingAverage }) {
   const theme = useTheme();
 
   return (
     <RootStyle>
       <CardContent
         sx={{
-          color: 'grey.800'
+          color: 'grey.800',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexGrow: 1
         }}
       >
-        {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-        <Typography variant="h5" sx={{ color: theme.palette.primary.darker }}>
-          {!title ? '...' : title}
+        <CircleIconWrapper text={movingAverage} />
+        <Typography
+          variant="h6"
+          sx={{
+            color: theme.palette.primary.dark
+          }}
+        >
+          일선
         </Typography>
-        {/* <Typography variant="caption" sx={{ pb: { xs: 3, xl: 5 }, maxWidth: 480, mx: 'auto' }}>
-          {message}
-        </Typography> */}
       </CardContent>
-      <BigPieInstructionPopover subtitle={subtitle} message={message} />
     </RootStyle>
   );
 }
