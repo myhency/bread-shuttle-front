@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx ./src",
@@ -81,6 +81,7 @@
     "framer-motion": "^4.1.17",
     "highlight.js": "^11.2.0",
     "history": "^5.0.1",
+    "http-proxy-middleware": "^2.0.1",
     "i18next": "^20.6.1",
     "i18next-browser-languagedetector": "^6.1.2",
     "immutable": "^4.0.0-rc.14",
