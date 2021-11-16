@@ -73,20 +73,6 @@ export default function Router() {
       ]
     },
 
-    // Admin Routes
-    {
-      path: 'admin',
-      element: (
-        <RoleBasedGuard accessibleRoles={['ROLE_ADMIN']}>
-          <DashboardLayout />
-        </RoleBasedGuard>
-      ),
-      children: [
-        { element: <Navigate to="/admin/stockItems" replace /> },
-        { path: 'stockItems', element: <StockItems /> }
-      ]
-    },
-
     // Dashboard Routes
     {
       path: 'dashboard',
@@ -117,6 +103,14 @@ export default function Router() {
             { element: <Navigate to="/dashboard/sevenBread/realtime" replace /> },
             { path: 'realtime', element: <SevenBreadRealTime /> },
             { path: 'list', element: <SevenBreadList /> }
+          ]
+        },
+        {
+          path: 'tradingVolume',
+          // eslint-disable-next-line jsx-a11y/anchor-has-content
+          children: [
+            { element: <Navigate to="/dashboard/tradingVolume/list" replace /> },
+            { path: 'list', element: <TradingVolumeList /> }
           ]
         },
         {
@@ -176,6 +170,20 @@ export default function Router() {
       ]
     },
 
+    // Admin Routes
+    {
+      path: 'admin',
+      element: (
+        <RoleBasedGuard accessibleRoles={['ROLE_ADMIN']}>
+          <DashboardLayout />
+        </RoleBasedGuard>
+      ),
+      children: [
+        { element: <Navigate to="/admin/stockItems" replace /> },
+        { path: 'stockItems', element: <StockItems /> }
+      ]
+    },
+
     // Main Routes
     {
       path: '*',
@@ -214,6 +222,7 @@ const BigPieRealTime = Loadable(lazy(() => import('../pages/bigpie/BigPieRealTim
 const BigPieList = Loadable(lazy(() => import('../pages/bigpie/BigPieList')));
 const SevenBreadRealTime = Loadable(lazy(() => import('../pages/sevenbread/SevenBreadRealTime')));
 const SevenBreadList = Loadable(lazy(() => import('../pages/sevenbread/SevenBreadList')));
+const TradingVolumeList = Loadable(lazy(() => import('../pages/trading-volume/TradingVolumeList')));
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));
 const GeneralBanking = Loadable(lazy(() => import('../pages/dashboard/GeneralBanking')));
 const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));
