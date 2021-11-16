@@ -38,12 +38,19 @@ const slice = createSlice({
     getTradingVolumeListSuccess(state, action) {
       state.isLoading = false;
       state.tradingVolumeItems = action.payload;
+    },
+
+    filterByCondition(state, action) {
+      state.filterBy = action.payload;
     }
   }
 });
 
 // Reducer
 export default slice.reducer;
+
+// Actions
+export const { filterByCondition } = slice.actions;
 
 // ----------------------------------------------------------------------
 

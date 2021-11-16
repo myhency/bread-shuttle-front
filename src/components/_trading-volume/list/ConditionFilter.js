@@ -6,7 +6,7 @@ import chevronDownFill from '@iconify/icons-eva/chevron-down-fill';
 import { Menu, Button, MenuItem, Typography } from '@mui/material';
 // redux
 import { useDispatch, useSelector } from '../../../redux/store';
-import { sortBySevenBreadItems } from '../../../redux/slices/sevenBread';
+import { filterByCondition } from '../../../redux/slices/tradingVolume';
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +40,7 @@ export default function ConditionFilter() {
 
   const handleSortBy = (value) => {
     handleClose();
-    dispatch(sortBySevenBreadItems(value));
+    dispatch(filterByCondition(value));
   };
 
   return (
