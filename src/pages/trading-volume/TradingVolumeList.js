@@ -163,7 +163,7 @@ export default function TradingVolumeList() {
   const [orderBy, setOrderBy] = useState('name');
   const [filteredTradingVolumeItems, setFilteredTradingVolumeItems] = useState([]);
   const dispatch = useDispatch();
-  const { tradingVolumeDateList, tradingVolumeItems } = useSelector((state) => state.tradingVolume);
+  const { tradingVolumeDateList, tradingVolumeItems, filterBy } = useSelector((state) => state.tradingVolume);
   const isDefault = tradingVolumeDateList.length === 0;
 
   useEffect(() => {
@@ -181,6 +181,9 @@ export default function TradingVolumeList() {
 
   const handleFilterByName = (event) => {
     setFilterName(event.target.value);
+    if (!event.target.value) {
+      setFilteredTradingVolumeItems(getSortedAndFilteredList(tradingVolumeItems));
+    }
   };
 
   const handleRequestSort = (event, property) => {
@@ -211,6 +214,21 @@ export default function TradingVolumeList() {
       });
 
     return result;
+  };
+
+  const handleOnKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      handleSearchButtonOnClick();
+    }
+  };
+
+  const handleSearchButtonOnClick = (e) => {
+    const result =
+      filterBy === 'itemName'
+        ? filteredTradingVolumeItems.filter((item) => item.itemName.includes(filterName))
+        : filteredTradingVolumeItems.filter((item) => item.theme.includes(filterName));
+
+    setFilteredTradingVolumeItems(result);
   };
 
   return (
@@ -252,6 +270,7 @@ export default function TradingVolumeList() {
             <SearchStyle
               value={filterName}
               onChange={handleFilterByName}
+              onKeyDown={handleOnKeyDown}
               placeholder="Search..."
               startAdornment={
                 <InputAdornment position="start">
@@ -287,14 +306,12 @@ export default function TradingVolumeList() {
                       return (
                         <TableRow hover key={id} tabIndex={-1}>
                           <TableCell align="left">
-                            {/* <a target="_blank" href={chartLink} rel="noreferrer" sx={{ color: 'inherit' }}> */}
                             <Typography
                               sx={{ color: '#0061B0', cursor: 'pointer' }}
                               onClick={() => window.open(chartLink, '_blank')}
                             >
                               {itemName}
                             </Typography>
-                            {/* </a> */}
                           </TableCell>
                           <TableCell align="right">
                             <Typography>{new Intl.NumberFormat('ko-KR').format(closingPrice)}원</Typography>
