@@ -45,7 +45,7 @@ export function getStockItemList(rowsPerPage, page) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get(`/item/stockItem?size=${rowsPerPage}&page=${page}`);
+      const response = await axios.get(`/api/v1/platform/item/stockItem?size=${rowsPerPage}&page=${page}`);
       dispatch(slice.actions.getStockItemListSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

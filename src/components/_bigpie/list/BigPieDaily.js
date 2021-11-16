@@ -5,7 +5,8 @@ import {
   Container,
   Grid,
   // Typography, Box,
-  Skeleton
+  Skeleton,
+  Typography
 } from '@mui/material';
 // useTheme
 import { styled } from '@mui/material/styles';
@@ -84,9 +85,7 @@ export default function BigPieDaily({
                 </>
               ) : !ma5 ? (
                 <Grid item xs={12} md={12} sx={{ p: 0 }}>
-                  <Skeleton width="100%" height="5rem" variant="rectangular" sx={{ borderRadius: 2 }}>
-                    종목이 없습니다.
-                  </Skeleton>
+                  <Skeleton width="100%" height="7.6rem" variant="rectangular" sx={{ borderRadius: 2 }} />
                 </Grid>
               ) : (
                 Object.entries(ma5).map((item) => {
@@ -122,9 +121,7 @@ export default function BigPieDaily({
                 </>
               ) : !ma10 ? (
                 <Grid item xs={12} md={12} sx={{ p: 0 }}>
-                  <Skeleton width="100%" height="5rem" variant="rectangular" sx={{ borderRadius: 2 }}>
-                    종목이 없습니다.
-                  </Skeleton>
+                  <Skeleton width="100%" height="7.6rem" variant="rectangular" sx={{ borderRadius: 2 }} />
                 </Grid>
               ) : (
                 Object.entries(ma10).map((item) => {
@@ -160,9 +157,7 @@ export default function BigPieDaily({
                 </>
               ) : !ma20 ? (
                 <Grid item xs={12} md={12} sx={{ p: 0 }}>
-                  <Skeleton width="100%" height="5rem" variant="rectangular" sx={{ borderRadius: 2 }}>
-                    종목이 없습니다.
-                  </Skeleton>
+                  <Skeleton width="100%" height="7.6rem" variant="rectangular" sx={{ borderRadius: 2 }} />
                 </Grid>
               ) : (
                 Object.entries(ma20).map((item) => {
@@ -198,9 +193,7 @@ export default function BigPieDaily({
                 </>
               ) : !ma40 ? (
                 <Grid item xs={12} md={12} sx={{ p: 0 }}>
-                  <Skeleton width="100%" height="5rem" variant="rectangular" sx={{ borderRadius: 2 }}>
-                    종목이 없습니다.
-                  </Skeleton>
+                  <Skeleton width="100%" height="7.6rem" variant="rectangular" sx={{ borderRadius: 2 }} />
                 </Grid>
               ) : (
                 Object.entries(ma40).map((item) => {

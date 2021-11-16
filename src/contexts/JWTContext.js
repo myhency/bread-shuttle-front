@@ -72,7 +72,7 @@ function AuthProvider({ children }) {
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
-          const response = await axios.get('/auth/user/my-info');
+          const response = await axios.get('/api/v1/platform/auth/user/my-info');
           const user = response.data.data;
 
           dispatch({
@@ -107,7 +107,7 @@ function AuthProvider({ children }) {
   }, []);
 
   const login = async (userName, password) => {
-    const response = await axios.post('/auth/login', {
+    const response = await axios.post('/api/v1/platform/auth/login', {
       userName,
       password
     });
