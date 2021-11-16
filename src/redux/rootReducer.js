@@ -11,6 +11,7 @@ import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
 import sevenBreadReducer from './slices/sevenBread';
 import stockItemReducer from './slices/stockItem';
+import tradingVolumeReducer from './slices/tradingVolume';
 
 // ----------------------------------------------------------------------
 
@@ -44,7 +45,8 @@ const rootReducer = combineReducers({
   kanban: kanbanReducer,
   product: persistReducer(productPersistConfig, productReducer),
   sevenBread: persistReducer(sevenBreadPersistConfig, sevenBreadReducer),
-  stockItem: stockItemReducer
+  stockItem: stockItemReducer,
+  tradingVolume: tradingVolumeReducer
 });
 
 export { rootPersistConfig, rootReducer };

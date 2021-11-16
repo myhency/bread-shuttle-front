@@ -85,6 +85,25 @@ const sidebarConfig = [
           // { title: '007빵 리스트', path: PATH_DASHBOARD.sevenBread.list },
           // { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
         ]
+      },
+      // {
+      //   title: '알리미',
+      //   path: PATH_DASHBOARD.general.ecommerce,
+      //   icon: ICONS.notificationsactive,
+      //   children: [
+      //     { title: '알리미 리스트', path: PATH_DASHBOARD.general.ecommerce },
+      //     { title: '알람완료', path: PATH_DASHBOARD.general.analytics },
+      //     { title: '손절처리', path: PATH_DASHBOARD.general.banking }
+      //   ]
+      // },
+      {
+        title: '유통주식수대비 거래량',
+        path: PATH_DASHBOARD.tradingVolume.list,
+        icon: ICONS.viewlist,
+        children: [
+          { title: '날짜별 조회', path: PATH_DASHBOARD.tradingVolume.list }
+          // { title: '통합검색', path: PATH_DASHBOARD.tradingVolume.search }
+        ]
       }
       // {
       //   title: '알리미',

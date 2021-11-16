@@ -62,6 +62,11 @@ export const PATH_DASHBOARD = {
     realtime: path(ROOTS_DASHBOARD, '/sevenBread/realtime'),
     list: path(ROOTS_DASHBOARD, '/sevenBread/list')
   },
+  tradingVolume: {
+    root: path(ROOTS_DASHBOARD, '/tradingVolume'),
+    list: path(ROOTS_DASHBOARD, '/tradingVolume/list'),
+    search: path(ROOTS_DASHBOARD, '/tradingVolume/search')
+  },
   mail: {
     root: path(ROOTS_DASHBOARD, '/mail'),
     all: path(ROOTS_DASHBOARD, '/mail/all')
