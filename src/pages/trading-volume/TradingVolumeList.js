@@ -156,7 +156,7 @@ export default function TradingVolumeList() {
   const isSM = useMediaQuery({
     query: '(max-width: 600px)'
   });
-  const [value, setValue] = useState(new Date('2021-09-17'));
+  const [value, setValue] = useState(new Date());
   const [filterName, setFilterName] = useState('');
   const [order, setOrder] = useState('asc');
   const [isKospi, setKospi] = useState(false);
