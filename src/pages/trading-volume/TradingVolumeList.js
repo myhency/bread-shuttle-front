@@ -203,8 +203,7 @@ export default function TradingVolumeList() {
   }, [tradingVolumeItems, isKospi]);
 
   useEffect(() => {
-    // eslint-disable-next-line dot-notation
-    searchForm.current['searchInput'].focus();
+    searchForm.current.children.searchInput.focus();
   }, [filterBy]);
 
   const handleFilterByName = (event) => {
@@ -251,9 +250,7 @@ export default function TradingVolumeList() {
   };
 
   const handleSearchButtonOnClick = () => {
-    // eslint-disable-next-line dot-notation
-    const x = searchForm.current['searchInput'].value;
-    console.log(x);
+    const x = searchForm.current.children.searchInput.value;
     const items = getSortedAndFilteredList(tradingVolumeItems);
     console.log(items);
     const result =
@@ -302,20 +299,19 @@ export default function TradingVolumeList() {
 
           <Stack direction="row" spacing={1} sx={{ my: 1 }} flexWrap="wrap" alignContent="space-around">
             <ConditionFilter />
-            <form action="#" ref={searchForm}>
-              <SearchStyle
-                name="searchInput"
-                value={filterName}
-                onChange={handleFilterByName}
-                onKeyDown={handleOnKeyDown}
-                placeholder="Search..."
-                startAdornment={
-                  <InputAdornment position="start">
-                    <Box component={Icon} icon={searchFill} sx={{ color: 'text.disabled' }} />
-                  </InputAdornment>
-                }
-              />
-            </form>
+            <SearchStyle
+              name="searchInput"
+              ref={searchForm}
+              value={filterName}
+              onChange={handleFilterByName}
+              onKeyDown={handleOnKeyDown}
+              placeholder="Search..."
+              startAdornment={
+                <InputAdornment position="start">
+                  <Box component={Icon} icon={searchFill} sx={{ color: 'text.disabled' }} />
+                </InputAdornment>
+              }
+            />
             <Button variant="contained" sx={{ minWidth: '5.5rem' }} onClick={handleSearchButtonOnClick}>
               검색
             </Button>
