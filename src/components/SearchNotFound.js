@@ -12,11 +12,10 @@ export default function SearchNotFound({ searchQuery = '', ...other }) {
   return (
     <Paper {...other}>
       <Typography gutterBottom align="center" variant="subtitle1">
-        Not found
+        데이터 없음
       </Typography>
       <Typography variant="body2" align="center">
-        No results found for &nbsp;
-        <strong>&quot;{searchQuery}&quot;</strong>. Try checking for typos or using complete words.
+        데이터를 찾지 못했습니다.&nbsp;검색조건을 변경해 보세요.
       </Typography>
     </Paper>
   );

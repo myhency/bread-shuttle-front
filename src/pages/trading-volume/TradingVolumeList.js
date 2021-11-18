@@ -1,31 +1,25 @@
-import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
 import { useMediaQuery } from 'react-responsive';
 import searchFill from '@iconify/icons-eva/search-fill';
-import { sentenceCase } from 'change-case';
-import { useState, useEffect } from 'react';
-import plusFill from '@iconify/icons-eva/plus-fill';
-import { Link as RouterLink } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
 // material
 import { useTheme } from '@mui/material/styles';
 import {
   Card,
   Table,
   Stack,
-  Avatar,
   Button,
-  Checkbox,
   TableRow,
   TableBody,
   TableCell,
   Container,
   Typography,
   TableContainer,
-  TablePagination,
   TextField,
   OutlinedInput,
   InputAdornment,
-  Box
+  Box,
+  Paper
 } from '@mui/material';
 import { DesktopDatePicker } from '@mui/lab';
 import * as styles from '@mui/material/styles';
@@ -86,52 +80,71 @@ const SMHead = () => (
     p={3}
     key="header"
   >
-    <Box
-      style={{
-        display: 'flex',
-        flexDirection: 'column'
-      }}
-    >
-      <div>
-        <Typography variant="caption" style={{ color: '#303C6C' }}>
-          종목명
-        </Typography>
-      </div>
-      <div>
-        <Typography variant="caption">현재가</Typography>
-      </div>
-      <div>
-        <Typography variant="caption">등락율</Typography>
-      </div>
-    </Box>
-    <Box
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-end',
-        flexGrow: 1
-      }}
-    >
-      <div
-        style={{
-          flexGrow: 1,
-          justifyContent: 'center'
-        }}
+    <Paper sx={{ p: 1.5, flexGrow: 1, bgcolor: 'background.neutral' }}>
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        alignItems={{ sm: 'center' }}
+        justifyContent="space-between"
+        sx={{ mb: 0.5 }}
       >
-        <Typography variant="subtitle2">유통주식수대비 거래량</Typography>
-      </div>
-      <div>
-        <Typography variant="caption" style={{ color: '#747171' }}>
-          거래대금
-        </Typography>
-      </div>
-      <div>
-        <Typography variant="caption" style={{ color: '#747171' }}>
-          시가총액
-        </Typography>
-      </div>
-    </Box>
+        fff
+      </Stack>
+    </Paper>
   </Box>
+  // <Box
+  //   sx={{
+  //     display: 'flex',
+  //     flexDirection: 'row'
+  //   }}
+  //   p={3}
+  //   key="header"
+  // >
+  //   <Box
+  //     style={{
+  //       display: 'flex',
+  //       flexDirection: 'column'
+  //     }}
+  //   >
+  //     <div>
+  //       <Typography variant="caption" style={{ color: '#303C6C' }}>
+  //         종목명
+  //       </Typography>
+  //     </div>
+  //     <div>
+  //       <Typography variant="caption">현재가</Typography>
+  //     </div>
+  //     <div>
+  //       <Typography variant="caption">등락율</Typography>
+  //     </div>
+  //   </Box>
+  //   <Box
+  //     style={{
+  //       display: 'flex',
+  //       flexDirection: 'column',
+  //       alignItems: 'flex-end',
+  //       flexGrow: 1
+  //     }}
+  //   >
+  //     <div
+  //       style={{
+  //         flexGrow: 1,
+  //         justifyContent: 'center'
+  //       }}
+  //     >
+  //       <Typography variant="caption">유통주식수대비 거래량</Typography>
+  //     </div>
+  //     <div>
+  //       <Typography variant="caption" style={{ color: '#747171' }}>
+  //         거래대금
+  //       </Typography>
+  //     </div>
+  //     <div>
+  //       <Typography variant="caption" style={{ color: '#747171' }}>
+  //         시가총액
+  //       </Typography>
+  //     </div>
+  //   </Box>
+  // </Box>
 );
 
 const getOthers = (volumeData) => {
@@ -158,12 +171,15 @@ export default function TradingVolumeList() {
   });
   const [value, setValue] = useState(new Date());
   const [filterName, setFilterName] = useState('');
+  const searchForm = useRef();
   const [order, setOrder] = useState('asc');
   const [isKospi, setKospi] = useState(false);
-  const [orderBy, setOrderBy] = useState('name');
+  const [orderBy, setOrderBy] = useState('itemName');
   const [filteredTradingVolumeItems, setFilteredTradingVolumeItems] = useState([]);
   const dispatch = useDispatch();
-  const { tradingVolumeDateList, tradingVolumeItems, filterBy } = useSelector((state) => state.tradingVolume);
+  const { tradingVolumeDateList, tradingVolumeItems, filterBy, isLoading } = useSelector(
+    (state) => state.tradingVolume
+  );
   const isDefault = tradingVolumeDateList.length === 0;
 
   useEffect(() => {
@@ -178,6 +194,10 @@ export default function TradingVolumeList() {
     setFilteredTradingVolumeItems(getSortedAndFilteredList(tradingVolumeItems));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tradingVolumeItems, isKospi]);
+
+  useEffect(() => {
+    searchForm.current.children.searchInput.focus();
+  }, [filterBy]);
 
   const handleFilterByName = (event) => {
     setFilterName(event.target.value);
@@ -217,19 +237,23 @@ export default function TradingVolumeList() {
   };
 
   const handleOnKeyDown = (e) => {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && filterName !== '') {
       handleSearchButtonOnClick();
     }
   };
 
-  const handleSearchButtonOnClick = (e) => {
+  const handleSearchButtonOnClick = () => {
+    const x = searchForm.current.children.searchInput.value;
+    const items = getSortedAndFilteredList(tradingVolumeItems);
     const result =
       filterBy === 'itemName'
-        ? filteredTradingVolumeItems.filter((item) => item.itemName.includes(filterName))
-        : filteredTradingVolumeItems.filter((item) => item.theme.includes(filterName));
+        ? items.filter((item) => item.itemName.includes(x))
+        : items.filter((item) => (item.theme === null ? false : item.theme.includes(x)));
 
     setFilteredTradingVolumeItems(result);
   };
+
+  const isItemNotFound = filteredTradingVolumeItems.length === 0;
 
   return (
     <Page title="유통주식수대비 거래량 | 클라우드의 주식훈련소">
@@ -268,6 +292,8 @@ export default function TradingVolumeList() {
           <Stack direction="row" spacing={1} sx={{ my: 1 }} flexWrap="wrap" alignContent="space-around">
             <ConditionFilter />
             <SearchStyle
+              name="searchInput"
+              ref={searchForm}
               value={filterName}
               onChange={handleFilterByName}
               onKeyDown={handleOnKeyDown}
@@ -278,7 +304,7 @@ export default function TradingVolumeList() {
                 </InputAdornment>
               }
             />
-            <Button variant="contained" sx={{ minWidth: '5.5rem' }}>
+            <Button variant="contained" sx={{ minWidth: '5.5rem' }} onClick={handleSearchButtonOnClick}>
               검색
             </Button>
           </Stack>
@@ -349,21 +375,16 @@ export default function TradingVolumeList() {
                         </TableRow>
                       );
                     })}
-                    {/* {emptyRows > 0 && (
-                      <TableRow style={{ height: 53 * emptyRows }}>
-                        <TableCell colSpan={6} />
-                      </TableRow>
-                    )} */}
                   </TableBody>
-                  {/* {isUserNotFound && (
+                  {isItemNotFound && !isLoading && (
                     <TableBody>
                       <TableRow>
-                        <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                        <TableCell align="center" colSpan={TABLE_HEAD.length} sx={{ py: 3 }}>
                           <SearchNotFound searchQuery={filterName} />
                         </TableCell>
                       </TableRow>
-                    </TableBody> 
-                  )} */}
+                    </TableBody>
+                  )}
                 </Table>
               </TableContainer>
             )}
