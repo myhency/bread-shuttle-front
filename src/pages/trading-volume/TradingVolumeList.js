@@ -71,86 +71,182 @@ const SearchStyle = styles.styled(OutlinedInput)(({ theme }) => ({
   }
 }));
 
-const SMHead = () => (
-  <Box
-    sx={{
-      display: 'flex',
-      flexDirection: 'row'
-    }}
-    p={3}
-    key="header"
-  >
-    <Paper sx={{ p: 1.5, flexGrow: 1, bgcolor: 'background.neutral' }}>
-      <Stack
-        direction={{ xs: 'column', sm: 'row' }}
-        alignItems={{ sm: 'center' }}
-        justifyContent="space-between"
-        sx={{ mb: 0.5 }}
-      >
-        fff
-      </Stack>
-    </Paper>
-  </Box>
-  // <Box
-  //   sx={{
-  //     display: 'flex',
-  //     flexDirection: 'row'
-  //   }}
-  //   p={3}
-  //   key="header"
-  // >
-  //   <Box
-  //     style={{
-  //       display: 'flex',
-  //       flexDirection: 'column'
-  //     }}
-  //   >
-  //     <div>
-  //       <Typography variant="caption" style={{ color: '#303C6C' }}>
-  //         종목명
-  //       </Typography>
-  //     </div>
-  //     <div>
-  //       <Typography variant="caption">현재가</Typography>
-  //     </div>
-  //     <div>
-  //       <Typography variant="caption">등락율</Typography>
-  //     </div>
-  //   </Box>
-  //   <Box
-  //     style={{
-  //       display: 'flex',
-  //       flexDirection: 'column',
-  //       alignItems: 'flex-end',
-  //       flexGrow: 1
-  //     }}
-  //   >
-  //     <div
-  //       style={{
-  //         flexGrow: 1,
-  //         justifyContent: 'center'
-  //       }}
-  //     >
-  //       <Typography variant="caption">유통주식수대비 거래량</Typography>
-  //     </div>
-  //     <div>
-  //       <Typography variant="caption" style={{ color: '#747171' }}>
-  //         거래대금
-  //       </Typography>
-  //     </div>
-  //     <div>
-  //       <Typography variant="caption" style={{ color: '#747171' }}>
-  //         시가총액
-  //       </Typography>
-  //     </div>
-  //   </Box>
-  // </Box>
+const CellText = styles.styled(Typography)(() => ({
+  fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' }
+}));
+
+const SMHead = ({ data }) => (
+  <>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row'
+      }}
+      p={1}
+      key="header"
+    >
+      <Paper sx={{ p: 1, flexGrow: 1, bgcolor: 'background.neutral' }}>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          alignItems={{ sm: 'center' }}
+          justifyContent="space-between"
+          sx={{ mb: 0.5 }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row'
+            }}
+            key="header"
+          >
+            <Box
+              style={{
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+            >
+              <div>
+                <Typography variant="caption" style={{ color: '#303C6C' }}>
+                  종목명
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="caption">현재가</Typography>
+              </div>
+              <div>
+                <Typography variant="caption">등락율</Typography>
+              </div>
+            </Box>
+            <Box
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-end',
+                flexGrow: 1
+              }}
+            >
+              <div
+                style={{
+                  flexGrow: 1,
+                  justifyContent: 'center'
+                }}
+              >
+                <Typography variant="caption">유통주식수대비 거래량</Typography>
+              </div>
+              <div>
+                <Typography variant="caption" style={{ color: '#747171' }}>
+                  거래대금
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="caption" style={{ color: '#747171' }}>
+                  시가총액
+                </Typography>
+              </div>
+            </Box>
+          </Box>
+        </Stack>
+      </Paper>
+    </Box>
+    {data.map((row) => {
+      const { id, itemName, closingPrice, fluctuationRate, volume, marketCap, theme } = row;
+      const { volumeBy, amount, mChartLink, chartEmoji, shortHandTheme } = getOthers(row);
+
+      return (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            borderBottom: '1px solid lightgrey'
+          }}
+          p={1.5}
+          key={id}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              margin: '10px 0px 5px 0px'
+            }}
+            key="header"
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+            >
+              <div>
+                <Typography
+                  sx={{ color: '#0061B0', cursor: 'pointer' }}
+                  onClick={() => window.open(mChartLink, '_blank')}
+                >
+                  {itemName}
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="caption">{new Intl.NumberFormat('ko-KR').format(closingPrice)}원</Typography>
+              </div>
+              <div>
+                <Typography
+                  style={{
+                    color: fluctuationRate > 0 ? 'red' : 'blue'
+                  }}
+                >
+                  {chartEmoji}
+                  {fluctuationRate}%
+                </Typography>
+              </div>
+            </Box>
+            <Box
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-end',
+                flexGrow: 1
+              }}
+            >
+              <div
+                style={{
+                  flexGrow: 1,
+                  justifyContent: 'center'
+                }}
+              >
+                <Typography>{volumeBy}%</Typography>
+              </div>
+              <div>
+                <Typography variant="caption" style={{ color: '#747171' }}>
+                  {new Intl.NumberFormat('ko-KR').format(amount)}억
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="caption" style={{ color: '#747171' }}>
+                  {new Intl.NumberFormat('ko-KR').format(Math.round(marketCap))}억
+                </Typography>
+              </div>
+            </Box>
+          </Box>
+          <Box
+            style={{
+              display: 'flex',
+              flexDirection: 'column'
+            }}
+          >
+            <Typography variant="caption" style={{ color: '#747171' }}>
+              {shortHandTheme}
+            </Typography>
+          </Box>
+        </Box>
+      );
+    })}
+  </>
 );
 
 const getOthers = (volumeData) => {
   const volumeBy = Math.round((volumeData.volume / (volumeData.numberOfOutstandingShares * 1000)) * 100 * 100) / 100;
   const amount = Math.round((volumeData.volume * volumeData.closingPrice) / 100000000);
-  const chartLink = `https://m.alphasquare.co.kr/service/chart?code=${volumeData.itemCode}`;
+  const chartLink = `https://alphasquare.co.kr/home/stock/stock-summary?code=${volumeData.itemCode}`;
+  const mChartLink = `https://m.alphasquare.co.kr/service/chart?code=${volumeData.itemCode}`;
   const chartEmoji = volumeData.fluctuationRate > 0 ? '📈 ' : '📉 ';
   const shortHandTheme =
     // eslint-disable-next-line no-nested-ternary
@@ -160,7 +256,7 @@ const getOthers = (volumeData) => {
       ? `${volumeData.theme.substring(0, 35)}...`
       : volumeData.theme;
 
-  return { volumeBy, amount, chartLink, chartEmoji, shortHandTheme };
+  return { volumeBy, amount, chartLink, chartEmoji, shortHandTheme, mChartLink };
 };
 
 export default function TradingVolumeList() {
@@ -174,7 +270,7 @@ export default function TradingVolumeList() {
   const [filterName, setFilterName] = useState('');
   const [order, setOrder] = useState('asc');
   const [isKospi, setKospi] = useState(false);
-  const [orderBy, setOrderBy] = useState('itemName');
+  const [orderBy, setOrderBy] = useState('numberOfOutstandingShares');
   const [filteredTradingVolumeItems, setFilteredTradingVolumeItems] = useState([]);
   const dispatch = useDispatch();
   const { tradingVolumeDateList, tradingVolumeItems, filterBy, isLoading } = useSelector(
@@ -315,7 +411,7 @@ export default function TradingVolumeList() {
           <TradingVolumeListToolbar onChecked={handleOnChecked} />
           <Scrollbar>
             {isSM ? (
-              <SMHead />
+              <SMHead data={filteredTradingVolumeItems} />
             ) : (
               <TableContainer sx={{ minWidth: 800 }}>
                 <Table>
@@ -335,18 +431,27 @@ export default function TradingVolumeList() {
                         <TableRow hover key={id} tabIndex={-1}>
                           <TableCell align="left">
                             <Typography
-                              sx={{ color: '#0061B0', cursor: 'pointer' }}
+                              sx={{
+                                color: '#0061B0',
+                                cursor: 'pointer',
+                                fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' }
+                              }}
                               onClick={() => window.open(chartLink, '_blank')}
                             >
                               {itemName}
                             </Typography>
                           </TableCell>
                           <TableCell align="right">
-                            <Typography>{new Intl.NumberFormat('ko-KR').format(closingPrice)}원</Typography>
+                            <Typography
+                              sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
+                            >
+                              {new Intl.NumberFormat('ko-KR').format(closingPrice)}원
+                            </Typography>
                           </TableCell>
                           <TableCell align="right">
                             <Typography
                               sx={{
+                                fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' },
                                 color: fluctuationRate > 0 ? thema.palette.error.main : thema.palette.info.main
                               }}
                             >
@@ -354,24 +459,44 @@ export default function TradingVolumeList() {
                             </Typography>
                           </TableCell>
                           <TableCell align="right">
-                            <Typography>{new Intl.NumberFormat('ko-KR').format(volume)}</Typography>
+                            <Typography
+                              sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
+                            >
+                              {new Intl.NumberFormat('ko-KR').format(volume)}
+                            </Typography>
                           </TableCell>
                           <TableCell scope="row" align="right">
-                            <Typography>{volumeBy}</Typography>
+                            <Typography
+                              sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
+                            >
+                              {volumeBy}
+                            </Typography>
                           </TableCell>
                           <TableCell scope="row" align="right">
                             <Box display="flex" flexDirection="column">
-                              <Typography>{new Intl.NumberFormat('ko-KR').format(amount)}</Typography>
+                              <Typography
+                                sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
+                              >
+                                {new Intl.NumberFormat('ko-KR').format(amount)}
+                              </Typography>
                             </Box>
                           </TableCell>
                           <TableCell scope="row" align="right">
                             <Box display="flex" flexDirection="column">
-                              <Typography>{new Intl.NumberFormat('ko-KR').format(Math.round(marketCap))}</Typography>
+                              <Typography
+                                sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
+                              >
+                                {new Intl.NumberFormat('ko-KR').format(Math.round(marketCap))}
+                              </Typography>
                             </Box>
                           </TableCell>
                           <TableCell scope="row" align="left">
                             <Box display="flex" flexDirection="column">
-                              <Typography>{theme}</Typography>
+                              <Typography
+                                sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
+                              >
+                                {theme}
+                              </Typography>
                             </Box>
                           </TableCell>
                         </TableRow>
