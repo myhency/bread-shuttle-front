@@ -1,27 +1,20 @@
-import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
 import { useMediaQuery } from 'react-responsive';
 import searchFill from '@iconify/icons-eva/search-fill';
-import { sentenceCase } from 'change-case';
 import { useState, useEffect, useRef } from 'react';
-import plusFill from '@iconify/icons-eva/plus-fill';
-import { Link as RouterLink } from 'react-router-dom';
 // material
 import { useTheme } from '@mui/material/styles';
 import {
   Card,
   Table,
   Stack,
-  Avatar,
   Button,
-  Checkbox,
   TableRow,
   TableBody,
   TableCell,
   Container,
   Typography,
   TableContainer,
-  TablePagination,
   TextField,
   OutlinedInput,
   InputAdornment,
@@ -252,7 +245,6 @@ export default function TradingVolumeList() {
   const handleSearchButtonOnClick = () => {
     const x = searchForm.current.children.searchInput.value;
     const items = getSortedAndFilteredList(tradingVolumeItems);
-    console.log(items);
     const result =
       filterBy === 'itemName'
         ? items.filter((item) => item.itemName.includes(x))
@@ -383,11 +375,6 @@ export default function TradingVolumeList() {
                         </TableRow>
                       );
                     })}
-                    {/* {emptyRows > 0 && (
-                      <TableRow style={{ height: 53 * emptyRows }}>
-                        <TableCell colSpan={6} />
-                      </TableRow>
-                    )} */}
                   </TableBody>
                   {isItemNotFound && !isLoading && (
                     <TableBody>
