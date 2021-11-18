@@ -298,15 +298,17 @@ export default function TradingVolumeList() {
               onChange={handleFilterByName}
               onKeyDown={handleOnKeyDown}
               placeholder="Search..."
-              startAdornment={
-                <InputAdornment position="start">
-                  <Box component={Icon} icon={searchFill} sx={{ color: 'text.disabled' }} />
+              endAdornment={
+                <InputAdornment position="end">
+                  <Box
+                    component={Icon}
+                    icon={searchFill}
+                    sx={{ color: 'text.disabled', cursor: 'pointer' }}
+                    onClick={handleSearchButtonOnClick}
+                  />
                 </InputAdornment>
               }
             />
-            <Button variant="contained" sx={{ minWidth: '5.5rem' }} onClick={handleSearchButtonOnClick}>
-              검색
-            </Button>
           </Stack>
         </Stack>
         <Card>
