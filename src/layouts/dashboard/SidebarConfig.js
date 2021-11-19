@@ -98,7 +98,7 @@ const sidebarConfig = [
       },
       {
         title: '유통주식수대비 거래량',
-        path: PATH_DASHBOARD.tradingVolume.list,
+        path: PATH_DASHBOARD.tradingVolume.root,
         icon: ICONS.viewlist,
         children: [
           { title: '날짜별 조회', path: PATH_DASHBOARD.tradingVolume.list },

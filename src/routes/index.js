@@ -13,7 +13,6 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
 import RoleBasedGuard from '../guards/RoleBasedGuard';
-// import RoleBasedGuard from '../guards/RoleBasedGuard';
 // components
 import LoadingScreen from '../components/LoadingScreen';
 
@@ -84,7 +83,6 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <GeneralApp /> },
-        // { path: 'ecommerce', element: <GeneralEcommerce /> },
         { path: 'analytics', element: <GeneralAnalytics /> },
         { path: 'banking', element: <GeneralBanking /> },
         { path: 'booking', element: <GeneralBooking /> },
@@ -98,7 +96,6 @@ export default function Router() {
         },
         {
           path: 'sevenBread',
-          // eslint-disable-next-line jsx-a11y/anchor-has-content
           children: [
             { element: <Navigate to="/dashboard/sevenBread/realtime" replace /> },
             { path: 'realtime', element: <SevenBreadRealTime /> },
@@ -107,10 +104,10 @@ export default function Router() {
         },
         {
           path: 'tradingVolume',
-          // eslint-disable-next-line jsx-a11y/anchor-has-content
           children: [
             { element: <Navigate to="/dashboard/tradingVolume/list" replace /> },
-            { path: 'list', element: <TradingVolumeList /> }
+            { path: 'list', element: <TradingVolumeList /> },
+            { path: 'search', element: <TradingVolumeSearch /> }
           ]
         },
         {
@@ -223,6 +220,7 @@ const BigPieList = Loadable(lazy(() => import('../pages/bigpie/BigPieList')));
 const SevenBreadRealTime = Loadable(lazy(() => import('../pages/sevenbread/SevenBreadRealTime')));
 const SevenBreadList = Loadable(lazy(() => import('../pages/sevenbread/SevenBreadList')));
 const TradingVolumeList = Loadable(lazy(() => import('../pages/trading-volume/TradingVolumeList')));
+const TradingVolumeSearch = Loadable(lazy(() => import('../pages/trading-volume/TradingVolumeSearch')));
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));
 const GeneralBanking = Loadable(lazy(() => import('../pages/dashboard/GeneralBanking')));
 const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));

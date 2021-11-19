@@ -10,6 +10,7 @@ const initialState = {
   error: false,
   tradingVolumeItems: [],
   tradingVolumeDateList: [],
+  tradingVolumeItemsByFilter: [],
   filterBy: 'itemName'
 };
 
@@ -38,6 +39,12 @@ const slice = createSlice({
     getTradingVolumeListSuccess(state, action) {
       state.isLoading = false;
       state.tradingVolumeItems = action.payload;
+    },
+
+    // GET MANAGE TRADING VOLUME ITEMS BY FILTER
+    getTradingVolumeListByFilterSuccess(state, action) {
+      state.isLoading = false;
+      state.tradingVolumeItemsByFilter = action.payload;
     },
 
     filterByCondition(state, action) {
@@ -77,3 +84,17 @@ export function fetchTradingVolumeList(date) {
     }
   };
 }
+
+export function fetchTradingVolumeListByFilter(by, filter) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get(`/api/v1/platform/analyze/volume/search?by=${by}&filter=${filter}`);
+      dispatch(slice.actions.getTradingVolumeListByFilterSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+// ----------------------------------------------------------------------
