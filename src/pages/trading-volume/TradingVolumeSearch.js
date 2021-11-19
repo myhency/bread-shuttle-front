@@ -437,7 +437,7 @@ export default function TradingVolumeSearch() {
                     <TableBody>
                       <TableRow>
                         <TableCell align="center" colSpan={TABLE_HEAD.length} sx={{ py: 3 }}>
-                          <LoadingScreen />
+                          <LoadingScreen sx={{ my: 24 }} />
                         </TableCell>
                       </TableRow>
                     </TableBody>
