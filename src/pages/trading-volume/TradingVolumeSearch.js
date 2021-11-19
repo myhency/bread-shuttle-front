@@ -40,6 +40,7 @@ import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import CollapsibleTable from '../../components/_trading-volume/search/collapsible-table';
+import MCollapsibleTable from '../../components/_trading-volume/search/m-collapsible-table';
 import LoadingScreen from '../../components/LoadingScreen';
 // redux
 import {
@@ -71,7 +72,7 @@ const SearchStyle = styles.styled(OutlinedInput)(({ theme }) => ({
     easing: theme.transitions.easing.easeInOut,
     duration: theme.transitions.duration.shorter
   }),
-  '&.Mui-focused': { width: 320, boxShadow: theme.customShadows.z8 },
+  '&.Mui-focused': { width: 280, boxShadow: theme.customShadows.z8 },
   '& fieldset': {
     borderWidth: `1px !important`,
     borderColor: `${theme.palette.grey[500_32]} !important`
@@ -245,6 +246,26 @@ const SMHead = ({ data }) => (
   </>
 );
 
+const NotFoundDataTableBody = () => (
+  <TableBody>
+    <TableRow>
+      <TableCell align="center" colSpan={TABLE_HEAD.length} sx={{ py: 3 }}>
+        <SearchNotFound />
+      </TableCell>
+    </TableRow>
+  </TableBody>
+);
+
+const LoadingTableBody = () => (
+  <TableBody>
+    <TableRow>
+      <TableCell align="center" colSpan={TABLE_HEAD.length} sx={{ py: 3 }}>
+        <LoadingScreen sx={{ my: 24 }} />
+      </TableCell>
+    </TableRow>
+  </TableBody>
+);
+
 const getOthers = (volumeData) => {
   const volumeBy = Math.round((volumeData.volume / (volumeData.numberOfOutstandingShares * 1000)) * 100 * 100) / 100;
   const amount = Math.round((volumeData.volume * volumeData.closingPrice) / 100000000);
@@ -263,17 +284,12 @@ const getOthers = (volumeData) => {
 };
 
 export default function TradingVolumeSearch() {
-  const thema = useTheme();
   const { themeStretch } = useSettings();
   const isSM = useMediaQuery({
     query: '(max-width: 600px)'
   });
   const searchForm = useRef();
   const [filterName, setFilterName] = useState('');
-  const [order, setOrder] = useState('asc');
-  const [isKospi, setKospi] = useState(false);
-  const [orderBy, setOrderBy] = useState('numberOfOutstandingShares');
-  const [filteredTradingVolumeItems, setFilteredTradingVolumeItems] = useState([]);
   const [collapsedVolumeDateList, setCollapsedVolumeDateList] = useState([]);
   const dispatch = useDispatch();
   const { tradingVolumeDateList, tradingVolumeItems, tradingVolumeItemsByFilter, filterBy, isLoading } = useSelector(
@@ -281,16 +297,9 @@ export default function TradingVolumeSearch() {
   );
   const isDefault = tradingVolumeDateList.length === 0;
 
-  console.log(isLoading, new Date());
-
   useEffect(() => {
     dispatch(fetchTradingVolumeDateList());
   }, [dispatch]);
-
-  useEffect(() => {
-    setFilteredTradingVolumeItems(getSortedAndFilteredList(tradingVolumeItems));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tradingVolumeItems, isKospi]);
 
   useEffect(() => {
     searchForm.current.children.searchInput.focus();
@@ -329,35 +338,9 @@ export default function TradingVolumeSearch() {
 
   const handleFilterByName = (event) => {
     setFilterName(event.target.value);
-    if (!event.target.value) {
-      setFilteredTradingVolumeItems(getSortedAndFilteredList(tradingVolumeItems));
-    }
-  };
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
-  const getSortedAndFilteredList = (list) => {
-    const mapped = list.map((el, i) => ({
-      index: i,
-      value: el.volume / el.numberOfOutstandingShares
-    }));
-    mapped.sort((a, b) => b.value - a.value);
-
-    const result = mapped
-      .map((el) => list[el.index])
-      .filter((item) => {
-        if (isKospi) {
-          return item.marketType === 'Kosdaq';
-        }
-
-        return item.marketType === 'Kospi';
-      });
-
-    return result;
+    // if (!event.target.value) {
+    //   setCollapsedVolumeDateList(getSortedAndFilteredList(tradingVolumeItems));
+    // }
   };
 
   const handleOnKeyDown = (e) => {
@@ -419,29 +402,19 @@ export default function TradingVolumeSearch() {
         <Card sx={{ py: 3 }}>
           <Scrollbar>
             {isSM ? (
-              <SMHead data={filteredTradingVolumeItems} />
+              <TableContainer sx={{ minWidth: 280 }}>
+                <Table>
+                  <MCollapsibleTable data={collapsedVolumeDateList} />
+                  {isItemNotFound && !isLoading && <NotFoundDataTableBody />}
+                  {isLoading && <LoadingTableBody />}
+                </Table>
+              </TableContainer>
             ) : (
               <TableContainer sx={{ minWidth: 800 }}>
                 <Table>
                   <CollapsibleTable data={collapsedVolumeDateList} />
-                  {isItemNotFound && !isLoading && (
-                    <TableBody>
-                      <TableRow>
-                        <TableCell align="center" colSpan={TABLE_HEAD.length} sx={{ py: 3 }}>
-                          <SearchNotFound searchQuery={filterName} />
-                        </TableCell>
-                      </TableRow>
-                    </TableBody>
-                  )}
-                  {isLoading && (
-                    <TableBody>
-                      <TableRow>
-                        <TableCell align="center" colSpan={TABLE_HEAD.length} sx={{ py: 3 }}>
-                          <LoadingScreen sx={{ my: 24 }} />
-                        </TableCell>
-                      </TableRow>
-                    </TableBody>
-                  )}
+                  {isItemNotFound && !isLoading && <NotFoundDataTableBody />}
+                  {isLoading && <LoadingTableBody />}
                 </Table>
               </TableContainer>
             )}
