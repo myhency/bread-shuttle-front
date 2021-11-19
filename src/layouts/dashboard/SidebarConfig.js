@@ -101,8 +101,8 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.tradingVolume.root,
         icon: ICONS.viewlist,
         children: [
-          { title: '날짜별 조회', path: PATH_DASHBOARD.tradingVolume.list }
-          // { title: '통합검색', path: PATH_DASHBOARD.tradingVolume.search }
+          { title: '날짜별 조회', path: PATH_DASHBOARD.tradingVolume.list },
+          { title: '통합검색', path: PATH_DASHBOARD.tradingVolume.search }
         ]
       }
       // {
