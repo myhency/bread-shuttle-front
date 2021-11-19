@@ -1,4 +1,4 @@
-# run build dev
+# npm run build
 # docker build -t bread-shuttle-front:v0.0.4-rc1 .
 # docker tag bread-shuttle-front:v0.0.4-rc1 hencyyeo/bread-shuttle-front:v0.0.4-rc1
 # docker push hencyyeo/bread-shuttle-front:v0.0.4-rc1
