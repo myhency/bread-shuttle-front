@@ -1,3 +1,4 @@
+import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
 import { useMediaQuery } from 'react-responsive';
 import searchFill from '@iconify/icons-eva/search-fill';
@@ -57,6 +58,53 @@ const TABLE_HEAD = [
 ];
 
 // ----------------------------------------------------------------------
+
+function descendingComparator(a, b, orderBy) {
+  if (orderBy === 'numberOfOutstandingShares') {
+    if (b.volume / b.numberOfOutstandingShares < a.volume / a.numberOfOutstandingShares) {
+      return -1;
+    }
+    if (b.volume / b.numberOfOutstandingShares > a.volume / a.numberOfOutstandingShares) {
+      return 1;
+    }
+    return 0;
+  }
+
+  if (orderBy === 'amount') {
+    if (b.volume * b.closingPrice < a.volume * a.closingPrice) {
+      return -1;
+    }
+    if (b.volume * b.closingPrice > a.volume * a.closingPrice) {
+      return 1;
+    }
+    return 0;
+  }
+
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+function getComparator(order, orderBy) {
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+function applySortFilter(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+
+  return stabilizedThis.map((el) => el[0]);
+}
 
 const SearchStyle = styles.styled(OutlinedInput)(({ theme }) => ({
   width: 240,
@@ -265,9 +313,9 @@ export default function TradingVolumeList() {
   const isSM = useMediaQuery({
     query: '(max-width: 600px)'
   });
+  const searchForm = useRef();
   const [value, setValue] = useState(new Date());
   const [filterName, setFilterName] = useState('');
-  const searchForm = useRef();
   const [order, setOrder] = useState('asc');
   const [isKospi, setKospi] = useState(false);
   const [orderBy, setOrderBy] = useState('numberOfOutstandingShares');
@@ -306,13 +354,15 @@ export default function TradingVolumeList() {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
+    const filteredItems = applySortFilter(filteredTradingVolumeItems, getComparator(order, property));
+    setFilteredTradingVolumeItems(filteredItems);
   };
 
   const handleOnChecked = (event, isKospi) => {
     setKospi(isKospi);
   };
 
-  const getSortedAndFilteredList = (list) => {
+  const getSortedAndFilteredList = (list, type) => {
     const mapped = list.map((el, i) => ({
       index: i,
       value: el.volume / el.numberOfOutstandingShares
@@ -359,7 +409,7 @@ export default function TradingVolumeList() {
           links={[
             { name: 'TRADE', href: PATH_DASHBOARD.tradingVolume },
             { name: '유통주식수대비 거래량', href: PATH_DASHBOARD.tradingVolume.root },
-            { name: '리스트' }
+            { name: '날짜별 조회' }
           ]}
         />
         {!isDefault && (
