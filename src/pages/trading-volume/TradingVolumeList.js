@@ -28,7 +28,7 @@ import * as styles from '@mui/material/styles';
 import { useDispatch, useSelector } from '../../redux/store';
 import { fetchTradingVolumeDateList, fetchTradingVolumeList } from '../../redux/slices/tradingVolume';
 // routes
-import { PATH_DASHBOARD } from '../../routes/paths';
+import { path, PATH_ALPHA_LINK, PATH_M_ALPHA_LINK, PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
@@ -293,8 +293,8 @@ const SMHead = ({ data }) => (
 const getOthers = (volumeData) => {
   const volumeBy = Math.round((volumeData.volume / (volumeData.numberOfOutstandingShares * 1000)) * 100 * 100) / 100;
   const amount = Math.round((volumeData.volume * volumeData.closingPrice) / 100000000);
-  const chartLink = `https://alphasquare.co.kr/home/stock/stock-summary?code=${volumeData.itemCode}`;
-  const mChartLink = `https://m.alphasquare.co.kr/service/chart?code=${volumeData.itemCode}`;
+  const chartLink = path(PATH_ALPHA_LINK, volumeData.itemCode);
+  const mChartLink = path(PATH_M_ALPHA_LINK, volumeData.itemCode);
   const chartEmoji = volumeData.fluctuationRate > 0 ? '📈 ' : '📉 ';
   const shortHandTheme =
     // eslint-disable-next-line no-nested-ternary
@@ -523,31 +523,25 @@ export default function TradingVolumeList() {
                             </Typography>
                           </TableCell>
                           <TableCell scope="row" align="right">
-                            <Box display="flex" flexDirection="column">
-                              <Typography
-                                sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
-                              >
-                                {new Intl.NumberFormat('ko-KR').format(amount)}
-                              </Typography>
-                            </Box>
+                            <Typography
+                              sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
+                            >
+                              {new Intl.NumberFormat('ko-KR').format(amount)}
+                            </Typography>
                           </TableCell>
                           <TableCell scope="row" align="right">
-                            <Box display="flex" flexDirection="column">
-                              <Typography
-                                sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
-                              >
-                                {new Intl.NumberFormat('ko-KR').format(Math.round(marketCap))}
-                              </Typography>
-                            </Box>
+                            <Typography
+                              sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
+                            >
+                              {new Intl.NumberFormat('ko-KR').format(Math.round(marketCap))}
+                            </Typography>
                           </TableCell>
                           <TableCell scope="row" align="left">
-                            <Box display="flex" flexDirection="column">
-                              <Typography
-                                sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
-                              >
-                                {theme}
-                              </Typography>
-                            </Box>
+                            <Typography
+                              sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
+                            >
+                              {theme}
+                            </Typography>
                           </TableCell>
                         </TableRow>
                       );
