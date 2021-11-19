@@ -1,4 +1,3 @@
-import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
 import { useMediaQuery } from 'react-responsive';
 import searchFill from '@iconify/icons-eva/search-fill';
@@ -11,6 +10,7 @@ import {
   Stack,
   Button,
   TableRow,
+  TableHead,
   TableBody,
   TableCell,
   Container,
@@ -22,13 +22,16 @@ import {
   Box,
   Paper
 } from '@mui/material';
-import { DesktopDatePicker } from '@mui/lab';
 import * as styles from '@mui/material/styles';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
-import { fetchTradingVolumeDateList, fetchTradingVolumeList } from '../../redux/slices/tradingVolume';
+import {
+  fetchTradingVolumeDateList,
+  fetchTradingVolumeList,
+  fetchTradingVolumeListByFilter
+} from '../../redux/slices/tradingVolume';
 // routes
-import { path, PATH_ALPHA_LINK, PATH_M_ALPHA_LINK, PATH_DASHBOARD } from '../../routes/paths';
+import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
@@ -36,6 +39,9 @@ import Page from '../../components/Page';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
+import CollapsibleTable from '../../components/_trading-volume/search/collapsible-table';
+import LoadingScreen from '../../components/LoadingScreen';
+// redux
 import {
   ConditionFilter,
   TradingVolumeListHead,
@@ -59,53 +65,6 @@ const TABLE_HEAD = [
 
 // ----------------------------------------------------------------------
 
-function descendingComparator(a, b, orderBy) {
-  if (orderBy === 'numberOfOutstandingShares') {
-    if (b.volume / b.numberOfOutstandingShares < a.volume / a.numberOfOutstandingShares) {
-      return -1;
-    }
-    if (b.volume / b.numberOfOutstandingShares > a.volume / a.numberOfOutstandingShares) {
-      return 1;
-    }
-    return 0;
-  }
-
-  if (orderBy === 'amount') {
-    if (b.volume * b.closingPrice < a.volume * a.closingPrice) {
-      return -1;
-    }
-    if (b.volume * b.closingPrice > a.volume * a.closingPrice) {
-      return 1;
-    }
-    return 0;
-  }
-
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function applySortFilter(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-
-  return stabilizedThis.map((el) => el[0]);
-}
-
 const SearchStyle = styles.styled(OutlinedInput)(({ theme }) => ({
   width: 240,
   transition: theme.transitions.create(['box-shadow', 'width'], {
@@ -117,10 +76,6 @@ const SearchStyle = styles.styled(OutlinedInput)(({ theme }) => ({
     borderWidth: `1px !important`,
     borderColor: `${theme.palette.grey[500_32]} !important`
   }
-}));
-
-const CellText = styles.styled(Typography)(() => ({
-  fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' }
 }));
 
 const SMHead = ({ data }) => (
@@ -293,8 +248,8 @@ const SMHead = ({ data }) => (
 const getOthers = (volumeData) => {
   const volumeBy = Math.round((volumeData.volume / (volumeData.numberOfOutstandingShares * 1000)) * 100 * 100) / 100;
   const amount = Math.round((volumeData.volume * volumeData.closingPrice) / 100000000);
-  const chartLink = path(PATH_ALPHA_LINK, volumeData.itemCode);
-  const mChartLink = path(PATH_M_ALPHA_LINK, volumeData.itemCode);
+  const chartLink = `https://alphasquare.co.kr/home/stock/stock-summary?code=${volumeData.itemCode}`;
+  const mChartLink = `https://m.alphasquare.co.kr/service/chart?code=${volumeData.itemCode}`;
   const chartEmoji = volumeData.fluctuationRate > 0 ? '📈 ' : '📉 ';
   const shortHandTheme =
     // eslint-disable-next-line no-nested-ternary
@@ -307,32 +262,30 @@ const getOthers = (volumeData) => {
   return { volumeBy, amount, chartLink, chartEmoji, shortHandTheme, mChartLink };
 };
 
-export default function TradingVolumeList() {
+export default function TradingVolumeSearch() {
   const thema = useTheme();
   const { themeStretch } = useSettings();
   const isSM = useMediaQuery({
     query: '(max-width: 600px)'
   });
   const searchForm = useRef();
-  const [value, setValue] = useState(new Date());
   const [filterName, setFilterName] = useState('');
   const [order, setOrder] = useState('asc');
   const [isKospi, setKospi] = useState(false);
   const [orderBy, setOrderBy] = useState('numberOfOutstandingShares');
   const [filteredTradingVolumeItems, setFilteredTradingVolumeItems] = useState([]);
+  const [collapsedVolumeDateList, setCollapsedVolumeDateList] = useState([]);
   const dispatch = useDispatch();
-  const { tradingVolumeDateList, tradingVolumeItems, filterBy, isLoading } = useSelector(
+  const { tradingVolumeDateList, tradingVolumeItems, tradingVolumeItemsByFilter, filterBy, isLoading } = useSelector(
     (state) => state.tradingVolume
   );
   const isDefault = tradingVolumeDateList.length === 0;
 
+  console.log(isLoading, new Date());
+
   useEffect(() => {
     dispatch(fetchTradingVolumeDateList());
   }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchTradingVolumeList(fDateStringFormat(value)));
-  }, [dispatch, value, tradingVolumeDateList]);
 
   useEffect(() => {
     setFilteredTradingVolumeItems(getSortedAndFilteredList(tradingVolumeItems));
@@ -342,6 +295,37 @@ export default function TradingVolumeList() {
   useEffect(() => {
     searchForm.current.children.searchInput.focus();
   }, [filterBy]);
+
+  useEffect(() => {
+    // eslint-disable-next-line prefer-const
+    let obj = {};
+    tradingVolumeItemsByFilter.forEach((v) => {
+      if (!(`${v.createdDate.split('T')[0]}` in obj)) {
+        const key = v.createdDate.split('T')[0];
+        obj[key] = [];
+      }
+    });
+    tradingVolumeItemsByFilter.forEach((item) => {
+      const key = item.createdDate.split('T')[0];
+      obj[key].push({
+        ...item
+      });
+    });
+
+    // eslint-disable-next-line prefer-const
+    let arr = [];
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const [key, value] of Object.entries(obj)) {
+      // eslint-disable-next-line prefer-const
+      let o = {};
+      const k = key;
+      o[k] = value;
+      arr.push(o);
+    }
+
+    setCollapsedVolumeDateList(arr);
+  }, [tradingVolumeItemsByFilter]);
 
   const handleFilterByName = (event) => {
     setFilterName(event.target.value);
@@ -354,15 +338,9 @@ export default function TradingVolumeList() {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
-    const filteredItems = applySortFilter(filteredTradingVolumeItems, getComparator(order, property));
-    setFilteredTradingVolumeItems(filteredItems);
   };
 
-  const handleOnChecked = (event, isKospi) => {
-    setKospi(isKospi);
-  };
-
-  const getSortedAndFilteredList = (list, type) => {
+  const getSortedAndFilteredList = (list) => {
     const mapped = list.map((el, i) => ({
       index: i,
       value: el.volume / el.numberOfOutstandingShares
@@ -389,17 +367,11 @@ export default function TradingVolumeList() {
   };
 
   const handleSearchButtonOnClick = () => {
-    const x = searchForm.current.children.searchInput.value;
-    const items = getSortedAndFilteredList(tradingVolumeItems);
-    const result =
-      filterBy === 'itemName'
-        ? items.filter((item) => item.itemName.includes(x))
-        : items.filter((item) => (item.theme === null ? false : item.theme.includes(x)));
-
-    setFilteredTradingVolumeItems(result);
+    const by = filterBy === 'itemName' ? 1 : 2;
+    dispatch(fetchTradingVolumeListByFilter(by, filterName));
   };
 
-  const isItemNotFound = filteredTradingVolumeItems.length === 0;
+  const isItemNotFound = collapsedVolumeDateList.length === 0;
 
   return (
     <Page title="유통주식수대비 거래량 | 클라우드의 주식훈련소">
@@ -409,7 +381,7 @@ export default function TradingVolumeList() {
           links={[
             { name: 'TRADE', href: PATH_DASHBOARD.tradingVolume },
             { name: '유통주식수대비 거래량', href: PATH_DASHBOARD.tradingVolume.root },
-            { name: '날짜별 조회' }
+            { name: '통합검색' }
           ]}
         />
         {!isDefault && (
@@ -422,19 +394,6 @@ export default function TradingVolumeList() {
           </Typography>
         )}
         <Stack direction="row" flexWrap="wrap" alignItems="center" justifyContent="space-between" sx={{ mb: 5 }}>
-          <DesktopDatePicker
-            textFieldStyle={{ width: '20%' }}
-            label="날짜를 선택하세요"
-            value={value}
-            inputFormat="yyyy-MM-dd"
-            mask="____-__-__"
-            minDate={new Date('2017-01-01')}
-            onChange={(newValue) => {
-              setValue(newValue);
-            }}
-            renderInput={(params) => <TextField {...params} margin="normal" />}
-          />
-
           <Stack direction="row" spacing={1} sx={{ my: 1 }} flexWrap="wrap" alignContent="space-around">
             <ConditionFilter />
             <SearchStyle
@@ -457,101 +416,28 @@ export default function TradingVolumeList() {
             />
           </Stack>
         </Stack>
-        <Card>
-          <TradingVolumeListToolbar onChecked={handleOnChecked} />
+        <Card sx={{ py: 3 }}>
           <Scrollbar>
             {isSM ? (
               <SMHead data={filteredTradingVolumeItems} />
             ) : (
               <TableContainer sx={{ minWidth: 800 }}>
                 <Table>
-                  <TradingVolumeListHead
-                    order={order}
-                    orderBy={orderBy}
-                    headLabel={TABLE_HEAD}
-                    rowCount={filteredTradingVolumeItems.length}
-                    onRequestSort={handleRequestSort}
-                  />
-                  <TableBody>
-                    {filteredTradingVolumeItems.map((row) => {
-                      const { id, itemName, closingPrice, fluctuationRate, volume, marketCap, theme } = row;
-                      const { volumeBy, amount, chartLink, chartEmoji, shortHandTheme } = getOthers(row);
-
-                      return (
-                        <TableRow hover key={id} tabIndex={-1}>
-                          <TableCell align="left">
-                            <Typography
-                              sx={{
-                                color: '#0061B0',
-                                cursor: 'pointer',
-                                fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' }
-                              }}
-                              onClick={() => window.open(chartLink, '_blank')}
-                            >
-                              {itemName}
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="right">
-                            <Typography
-                              sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
-                            >
-                              {new Intl.NumberFormat('ko-KR').format(closingPrice)}원
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="right">
-                            <Typography
-                              sx={{
-                                fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' },
-                                color: fluctuationRate > 0 ? thema.palette.error.main : thema.palette.info.main
-                              }}
-                            >
-                              {fluctuationRate}%
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="right">
-                            <Typography
-                              sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
-                            >
-                              {new Intl.NumberFormat('ko-KR').format(volume)}
-                            </Typography>
-                          </TableCell>
-                          <TableCell scope="row" align="right">
-                            <Typography
-                              sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
-                            >
-                              {volumeBy}
-                            </Typography>
-                          </TableCell>
-                          <TableCell scope="row" align="right">
-                            <Typography
-                              sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
-                            >
-                              {new Intl.NumberFormat('ko-KR').format(amount)}
-                            </Typography>
-                          </TableCell>
-                          <TableCell scope="row" align="right">
-                            <Typography
-                              sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
-                            >
-                              {new Intl.NumberFormat('ko-KR').format(Math.round(marketCap))}
-                            </Typography>
-                          </TableCell>
-                          <TableCell scope="row" align="left">
-                            <Typography
-                              sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
-                            >
-                              {theme}
-                            </Typography>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
+                  <CollapsibleTable data={collapsedVolumeDateList} />
                   {isItemNotFound && !isLoading && (
                     <TableBody>
                       <TableRow>
                         <TableCell align="center" colSpan={TABLE_HEAD.length} sx={{ py: 3 }}>
                           <SearchNotFound searchQuery={filterName} />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  )}
+                  {isLoading && (
+                    <TableBody>
+                      <TableRow>
+                        <TableCell align="center" colSpan={TABLE_HEAD.length} sx={{ py: 3 }}>
+                          <LoadingScreen />
                         </TableCell>
                       </TableRow>
                     </TableBody>
