@@ -256,6 +256,7 @@ export default function SevenBreadRealTime() {
                       fluctuationRateBy={item.fluctuationRateBy}
                       capturedDate={item.capturedDate}
                       alarmedTime={item.alarmedTime}
+                      itemCode={item.itemCode}
                     />
                   </Grid>
                 );
