@@ -360,7 +360,7 @@ export default function TradingVolumeSearch() {
     <Page title="유통주식수대비 거래량 | 클라우드의 주식훈련소">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="유통주식수대비 거래량"
+          heading="통합검색"
           links={[
             { name: 'TRADE', href: PATH_DASHBOARD.tradingVolume },
             { name: '유통주식수대비 거래량', href: PATH_DASHBOARD.tradingVolume.root },

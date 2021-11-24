@@ -11,6 +11,8 @@ const initialState = {
   tradingVolumeItems: [],
   tradingVolumeDateList: [],
   tradingVolumeItemsByFilter: [],
+  themeCategoryByDate: [],
+  themeCategoryItemsByCategoryName: [],
   filterBy: 'itemName'
 };
 
@@ -45,6 +47,17 @@ const slice = createSlice({
     getTradingVolumeListByFilterSuccess(state, action) {
       state.isLoading = false;
       state.tradingVolumeItemsByFilter = action.payload;
+    },
+
+    // GET MANAGE THEME CATEGORY DATA BY DATE
+    getThemeCategoryByDateSuccess(state, action) {
+      state.isLoading = false;
+      state.themeCategoryByDate = action.payload;
+    },
+
+    getThemeCategoryItemsByCategoryNameSuccess(state, action) {
+      state.isLoading = false;
+      state.themeCategoryItemsByCategoryName = action.payload;
     },
 
     filterByCondition(state, action) {
@@ -91,6 +104,33 @@ export function fetchTradingVolumeListByFilter(by, filter) {
     try {
       const response = await axios.get(`/api/v1/platform/analyze/volume/search?by=${by}&filter=${filter}`);
       dispatch(slice.actions.getTradingVolumeListByFilterSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function fetchThemeCategoryByDate(dateStr) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get(`/api/v1/platform/item/theme/category/${dateStr}`);
+      dispatch(slice.actions.getThemeCategoryByDateSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function fetchThemeCategoryItemsByCategoryName(request) {
+  const { categoryName, dateStr } = request;
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get(
+        `/api/v1/platform/analyze/volume/category?categoryName=${categoryName}&dateStr=${dateStr}`
+      );
+      dispatch(slice.actions.getThemeCategoryItemsByCategoryNameSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

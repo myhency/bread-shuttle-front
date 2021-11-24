@@ -65,7 +65,8 @@ export const PATH_DASHBOARD = {
   tradingVolume: {
     root: path(ROOTS_DASHBOARD, '/tradingVolume'),
     list: path(ROOTS_DASHBOARD, '/tradingVolume/list'),
-    search: path(ROOTS_DASHBOARD, '/tradingVolume/search')
+    search: path(ROOTS_DASHBOARD, '/tradingVolume/search'),
+    theme: path(ROOTS_DASHBOARD, '/tradingVolume/theme')
   },
   mail: {
     root: path(ROOTS_DASHBOARD, '/mail'),

@@ -102,6 +102,7 @@ const sidebarConfig = [
         icon: ICONS.viewlist,
         children: [
           { title: '날짜별 조회', path: PATH_DASHBOARD.tradingVolume.list },
+          { title: '날짜별 주도 테마', path: PATH_DASHBOARD.tradingVolume.theme },
           { title: '통합검색', path: PATH_DASHBOARD.tradingVolume.search }
         ]
       }
