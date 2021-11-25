@@ -1,5 +1,5 @@
 import { useMediaQuery } from 'react-responsive';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 // material
 import { Card, Stack, Container, Typography, TextField, Box, Paper, Grid } from '@mui/material';
 import { DesktopDatePicker } from '@mui/lab';
@@ -161,16 +161,17 @@ const getOthers = (volumeData) => {
 
 export default function TradingVolumeTheme() {
   const { themeStretch } = useSettings();
-  const [value, setValue] = useState(new Date('2021-09-17'));
+  const [value, setValue] = useState(new Date());
   const [categoryName, setCategoryName] = useState('');
+  const searchForm = useRef();
   const isSM = useMediaQuery({
     query: '(max-width: 600px)'
   });
   const [chartData, setChartData] = useState([]);
+  const [categoryItemsByCategoryName, setCategoryItemsByCategoryName] = useState([]);
   const dispatch = useDispatch();
-  const { tradingVolumeDateList, themeCategoryByDate, themeCategoryItemsByCategoryName, isLoading } = useSelector(
-    (state) => state.tradingVolume
-  );
+  const { tradingVolumeDateList, themeCategoryByDate, themeCategoryItemsByCategoryName, isLoading, error } =
+    useSelector((state) => state.tradingVolume);
 
   const isDefault = tradingVolumeDateList.length === 0;
 
@@ -183,28 +184,33 @@ export default function TradingVolumeTheme() {
   }, [value]);
 
   useEffect(() => {
+    if (!themeCategoryByDate) {
+      setCategoryName('');
+      setCategoryItemsByCategoryName([]);
+      return;
+    }
     const newArr = themeCategoryByDate.map((item) => ({
       x: item.categoryName,
       y: item.count
     }));
-    console.log(newArr);
     setChartData(newArr);
   }, [themeCategoryByDate]);
 
   useEffect(() => {
-    console.log(themeCategoryItemsByCategoryName);
+    setCategoryItemsByCategoryName(themeCategoryItemsByCategoryName);
   }, [themeCategoryItemsByCategoryName]);
 
   const chartHeight = isSM ? 300 : 600;
 
   const handleChartOnClick = (e) => {
-    setCategoryName(e.x);
+    const y = searchForm.current ? searchForm.current.children[1].children.searchInput.value : fDateStringFormat(value);
     dispatch(
       fetchThemeCategoryItemsByCategoryName({
         categoryName: e.x,
-        dateStr: fDateStringFormat(value)
+        dateStr: y
       })
     );
+    setCategoryName(e.x);
   };
 
   return (
@@ -238,23 +244,34 @@ export default function TradingVolumeTheme() {
             onChange={(newValue) => {
               setValue(newValue);
             }}
-            renderInput={(params) => <TextField {...params} margin="normal" />}
+            renderInput={(params) => <TextField {...params} ref={searchForm} margin="normal" name="searchInput" />}
           />
         </Stack>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Card sx={{ p: 3 }}>
-              <ThemeCategoryTreemap data={chartData} height={chartHeight} onAreaClick={handleChartOnClick} />
-            </Card>
+        {/* {error && (
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={12}>
+              <Card sx={{ p: 3 }}>
+                <Typography variant="subtitle2">날짜를 선택해 주세요.</Typography>
+              </Card>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Card sx={{ p: 3 }}>
-              <Box>
-                <ItemTable data={themeCategoryItemsByCategoryName} title={categoryName} />
-              </Box>
-            </Card>
+        )} */}
+        {!error && (
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
+              <Card sx={{ p: 3 }}>
+                <ThemeCategoryTreemap data={chartData} height={chartHeight} onAreaClick={handleChartOnClick} />
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Card sx={{ p: 3 }}>
+                <Box>
+                  <ItemTable data={categoryItemsByCategoryName} title={categoryName} />
+                </Box>
+              </Card>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </Container>
     </Page>
   );
