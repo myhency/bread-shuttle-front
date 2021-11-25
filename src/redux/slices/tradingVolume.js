@@ -115,7 +115,6 @@ export function fetchThemeCategoryByDate(dateStr) {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.get(`/api/v1/platform/item/theme/category/${dateStr}`);
-      console.log(response);
       if (response.status === 204) {
         dispatch(slice.actions.getThemeCategoryByDateSuccess(initialState.themeCategoryByDate));
       }
@@ -135,7 +134,6 @@ export function fetchThemeCategoryItemsByCategoryName(request) {
       const response = await axios.get(
         `/api/v1/platform/analyze/volume/category?categoryName=${categoryName}&dateStr=${dateStr}`
       );
-      console.log(response);
       dispatch(slice.actions.getThemeCategoryItemsByCategoryNameSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

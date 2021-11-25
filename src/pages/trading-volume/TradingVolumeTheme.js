@@ -180,12 +180,10 @@ export default function TradingVolumeTheme() {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(value);
     dispatch(fetchThemeCategoryByDate(fDateStringFormat(value)));
   }, [value]);
 
   useEffect(() => {
-    console.log(themeCategoryByDate);
     if (!themeCategoryByDate) {
       setCategoryName('');
       setCategoryItemsByCategoryName([]);
@@ -195,7 +193,6 @@ export default function TradingVolumeTheme() {
       x: item.categoryName,
       y: item.count
     }));
-    console.log(newArr);
     setChartData(newArr);
   }, [themeCategoryByDate]);
 
