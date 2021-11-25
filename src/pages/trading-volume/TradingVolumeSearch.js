@@ -72,7 +72,7 @@ const SearchStyle = styles.styled(OutlinedInput)(({ theme }) => ({
     easing: theme.transitions.easing.easeInOut,
     duration: theme.transitions.duration.shorter
   }),
-  '&.Mui-focused': { width: 280, boxShadow: theme.customShadows.z8 },
+  '&.Mui-focused': { width: 320, boxShadow: theme.customShadows.z8 },
   '& fieldset': {
     borderWidth: `1px !important`,
     borderColor: `${theme.palette.grey[500_32]} !important`
@@ -360,7 +360,7 @@ export default function TradingVolumeSearch() {
     <Page title="유통주식수대비 거래량 | 클라우드의 주식훈련소">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="유통주식수대비 거래량"
+          heading="통합검색"
           links={[
             { name: 'TRADE', href: PATH_DASHBOARD.tradingVolume },
             { name: '유통주식수대비 거래량', href: PATH_DASHBOARD.tradingVolume.root },
@@ -402,7 +402,7 @@ export default function TradingVolumeSearch() {
         <Card sx={{ py: 3 }}>
           <Scrollbar>
             {isSM ? (
-              <TableContainer sx={{ minWidth: 280 }}>
+              <TableContainer sx={{ minWidth: 300 }}>
                 <Table>
                   <MCollapsibleTable data={collapsedVolumeDateList} />
                   {isItemNotFound && !isLoading && <NotFoundDataTableBody />}

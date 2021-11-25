@@ -81,45 +81,31 @@ const sidebarConfig = [
         icon: ICONS.filter7,
         children: [
           { title: '007빵 공지', eLink: PATH_SEVENBREAD_NOTICE },
-          { title: '007빵 실시간', path: PATH_DASHBOARD.sevenBread.realtime }
-          // { title: '007빵 리스트', path: PATH_DASHBOARD.sevenBread.list },
-          // { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
+          { title: '007빵 실시간', path: PATH_DASHBOARD.sevenBread.realtime },
+          { title: '007빵 리스트', path: PATH_DASHBOARD.sevenBread.list },
+          { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
         ]
       },
-      // {
-      //   title: '알리미',
-      //   path: PATH_DASHBOARD.general.ecommerce,
-      //   icon: ICONS.notificationsactive,
-      //   children: [
-      //     { title: '알리미 리스트', path: PATH_DASHBOARD.general.ecommerce },
-      //     { title: '알람완료', path: PATH_DASHBOARD.general.analytics },
-      //     { title: '손절처리', path: PATH_DASHBOARD.general.banking }
-      //   ]
-      // },
+      {
+        title: '알리미',
+        path: PATH_DASHBOARD.general.ecommerce,
+        icon: ICONS.notificationsactive,
+        children: [
+          { title: '알리미 리스트', path: PATH_DASHBOARD.general.ecommerce },
+          { title: '알람완료', path: PATH_DASHBOARD.general.analytics },
+          { title: '손절처리', path: PATH_DASHBOARD.general.banking }
+        ]
+      },
       {
         title: '유통주식수대비 거래량',
         path: PATH_DASHBOARD.tradingVolume.root,
         icon: ICONS.viewlist,
         children: [
           { title: '날짜별 조회', path: PATH_DASHBOARD.tradingVolume.list },
+          { title: '날짜별 주도 테마', path: PATH_DASHBOARD.tradingVolume.theme },
           { title: '통합검색', path: PATH_DASHBOARD.tradingVolume.search }
         ]
       }
-      // {
-      //   title: '알리미',
-      //   path: PATH_DASHBOARD.general.ecommerce,
-      //   icon: ICONS.notificationsactive,
-      //   children: [
-      //     { title: '알리미 리스트', path: PATH_DASHBOARD.general.ecommerce },
-      //     { title: '알람완료', path: PATH_DASHBOARD.general.analytics },
-      //     { title: '손절처리', path: PATH_DASHBOARD.general.banking }
-      //   ]
-      // },
-      // {
-      //   title: '유통주식수/거래량',
-      //   path: PATH_DASHBOARD.general.ecommerce,
-      //   icon: ICONS.viewlist
-      // }
     ]
   },
 
@@ -142,22 +128,22 @@ const sidebarConfig = [
         ]
       }
     ]
-  }
+  },
 
   // Admin
   // ----------------------------------------------------------------------
-  // {
-  //   isAdmin: true,
-  //   subheader: 'admin',
-  //   items: [
-  //     {
-  //       title: '관리자전용',
-  //       path: PATH_ADMIN.admin.stockItems,
-  //       icon: ICONS.user,
-  //       children: [{ title: '종목테마관리', path: PATH_ADMIN.admin.stockItems }]
-  //     }
-  //   ]
-  // }
+  {
+    isAdmin: true,
+    subheader: 'admin',
+    items: [
+      {
+        title: '관리자전용',
+        path: PATH_ADMIN.admin.stockItems,
+        icon: ICONS.user,
+        children: [{ title: '종목테마관리', path: PATH_ADMIN.admin.stockItems }]
+      }
+    ]
+  }
 
   // // MANAGEMENT
   // // ----------------------------------------------------------------------

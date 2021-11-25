@@ -112,7 +112,7 @@ const SearchStyle = styles.styled(OutlinedInput)(({ theme }) => ({
     easing: theme.transitions.easing.easeInOut,
     duration: theme.transitions.duration.shorter
   }),
-  '&.Mui-focused': { width: 280, boxShadow: theme.customShadows.z8 },
+  '&.Mui-focused': { width: 320, boxShadow: theme.customShadows.z8 },
   '& fieldset': {
     borderWidth: `1px !important`,
     borderColor: `${theme.palette.grey[500_32]} !important`
@@ -314,7 +314,7 @@ export default function TradingVolumeList() {
     query: '(max-width: 600px)'
   });
   const searchForm = useRef();
-  const [value, setValue] = useState(new Date());
+  const [value, setValue] = useState(new Date('2021-09-17'));
   const [filterName, setFilterName] = useState('');
   const [order, setOrder] = useState('asc');
   const [isKospi, setKospi] = useState(false);
@@ -405,7 +405,7 @@ export default function TradingVolumeList() {
     <Page title="유통주식수대비 거래량 | 클라우드의 주식훈련소">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="유통주식수대비 거래량"
+          heading="날짜별 조회"
           links={[
             { name: 'TRADE', href: PATH_DASHBOARD.tradingVolume },
             { name: '유통주식수대비 거래량', href: PATH_DASHBOARD.tradingVolume.root },

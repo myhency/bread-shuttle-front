@@ -107,7 +107,8 @@ export default function Router() {
           children: [
             { element: <Navigate to="/dashboard/tradingVolume/list" replace /> },
             { path: 'list', element: <TradingVolumeList /> },
-            { path: 'search', element: <TradingVolumeSearch /> }
+            { path: 'search', element: <TradingVolumeSearch /> },
+            { path: 'theme', element: <TradingVolumeTheme /> }
           ]
         },
         {
@@ -221,6 +222,7 @@ const SevenBreadRealTime = Loadable(lazy(() => import('../pages/sevenbread/Seven
 const SevenBreadList = Loadable(lazy(() => import('../pages/sevenbread/SevenBreadList')));
 const TradingVolumeList = Loadable(lazy(() => import('../pages/trading-volume/TradingVolumeList')));
 const TradingVolumeSearch = Loadable(lazy(() => import('../pages/trading-volume/TradingVolumeSearch')));
+const TradingVolumeTheme = Loadable(lazy(() => import('../pages/trading-volume/TradingVolumeTheme')));
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));
 const GeneralBanking = Loadable(lazy(() => import('../pages/dashboard/GeneralBanking')));
 const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));
