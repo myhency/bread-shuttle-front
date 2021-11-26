@@ -258,12 +258,12 @@ export default function TradingVolumeTheme() {
         )} */}
         {!error && (
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={8}>
               <Card sx={{ p: 3 }}>
                 <ThemeCategoryTreemap data={chartData} height={chartHeight} onAreaClick={handleChartOnClick} />
               </Card>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <Card sx={{ p: 3 }}>
                 <Box>
                   <ItemTable data={categoryItemsByCategoryName} title={categoryName} />
