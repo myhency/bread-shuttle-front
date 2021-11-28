@@ -7,7 +7,7 @@ import { Card, Box, Typography, Stack, ListItemIcon, SvgIcon } from '@mui/materi
 import { fNumber, fPercent } from '../../../utils/formatNumber';
 import { fTimeShorten, fDateStringFormat } from '../../../utils/formatTime';
 //
-import { path, PATH_ALPHA_LINK, PATH_FN_LINK, PATH_NAVER_LINK } from '../../../routes/paths';
+import { path, PATH_ALPHA_LINK, PATH_FN_LINK, PATH_NAVER_LINK, PATH_HANKYUNG_LINK } from '../../../routes/paths';
 import SvgIconStyle from '../../SvgIconStyle';
 
 const getIcon = (name) => <SvgIconStyle src={`/static/icons/${name}.svg`} sx={{ width: '100%', height: '100%' }} />;
@@ -127,6 +127,12 @@ export default function SevenBreadGridItem1({
               src="https://www.fnguide.com/Content/images/favicon.ico?v=2"
               sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
               onClick={() => window.open(path(PATH_FN_LINK, itemCode))}
+            />
+            <Box
+              component="img"
+              src="http://consensus.hankyung.com/images/btn_attached.gif"
+              sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
+              onClick={() => window.open(PATH_HANKYUNG_LINK(itemName))}
             />
             <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'right' }}>
               <Typography variant="caption" sx={{ color: theme.palette.common }}>

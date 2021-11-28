@@ -1,3 +1,5 @@
+import iconv from 'iconv-lite';
+import { fDateStringFormat } from '../utils/formatTime';
 // ----------------------------------------------------------------------
 
 export function path(root, sublink) {
@@ -123,3 +125,10 @@ export const PATH_ALPHA_LINK = 'https://alphasquare.co.kr/home/stock/stock-summa
 export const PATH_M_ALPHA_LINK = 'https://m.alphasquare.co.kr/service/chart?code=';
 export const PATH_FN_LINK = 'http://comp.fnguide.com/SVO2/ASP/SVD_Main.asp?pGB=1&gicode=A';
 export const PATH_NAVER_LINK = 'https://finance.naver.com/item/main.nhn?code=';
+export const PATH_HANKYUNG_LINK = (searchText) => {
+  const buffer = iconv.encode(searchText, 'euc-kr');
+  const param = escape(buffer.toString('binary'));
+  const sdate = fDateStringFormat(new Date().setDate(new Date().getDate() - 93));
+  const edate = fDateStringFormat(new Date());
+  return `http://consensus.hankyung.com/apps.analysis/analysis.list?sdate=${sdate}&edate=${edate}&now_page=1&search_value=&report_type=&pagenum=20&search_text=${param}&business_code=`;
+};
