@@ -40,12 +40,16 @@ export default function CollapsibleTable(props) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow style={{ backgroundColor: '#fafafa' }}>
-                    <TableCell>종목명</TableCell>
-                    <TableCell align="right">현재가</TableCell>
-                    <TableCell align="right">등락율</TableCell>
-                    <TableCell align="right">거래량</TableCell>
-                    <TableCell align="right">유통 주식수 대비 거래량</TableCell>
-                    <TableCell align="right">시가총액(억원)</TableCell>
+                    <TableCell width="12%">종목명</TableCell>
+                    <TableCell width="8%" align="right">
+                      등락율
+                    </TableCell>
+                    <TableCell width="10%" align="right">
+                      거래량%
+                    </TableCell>
+                    <TableCell width="8%" align="right">
+                      시가총액(억원)
+                    </TableCell>
                     <TableCell>테마</TableCell>
                   </TableRow>
                 </TableHead>
@@ -69,11 +73,11 @@ export default function CollapsibleTable(props) {
                             {volumeData.itemName}
                           </Typography>
                         </TableCell>
-                        <TableCell scope="row" padding="normal" align="right">
+                        {/* <TableCell scope="row" padding="normal" align="right">
                           <Typography sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}>
                             {new Intl.NumberFormat('ko-KR').format(volumeData.closingPrice)}
                           </Typography>
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell scope="row" padding="normal" align="right">
                           <Typography
                             sx={{
@@ -84,11 +88,11 @@ export default function CollapsibleTable(props) {
                             {volumeData.fluctuationRate}%
                           </Typography>
                         </TableCell>
-                        <TableCell scope="row" padding="normal" align="right">
+                        {/* <TableCell scope="row" padding="normal" align="right">
                           <Typography sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}>
                             {new Intl.NumberFormat('ko-KR').format(volumeData.volume)}
                           </Typography>
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell scope="row" padding="normal" align="right">
                           <Typography sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}>
                             {volumeBy}%

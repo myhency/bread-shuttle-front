@@ -88,14 +88,11 @@ export default function BigPieDaily({
                   <Skeleton width="100%" height="7.6rem" variant="rectangular" sx={{ borderRadius: 2 }} />
                 </Grid>
               ) : (
-                Object.entries(ma5).map((item) => {
-                  console.log(item);
-                  return (
-                    <Grid key={item[1].code} item xs={12} md={12} sx={{ p: 0 }}>
-                      <BigPieGridItem2 itemCode={item[1].code} itemName={item[1].name} />
-                    </Grid>
-                  );
-                })
+                Object.entries(ma5).map((item) => (
+                  <Grid key={item[1].code} item xs={12} md={12} sx={{ p: 0 }}>
+                    <BigPieGridItem2 itemCode={item[1].code} itemName={item[1].name} />
+                  </Grid>
+                ))
               )}
             </Grid>
           </ContainerWithoutLPadding>
@@ -124,14 +121,11 @@ export default function BigPieDaily({
                   <Skeleton width="100%" height="7.6rem" variant="rectangular" sx={{ borderRadius: 2 }} />
                 </Grid>
               ) : (
-                Object.entries(ma10).map((item) => {
-                  console.log(item);
-                  return (
-                    <Grid key={item[1].code} item xs={12} md={12} sx={{ p: 0 }}>
-                      <BigPieGridItem2 itemCode={item[1].code} itemName={item[1].name} />
-                    </Grid>
-                  );
-                })
+                Object.entries(ma10).map((item) => (
+                  <Grid key={item[1].code} item xs={12} md={12} sx={{ p: 0 }}>
+                    <BigPieGridItem2 itemCode={item[1].code} itemName={item[1].name} />
+                  </Grid>
+                ))
               )}
             </Grid>
           </ContainerWithoutLPadding>
@@ -160,14 +154,11 @@ export default function BigPieDaily({
                   <Skeleton width="100%" height="7.6rem" variant="rectangular" sx={{ borderRadius: 2 }} />
                 </Grid>
               ) : (
-                Object.entries(ma20).map((item) => {
-                  console.log(item);
-                  return (
-                    <Grid key={item[1].code} item xs={12} md={12} sx={{ p: 0 }}>
-                      <BigPieGridItem2 itemCode={item[1].code} itemName={item[1].name} />
-                    </Grid>
-                  );
-                })
+                Object.entries(ma20).map((item) => (
+                  <Grid key={item[1].code} item xs={12} md={12} sx={{ p: 0 }}>
+                    <BigPieGridItem2 itemCode={item[1].code} itemName={item[1].name} />
+                  </Grid>
+                ))
               )}
             </Grid>
           </ContainerWithoutLPadding>
@@ -196,14 +187,11 @@ export default function BigPieDaily({
                   <Skeleton width="100%" height="7.6rem" variant="rectangular" sx={{ borderRadius: 2 }} />
                 </Grid>
               ) : (
-                Object.entries(ma40).map((item) => {
-                  console.log(item);
-                  return (
-                    <Grid key={item[1].code} item xs={12} md={12} sx={{ p: 0 }}>
-                      <BigPieGridItem2 itemCode={item[1].code} itemName={item[1].name} />
-                    </Grid>
-                  );
-                })
+                Object.entries(ma40).map((item) => (
+                  <Grid key={item[1].code} item xs={12} md={12} sx={{ p: 0 }}>
+                    <BigPieGridItem2 itemCode={item[1].code} itemName={item[1].name} />
+                  </Grid>
+                ))
               )}
             </Grid>
           </ContainerWithoutLPadding>

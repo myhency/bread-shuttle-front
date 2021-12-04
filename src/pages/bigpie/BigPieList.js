@@ -65,7 +65,7 @@ export default function BigPieList() {
     setCurrentTab(newValue);
   };
 
-  console.log(bLoading ? '' : bigpieSnapshots[0].val());
+  // console.log(bLoading ? '' : bigpieSnapshots[0].val());
 
   const PROFILE_TABS = bigpieList
     .sort((a, b) => b.key - a.key)

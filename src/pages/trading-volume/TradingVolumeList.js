@@ -47,13 +47,13 @@ import { fDateStringFormat } from '../../utils/formatTime';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'itemName', label: '종목명', alignRight: false },
-  { id: 'closingPrice', label: '현재가', alignRight: true },
+  { id: 'itemName', label: '종목명', alignRight: false, width: '12%' },
+  // { id: 'closingPrice', label: '현재가', alignRight: true },
   { id: 'fluctuationRate', label: '등락율', alignRight: true },
-  { id: 'volume', label: '거래량', alignRight: true },
-  { id: 'numberOfOutstandingShares', label: '유통주식수대비 거래량', alignRight: true },
-  { id: 'amount', label: '거래대금(억)', alignRight: true },
-  { id: 'marketCap', label: '시가총액', alignRight: true },
+  // { id: 'volume', label: '거래량', alignRight: true },
+  { id: 'numberOfOutstandingShares', label: '거래량%', alignRight: true, width: '10%' },
+  { id: 'amount', label: '거래대금(억)', alignRight: true, width: '10%' },
+  { id: 'marketCap', label: '시가총액', alignRight: true, width: '8%' },
   { id: 'theme', label: '테마', alignRight: false }
 ];
 
@@ -159,7 +159,7 @@ const SMHead = ({ data }) => (
                 </Typography>
               </div>
               <div>
-                <Typography variant="caption">현재가</Typography>
+                <Typography variant="caption">&nbsp;</Typography>
               </div>
               <div>
                 <Typography variant="caption">등락율</Typography>
@@ -179,7 +179,7 @@ const SMHead = ({ data }) => (
                   justifyContent: 'center'
                 }}
               >
-                <Typography variant="caption">유통주식수대비 거래량</Typography>
+                <Typography variant="caption">거래량%</Typography>
               </div>
               <div>
                 <Typography variant="caption" style={{ color: '#747171' }}>
@@ -233,7 +233,7 @@ const SMHead = ({ data }) => (
                 </Typography>
               </div>
               <div>
-                <Typography variant="caption">{new Intl.NumberFormat('ko-KR').format(closingPrice)}원</Typography>
+                <Typography variant="caption">&nbsp;</Typography>
               </div>
               <div>
                 <Typography
@@ -491,13 +491,13 @@ export default function TradingVolumeList() {
                               {itemName}
                             </Typography>
                           </TableCell>
-                          <TableCell align="right">
+                          {/* <TableCell align="right">
                             <Typography
                               sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
                             >
                               {new Intl.NumberFormat('ko-KR').format(closingPrice)}원
                             </Typography>
-                          </TableCell>
+                          </TableCell> */}
                           <TableCell align="right">
                             <Typography
                               sx={{
@@ -508,13 +508,13 @@ export default function TradingVolumeList() {
                               {fluctuationRate}%
                             </Typography>
                           </TableCell>
-                          <TableCell align="right">
+                          {/* <TableCell align="right">
                             <Typography
                               sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
                             >
                               {new Intl.NumberFormat('ko-KR').format(volume)}
                             </Typography>
-                          </TableCell>
+                          </TableCell> */}
                           <TableCell scope="row" align="right">
                             <Typography
                               sx={{ fontSize: { lg: '1rem', md: '0.875rem', sm: '0.875rem', xs: '0.875rem' } }}
