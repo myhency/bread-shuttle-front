@@ -16,7 +16,7 @@ import { CarouselControlsPaging1, CarouselControlsArrowsBasic1 } from '../../car
 
 const TITLES = ['새로오신 분들을 위한 영상', '비중 1위 종목', '좀 지켜보며 천천히 합류하세요'];
 const TEXTS = [
-  '10월 오리엔테이션 방문하기',
+  '이번달의 오리엔테이션 방문하기',
   '현재 회원들의 비중 1위 종목에 대한 리뷰방송을  3거래일마다 한번씩 하고 있습니다.',
   '2주정도는 거래보다는 적응에 집중하기를 권장합니다.'
 ];
