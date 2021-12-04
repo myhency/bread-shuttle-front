@@ -33,6 +33,7 @@ export default function TradingVolumeListHead({ order, orderBy, rowCount, headLa
             key={headCell.id}
             align={headCell.alignRight ? 'right' : 'left'}
             sortDirection={orderBy === headCell.id ? order : false}
+            width={headCell.width}
           >
             <TableSortLabel
               hideSortIcon

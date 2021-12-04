@@ -119,7 +119,7 @@ export default function CollapsibleTable(props) {
                                     justifyContent: 'center'
                                   }}
                                 >
-                                  <Typography variant="caption">유통주식수대비 거래량</Typography>
+                                  <Typography variant="caption">거래량%</Typography>
                                 </div>
                                 <div>
                                   <Typography variant="caption" style={{ color: '#747171' }}>

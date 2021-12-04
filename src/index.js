@@ -59,8 +59,6 @@ import reportWebVitals from './reportWebVitals';
 
 // ----------------------------------------------------------------------
 
-console.log(process.env);
-
 ReactDOM.render(
   <HelmetProvider>
     <ReduxProvider store={store}>
