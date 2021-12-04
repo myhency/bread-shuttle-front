@@ -80,7 +80,7 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.sevenBread.root,
         icon: ICONS.filter7,
         children: [
-          { title: '007빵 공지', eLink: PATH_SEVENBREAD_NOTICE },
+          // { title: '007빵 공지', eLink: PATH_SEVENBREAD_NOTICE },
           { title: '007빵 실시간', path: PATH_DASHBOARD.sevenBread.realtime }
           // { title: '007빵 리스트', path: PATH_DASHBOARD.sevenBread.list },
           // { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
@@ -120,7 +120,7 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.general.ecommerce,
         icon: ICONS.bookmarks,
         children: [
-          { title: '공지/강의', eLink: PATH_NOTICE_LECTURE },
+          // { title: '공지/강의', eLink: PATH_NOTICE_LECTURE },
           { title: '증시스케줄', eLink: PATH_STOCK_CALENDAR },
           { title: '네이버 경제뉴스', eLink: PATH_NAVER_ECONOMIC_NEWS },
           { title: 'Company Guide', eLink: PATH_COMPANY_GUIDE },
