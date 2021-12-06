@@ -9,6 +9,7 @@ import { fTimeShorten, fDateStringFormat } from '../../../utils/formatTime';
 //
 import { path, PATH_ALPHA_LINK, PATH_FN_LINK, PATH_NAVER_LINK, PATH_HANKYUNG_LINK } from '../../../routes/paths';
 import SvgIconStyle from '../../SvgIconStyle';
+import IconLinkBox from '../../_share/IconLinkBox';
 
 const getIcon = (name) => <SvgIconStyle src={`/static/icons/${name}.svg`} sx={{ width: '100%', height: '100%' }} />;
 
@@ -110,30 +111,7 @@ export default function SevenBreadGridItem1({
         </Box>
         <Box sx={{ flexGrow: 1 }}>
           <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} spacing={1}>
-            <Box
-              component="img"
-              src="https://m.alphasquare.co.kr/img/icons/apple-touch-icon-57x57.png"
-              sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
-              onClick={() => window.open(path(PATH_ALPHA_LINK, itemCode))}
-            />
-            <Box
-              component="img"
-              src="https://www.naver.com/favicon.ico?1"
-              sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
-              onClick={() => window.open(path(PATH_NAVER_LINK, itemCode))}
-            />
-            <Box
-              component="img"
-              src="https://www.fnguide.com/Content/images/favicon.ico?v=2"
-              sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
-              onClick={() => window.open(path(PATH_FN_LINK, itemCode))}
-            />
-            <Box
-              component="img"
-              src="http://consensus.hankyung.com/images/btn_attached.gif"
-              sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
-              onClick={() => window.open(PATH_HANKYUNG_LINK(itemName))}
-            />
+            <IconLinkBox itemName={itemName} itemCode={itemCode} />
             <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'right' }}>
               <Typography variant="caption" sx={{ color: theme.palette.common }}>
                 ⏲️ &nbsp;{alarmedTime}
