@@ -124,7 +124,7 @@ export const PATH_TELEGRAM_THIS_MONTH = 'https://t.me/joinchat/VG97nFWHF74zZWI1'
 export const PATH_ALPHA_LINK = 'https://alphasquare.co.kr/home/stock/stock-summary?code=';
 export const PATH_M_ALPHA_LINK = 'https://m.alphasquare.co.kr/service/chart?code=';
 export const PATH_FN_LINK = 'http://comp.fnguide.com/SVO2/ASP/SVD_Main.asp?pGB=1&gicode=A';
-export const PATH_NAVER_LINK = 'https://finance.naver.com/item/main.nhn?code=';
+export const PATH_NAVER_LINK = 'https://finance.naver.com/item/coinfo.naver?code=';
 export const PATH_HANKYUNG_LINK = (searchText) => {
   const buffer = iconv.encode(searchText, 'euc-kr');
   const param = escape(buffer.toString('binary'));

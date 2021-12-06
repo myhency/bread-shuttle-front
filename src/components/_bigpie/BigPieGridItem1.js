@@ -5,8 +5,9 @@ import { Card, Box, Typography, Stack } from '@mui/material';
 // utils
 import { fNumber, fPercent } from '../../utils/formatNumber';
 import { fTimeShorten } from '../../utils/formatTime';
-//
+// components
 import CircleIconWrapper from './CircleIconWrapper';
+import IconLinkBox from '../_share/IconLinkBox';
 
 import { path, PATH_ALPHA_LINK, PATH_FN_LINK, PATH_NAVER_LINK, PATH_HANKYUNG_LINK } from '../../routes/paths';
 
@@ -63,30 +64,7 @@ export default function BigPieGridItem1({
         </Box>
         <Box sx={{ flexGrow: 1 }}>
           <Box sx={{ display: 'flex', flexDirection: 'row' }} spacing={1}>
-            <Box
-              component="img"
-              src="https://m.alphasquare.co.kr/img/icons/apple-touch-icon-57x57.png"
-              sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
-              onClick={() => window.open(path(PATH_ALPHA_LINK, itemCode))}
-            />
-            <Box
-              component="img"
-              src="https://www.naver.com/favicon.ico?1"
-              sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
-              onClick={() => window.open(path(PATH_NAVER_LINK, itemCode))}
-            />
-            <Box
-              component="img"
-              src="https://www.fnguide.com/Content/images/favicon.ico?v=2"
-              sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
-              onClick={() => window.open(path(PATH_FN_LINK, itemCode))}
-            />
-            <Box
-              component="img"
-              src="http://consensus.hankyung.com/images/btn_attached.gif"
-              sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
-              onClick={() => window.open(PATH_HANKYUNG_LINK(itemName))}
-            />
+            <IconLinkBox itemName={itemName} itemCode={itemCode} />
           </Box>
         </Box>
       </Stack>
