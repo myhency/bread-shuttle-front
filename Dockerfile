@@ -1,7 +1,7 @@
 # npm run build
-# docker build -t bread-shuttle-front:v0.0.5-rc7 .
-# docker tag bread-shuttle-front:v0.0.5-rc7 hencyyeo/bread-shuttle-front:v0.0.5-rc7
-# docker push hencyyeo/bread-shuttle-front:v0.0.5-rc7
+# docker build -t bread-shuttle-front:v0.0.5-rc8 .
+# docker tag bread-shuttle-front:v0.0.5-rc8 hencyyeo/bread-shuttle-front:v0.0.5-rc8
+# docker push hencyyeo/bread-shuttle-front:v0.0.5-rc8
 # docker run -itd --name cloud-front-v2 -p 3001:80 bread-shuttle-front:v0.0.2
 
 # FROM node:13 as builder
