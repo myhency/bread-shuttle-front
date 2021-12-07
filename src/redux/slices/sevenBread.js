@@ -1,6 +1,5 @@
-import { sum, map, filter, uniqBy, reject } from 'lodash';
 import { createSlice } from '@reduxjs/toolkit';
-import useFirebaseRealtime from '../../hooks/useFirebase';
+import axios from '../../utils/axios';
 
 // ----------------------------------------------------------------------
 
@@ -8,6 +7,7 @@ const initialState = {
   isLoading: false,
   error: false,
   sevenBreadItems: [],
+  createResult: null,
   sortBy: 'earningRateDesc',
   filters: {
     price: '현재가 > 기관매수가'
@@ -32,7 +32,6 @@ const slice = createSlice({
     // GET SEVEN BREAD ITEMS
     getSevenBreadItemsSuccess(state, action) {
       state.isLoading = false;
-      state.sevenBreadItems = action.payload;
     },
 
     filterSevenBreadItems(state, action) {
@@ -41,6 +40,11 @@ const slice = createSlice({
 
     sortBySevenBreadItems(state, action) {
       state.sortBy = action.payload;
+    },
+
+    createSevenBreadItemSuccess(state, action) {
+      state.isLoading = false;
+      state.createResult = action.payload;
     }
   }
 });
@@ -50,3 +54,25 @@ export default slice.reducer;
 
 // Actions
 export const { filterSevenBreadItems, sortBySevenBreadItems } = slice.actions;
+
+// ----------------------------------------------------------------------
+
+export function createSevenBreadItem({ itemCode, capturedDate, majorHandler }) {
+  console.log(itemCode, capturedDate, majorHandler);
+  // return async (dispatch) => {
+  // dispatch(slice.actions.startLoading());
+  // try {
+  // const response = await axios.post('/api/v1/platform/v2/sevenbread/item', {
+  //   itemCode,
+  //   capturedDate,
+  //   majorHandler
+  // });
+  // dispatch(slice.actions.createSevenBreadItemSuccess(response.data));
+  return axios.post('/api/v1/platform/v2/sevenbread/item', {
+    itemCode,
+    capturedDate,
+    majorHandler
+  });
+
+  // };
+}

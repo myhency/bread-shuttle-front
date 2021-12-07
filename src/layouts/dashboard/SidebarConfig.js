@@ -137,8 +137,17 @@ const sidebarConfig = [
     subheader: 'admin',
     items: [
       {
+        title: '007빵',
+        path: PATH_ADMIN.sevenBread.root,
+        icon: ICONS.filter7,
+        children: [
+          { title: '007빵 종목관리', path: PATH_ADMIN.sevenBread.management },
+          { title: '007빵 종목추가', path: PATH_ADMIN.sevenBread.newItem }
+        ]
+      },
+      {
         title: '관리자전용',
-        path: PATH_ADMIN.admin.stockItems,
+        path: PATH_ADMIN.admin.root,
         icon: ICONS.user,
         children: [{ title: '종목테마관리', path: PATH_ADMIN.admin.stockItems }]
       }

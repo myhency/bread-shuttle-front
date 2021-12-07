@@ -37,9 +37,14 @@ export const PATH_PAGE = {
 
 export const PATH_ADMIN = {
   root: ROOTS_ADMIN,
+  sevenBread: {
+    root: path(ROOTS_ADMIN, '/sevenBread'),
+    management: path(ROOTS_ADMIN, '/sevenBread/management'),
+    newItem: path(ROOTS_ADMIN, '/sevenBread/newItem')
+  },
   admin: {
-    root: path(ROOTS_ADMIN, ''),
-    stockItems: path(ROOTS_ADMIN, '/stockItems')
+    root: path(ROOTS_ADMIN, '/stockItems'),
+    stockItems: path(ROOTS_ADMIN, '/stockItems/list')
   }
 };
 

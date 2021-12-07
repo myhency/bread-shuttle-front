@@ -177,8 +177,21 @@ export default function Router() {
         </RoleBasedGuard>
       ),
       children: [
-        { element: <Navigate to="/admin/stockItems" replace /> },
-        { path: 'stockItems', element: <StockItems /> }
+        {
+          path: 'sevenBread',
+          children: [
+            { element: <Navigate to="/admin/sevenBread/management" replace /> },
+            { path: 'management', element: <SevenBreadManage /> },
+            { path: 'newItem', element: <SevenBreadNewItem /> }
+          ]
+        },
+        {
+          path: 'stockItems',
+          children: [
+            { element: <Navigate to="/admin/stockItems/list" replace /> },
+            { path: 'stockItems/list', element: <StockItems /> }
+          ]
+        }
       ]
     },
 
@@ -213,6 +226,8 @@ const ResetPassword = Loadable(lazy(() => import('../pages/authentication/ResetP
 const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCode')));
 // Admin
 const StockItems = Loadable(lazy(() => import('../pages/admin/StockItems')));
+const SevenBreadManage = Loadable(lazy(() => import('../pages/admin/sevenBread/SevenBreadManage')));
+const SevenBreadNewItem = Loadable(lazy(() => import('../pages/admin/sevenBread/SevenBreadNewItem')));
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
 // const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
