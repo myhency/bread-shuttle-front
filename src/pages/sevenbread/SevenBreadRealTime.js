@@ -243,24 +243,21 @@ export default function SevenBreadRealTime() {
             <CustomLoadingScreen message="종목 검색 중..." />
           ) : (
             <Grid container spacing={3}>
-              {filteredSevenBreadItems.map((item) => {
-                console.log(item);
-                return (
-                  <Grid item xs={12} md={3} key={item.itemCode}>
-                    <SevenBreadGridItem1
-                      itemName={item.itemName}
-                      majorHandler={item.majorHandler}
-                      presentPrice={item.presentPrice}
-                      fluctuationRate={item.fluctuationRate}
-                      capturedPrice={item.capturedPrice}
-                      fluctuationRateBy={item.fluctuationRateBy}
-                      capturedDate={item.capturedDate}
-                      alarmedTime={item.alarmedTime}
-                      itemCode={item.itemCode}
-                    />
-                  </Grid>
-                );
-              })}
+              {filteredSevenBreadItems.map((item) => (
+                <Grid item xs={12} md={3} key={item.itemCode}>
+                  <SevenBreadGridItem1
+                    itemName={item.itemName}
+                    majorHandler={item.majorHandler}
+                    presentPrice={item.presentPrice}
+                    fluctuationRate={item.fluctuationRate}
+                    capturedPrice={item.capturedPrice}
+                    fluctuationRateBy={item.fluctuationRateBy}
+                    capturedDate={item.capturedDate}
+                    alarmedTime={item.alarmedTime}
+                    itemCode={item.itemCode}
+                  />
+                </Grid>
+              ))}
             </Grid>
           )}
           {/* <Grid item xs={6} md={3}>

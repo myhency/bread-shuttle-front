@@ -52,7 +52,6 @@ export default function SevenBreadGridItem1({
   const theme = useTheme();
   // eslint-disable-next-line no-nested-ternary
   const icon = majorHandler === 'G' ? ICONS.building : majorHandler === 'W' ? ICONS.person : null;
-
   return (
     <Card sx={{ display: 'flex', flexDirection: 'column', p: 3 }}>
       <Stack spacing={1}>
@@ -105,7 +104,7 @@ export default function SevenBreadGridItem1({
               </Typography>
             </Box>
             <Typography variant="button" sx={{ color: theme.palette.common }}>
-              {fDateStringFormat(capturedDate)}
+              {String(capturedDate).substr(0, 10)}
             </Typography>
           </Box>
         </Box>
