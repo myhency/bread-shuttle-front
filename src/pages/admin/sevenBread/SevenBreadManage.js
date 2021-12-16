@@ -1,54 +1,65 @@
 import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
-import { sentenceCase } from 'change-case';
+import searchFill from '@iconify/icons-eva/search-fill';
 import { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
 // material
-import { useTheme } from '@mui/material/styles';
 import {
   Card,
   Table,
-  Stack,
-  Avatar,
   Button,
-  Checkbox,
   TableRow,
   TableBody,
   TableCell,
   Container,
-  Typography,
   TableContainer,
-  TablePagination
+  Typography,
+  Stack,
+  OutlinedInput,
+  InputAdornment,
+  Box
 } from '@mui/material';
+import * as styles from '@mui/material/styles';
 // redux
 import { useDispatch, useSelector } from '../../../redux/store';
-import { getUserList, deleteUser } from '../../../redux/slices/user';
+import { fetchSevenBreadItems } from '../../../redux/slices/sevenBread';
 // routes
-import { PATH_ADMIN, PATH_DASHBOARD } from '../../../routes/paths';
+import { PATH_ADMIN } from '../../../routes/paths';
 // hooks
 import useSettings from '../../../hooks/useSettings';
 // components
 import Page from '../../../components/Page';
-import Label from '../../../components/Label';
 import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
-import { UserListToolbar, UserMoreMenu } from '../../../components/_dashboard/user/list';
-import { SevenBreadListHead } from '../../../components/_admin/sevenBread';
+import { SevenBreadListHead, SevenBreadMoreMenu, TransitionsDialog } from '../../../components/_admin/sevenBread';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'capturedDate', label: '기준일', alignRight: false },
-  { id: 'itemName', label: '종목명', alignRight: false },
-  { id: 'capturedPrice', label: '기준일 종가', alignRight: true },
-  { id: 'capturedLowestPrice', label: '기준일 저가', alignRight: true },
-  { id: 'majorHandler', label: '수급주체', alignRight: false },
+  { id: 'itemName', label: '종목명', align: 'left' },
+  { id: 'capturedDate', label: '기준일', align: 'left' },
+  { id: 'capturedPrice', label: '기준일 종가(원)', align: 'right' },
+  { id: 'capturedLowestPrice', label: '기준일 저가(원)', align: 'right' },
+  { id: 'majorHandler', label: '수급주체', align: 'center' },
   { id: '' }
 ];
 
 // ----------------------------------------------------------------------
+
+const SearchStyle = styles.styled(OutlinedInput)(({ theme }) => ({
+  width: 240,
+  transition: theme.transitions.create(['box-shadow', 'width'], {
+    easing: theme.transitions.easing.easeInOut,
+    duration: theme.transitions.duration.shorter
+  }),
+  '&.Mui-focused': { width: 320, boxShadow: theme.customShadows.z8 },
+  '& fieldset': {
+    borderWidth: `1px !important`,
+    borderColor: `${theme.palette.grey[500_32]} !important`
+  }
+}));
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -74,25 +85,22 @@ function applySortFilter(array, comparator, query) {
     return a[1] - b[1];
   });
   if (query) {
-    return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    return filter(array, (_sevenBreadItem) => _sevenBreadItem.itemName.indexOf(query) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }
 
 export default function SevenBreadManage() {
   const { themeStretch } = useSettings();
-  const theme = useTheme();
   const dispatch = useDispatch();
-  const { userList } = useSelector((state) => state.user);
-  const [page, setPage] = useState(0);
+  const { sevenBreadAdminItems } = useSelector((state) => state.sevenBread);
   const [order, setOrder] = useState('asc');
-  const [selected, setSelected] = useState([]);
   const [orderBy, setOrderBy] = useState('name');
   const [filterName, setFilterName] = useState('');
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   useEffect(() => {
-    dispatch(getUserList());
+    dispatch(fetchSevenBreadItems());
   }, [dispatch]);
 
   const handleRequestSort = (event, property) => {
@@ -101,52 +109,39 @@ export default function SevenBreadManage() {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = userList.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-    setSelected(newSelected);
-  };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   const handleFilterByName = (event) => {
     setFilterName(event.target.value);
   };
 
-  const handleDeleteUser = (userId) => {
-    dispatch(deleteUser(userId));
+  const handleDeleteDialogClose = (type) => {
+    console.log(type);
+    switch (type) {
+      case 'massiveSold':
+        // TODO.
+        // SevenBread 에서 삭제 후
+        // SevenBreadDailyTrace 에 있는 내용을 Archive 로 옮긴다.
+        break;
+      case 'lossCut':
+        // TODO.
+        // SevenBread 에서 삭제 후
+        // SevenBreadDailyTrace 에 있는 내용을 Archive 로 옮긴다.
+        break;
+      default:
+        // TODO.
+        // SevenBread 에서 삭제 후
+        // SevenBreadDailyTrace 에 있는 내용을 Win 로 옮긴다.
+        break;
+    }
+    setOpenDeleteDialog(false);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userList.length) : 0;
+  const handleDeleteSevenBreadItemDelete = () => {
+    setOpenDeleteDialog(true);
+  };
 
-  const filteredUsers = applySortFilter(userList, getComparator(order, orderBy), filterName);
+  const filteredItems = applySortFilter(sevenBreadAdminItems, getComparator(order, orderBy), filterName);
 
-  const isUserNotFound = filteredUsers.length === 0;
+  const isItemNotFound = filteredItems.length === 0;
 
   return (
     <Page title="Admin: 007빵 종목관리 | 클라우드의 주식훈련소">
@@ -170,9 +165,29 @@ export default function SevenBreadManage() {
           }
         />
 
-        <Card>
-          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+        <Typography gutterBottom>
+          <Typography component="span" variant="subtitle1">
+            {`${sevenBreadAdminItems.length}개의 종목이 등록되어 있습니다.`}
+          </Typography>
+        </Typography>
 
+        <Stack direction="row" flexWrap="wrap" alignItems="center" justifyContent="space-between" sx={{ mb: 5 }}>
+          <Stack direction="row" spacing={1} sx={{ my: 1 }} flexWrap="wrap" alignContent="space-around">
+            <SearchStyle
+              name="searchInput"
+              value={filterName}
+              onChange={handleFilterByName}
+              placeholder="Search..."
+              endAdornment={
+                <InputAdornment position="end">
+                  <Box component={Icon} icon={searchFill} sx={{ color: 'text.disabled', cursor: 'pointer' }} />
+                </InputAdornment>
+              }
+            />
+          </Stack>
+        </Stack>
+
+        <Card sx={{ pt: 3 }}>
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
@@ -180,61 +195,31 @@ export default function SevenBreadManage() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={userList.length}
-                  numSelected={selected.length}
+                  rowCount={sevenBreadAdminItems.length}
                   onRequestSort={handleRequestSort}
-                  onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                    const isItemSelected = selected.indexOf(name) !== -1;
+                  {filteredItems.map((row) => {
+                    const { capturedDate, capturedPrice, itemCode, itemName, lowestPrice, majorHandler } = row;
 
                     return (
-                      <TableRow
-                        hover
-                        key={id}
-                        tabIndex={-1}
-                        role="checkbox"
-                        selected={isItemSelected}
-                        aria-checked={isItemSelected}
-                      >
-                        <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
+                      <TableRow hover key={itemCode}>
+                        <TableCell align="left">{itemName}</TableCell>
+                        <TableCell align="left">{capturedDate}</TableCell>
+                        <TableCell align="right">{new Intl.NumberFormat('ko-KR').format(capturedPrice)}</TableCell>
+                        <TableCell align="right">{new Intl.NumberFormat('ko-KR').format(lowestPrice)}</TableCell>
+                        <TableCell align="center">
+                          {/* eslint-disable-next-line no-nested-ternary */}
+                          {majorHandler === 'G' ? '기관' : majorHandler === 'W' ? '외인' : '기관/외인'}
                         </TableCell>
-                        <TableCell component="th" scope="row" padding="none">
-                          <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={name} src={avatarUrl} />
-                            <Typography variant="subtitle2" noWrap>
-                              {name}
-                            </Typography>
-                          </Stack>
-                        </TableCell>
-                        <TableCell align="left">{company}</TableCell>
-                        <TableCell align="left">{role}</TableCell>
-                        <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
-                        <TableCell align="left">
-                          <Label
-                            variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
-                            color={(status === 'banned' && 'error') || 'success'}
-                          >
-                            {sentenceCase(status)}
-                          </Label>
-                        </TableCell>
-
                         <TableCell align="right">
-                          <UserMoreMenu onDelete={() => handleDeleteUser(id)} userName={name} />
+                          <SevenBreadMoreMenu onDelete={handleDeleteSevenBreadItemDelete} itemCode={itemCode} />
                         </TableCell>
                       </TableRow>
                     );
                   })}
-                  {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                      <TableCell colSpan={6} />
-                    </TableRow>
-                  )}
                 </TableBody>
-                {isUserNotFound && (
+                {isItemNotFound && (
                   <TableBody>
                     <TableRow>
                       <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
@@ -246,18 +231,12 @@ export default function SevenBreadManage() {
               </Table>
             </TableContainer>
           </Scrollbar>
-
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={userList.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
         </Card>
       </Container>
+      <TransitionsDialog
+        openDeleteDialog={openDeleteDialog}
+        handleDeleteDialogClose={(type) => handleDeleteDialogClose(type)}
+      />
     </Page>
   );
 }

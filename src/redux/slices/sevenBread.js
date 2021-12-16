@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   error: false,
   sevenBreadItems: [],
+  sevenBreadAdminItems: [],
   createResult: null,
   sortBy: 'earningRateDesc',
   filters: {
@@ -34,6 +35,12 @@ const slice = createSlice({
       state.isLoading = false;
     },
 
+    // GET SEVEN BREAD ADMIN ITEMS
+    getSevenBreadAdminItemsSuccess(state, action) {
+      state.isLoading = false;
+      state.sevenBreadAdminItems = action.payload;
+    },
+
     filterSevenBreadItems(state, action) {
       state.filters.price = action.payload.price;
     },
@@ -58,21 +65,21 @@ export const { filterSevenBreadItems, sortBySevenBreadItems } = slice.actions;
 // ----------------------------------------------------------------------
 
 export function createSevenBreadItem({ itemCode, capturedDate, majorHandler }) {
-  console.log(itemCode, capturedDate, majorHandler);
-  // return async (dispatch) => {
-  // dispatch(slice.actions.startLoading());
-  // try {
-  // const response = await axios.post('/api/v1/platform/v2/sevenbread/item', {
-  //   itemCode,
-  //   capturedDate,
-  //   majorHandler
-  // });
-  // dispatch(slice.actions.createSevenBreadItemSuccess(response.data));
   return axios.post('/api/v1/platform/v2/sevenbread/item', {
     itemCode,
     capturedDate,
     majorHandler
   });
+}
 
-  // };
+export function fetchSevenBreadItems() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get('/api/v1/platform/v2/sevenbread/item');
+      dispatch(slice.actions.getSevenBreadAdminItemsSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
 }

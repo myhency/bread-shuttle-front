@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 // material
 import { visuallyHidden } from '@mui/utils';
-import { Box, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
+import { Box, Checkbox, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-SevenBreadListHead.propTypes = {
+SevenBreadItemListHead.propTypes = {
   order: PropTypes.oneOf(['asc', 'desc']),
   orderBy: PropTypes.string,
   rowCount: PropTypes.number,
@@ -13,7 +13,7 @@ SevenBreadListHead.propTypes = {
   onRequestSort: PropTypes.func
 };
 
-export default function SevenBreadListHead({ order, orderBy, rowCount, headLabel, onRequestSort }) {
+export default function SevenBreadItemListHead({ order, orderBy, rowCount, headLabel, onRequestSort }) {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -21,10 +21,17 @@ export default function SevenBreadListHead({ order, orderBy, rowCount, headLabel
   return (
     <TableHead>
       <TableRow>
+        {/* <TableCell padding="checkbox">
+          <Checkbox
+            indeterminate={numSelected > 0 && numSelected < rowCount}
+            checked={rowCount > 0 && numSelected === rowCount}
+            onChange={onSelectAllClick}
+          />
+        </TableCell> */}
         {headLabel.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.align}
+            align={headCell.alignRight ? 'right' : 'left'}
             sortDirection={orderBy === headCell.id ? order : false}
             width={headCell.width}
           >
