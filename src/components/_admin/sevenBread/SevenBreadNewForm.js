@@ -6,21 +6,23 @@ import { useNavigate } from 'react-router-dom';
 import { Form, FormikProvider, useFormik } from 'formik';
 // material
 import { LoadingButton, DesktopDatePicker } from '@mui/lab';
-import { Box, Card, Grid, Stack, TextField, Autocomplete, Button } from '@mui/material';
+import { Box, Card, Grid, Stack, TextField, Autocomplete, Button, Paper, Chip, Typography } from '@mui/material';
 // utils
 import fakeRequest from '../../../utils/fakeRequest';
 import { fDateStringFormat } from '../../../utils/formatTime';
 // routes
 import { PATH_ADMIN } from '../../../routes/paths';
 // redux
-import { createSevenBreadItem } from '../../../redux/slices/sevenBread';
+import { createSevenBreadItem, fetchSevenBreadItemByItemCode } from '../../../redux/slices/sevenBread';
 import { useDispatch, useSelector } from '../../../redux/store';
+import { Label } from './Block';
 
 // ----------------------------------------------------------------------
 
 SevenBreadNewForm.propTypes = {
   isEdit: PropTypes.bool,
-  stockItemList: PropTypes.array
+  stockItemList: PropTypes.array,
+  itemCode: PropTypes.string
 };
 
 const handlers = [
@@ -29,10 +31,35 @@ const handlers = [
   { title: '기관/외인', value: 'B' }
 ];
 
-export default function SevenBreadNewForm({ isEdit, stockItemList }) {
+const style = {
+  p: 2,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'left',
+  width: '100%',
+  minHeight: '80px',
+  // flexWrap: 'wrap',
+  '& > *': { m: '8px !important' }
+};
+
+export default function SevenBreadNewForm({ isEdit, stockItemList, itemCode }) {
+  const dispatch = useDispatch();
+  const { sevenBreadAdminItemByItemCode } = useSelector((state) => state.sevenBread);
   const [value, setValue] = useState('');
+  const [revalue, setReValue] = useState('');
+  const [reoccurDateList, setReoccurDateList] = useState([]);
   const navigate = useNavigate();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    if (isEdit) {
+      dispatch(fetchSevenBreadItemByItemCode(itemCode));
+    }
+  }, []);
+
+  useEffect(() => {
+    setReoccurDateList(sevenBreadAdminItemByItemCode.reOccurDateList);
+  }, [sevenBreadAdminItemByItemCode]);
 
   const NewSevenBreadItemSchema = Yup.object().shape({
     itemCode: Yup.string().required('종목명은 필수 항목입니다.'),
@@ -42,12 +69,17 @@ export default function SevenBreadNewForm({ isEdit, stockItemList }) {
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: {
-      itemCode: '',
-      itemName: '',
-      majorHandler: '',
-      capturedDate: ''
-    },
+    initialValues: !isEdit
+      ? {
+          itemCode: '',
+          itemName: '',
+          majorHandler: '',
+          capturedDate: ''
+        }
+      : {
+          ...sevenBreadAdminItemByItemCode,
+          reoccurDate: ''
+        },
     validationSchema: NewSevenBreadItemSchema,
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
       const params = {
@@ -126,7 +158,10 @@ export default function SevenBreadNewForm({ isEdit, stockItemList }) {
     }
   });
 
-  const { errors, touched, handleSubmit, isSubmitting, setFieldValue, getFieldProps } = formik;
+  const { values, errors, touched, handleSubmit, isSubmitting, setFieldValue, getFieldProps } = formik;
+
+  const defaultValue = stockItemList.filter((item) => item.itemCode === values.itemCode);
+  const defaultHandlers = handlers.filter((handler) => handler.value === values.majorHandler);
 
   return (
     <FormikProvider value={formik}>
@@ -139,7 +174,9 @@ export default function SevenBreadNewForm({ isEdit, stockItemList }) {
                   <Autocomplete
                     fullWidth
                     options={stockItemList}
-                    getOptionLabel={(stockItem) => stockItem.itemName}
+                    value={defaultValue[0] || null}
+                    getOptionLabel={(stockItem) => (stockItem.itemName ? stockItem.itemName : '')}
+                    // defaultValue={defaultValue[0] || null}
                     onChange={(e, value) => {
                       setFieldValue('itemCode', value?.itemCode || '');
                       setFieldValue('itemName', value?.itemName || '');
@@ -161,7 +198,7 @@ export default function SevenBreadNewForm({ isEdit, stockItemList }) {
 
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }} sx={{ alignItems: 'center' }}>
                   <DesktopDatePicker
-                    value={value}
+                    value={isEdit ? values.capturedDate : value}
                     inputFormat="yyyy-MM-dd"
                     mask="____-__-__"
                     minDate={new Date('2017-01-01')}
@@ -185,6 +222,7 @@ export default function SevenBreadNewForm({ isEdit, stockItemList }) {
                   <Autocomplete
                     fullWidth
                     options={handlers}
+                    value={defaultHandlers[0] || null}
                     getOptionLabel={(handler) => handler.title}
                     onChange={(e, value) => {
                       setFieldValue('majorHandler', value?.value || '');
@@ -203,6 +241,63 @@ export default function SevenBreadNewForm({ isEdit, stockItemList }) {
                     )}
                   />
                 </Stack>
+                {isEdit && (
+                  <>
+                    <Stack
+                      direction={{ xs: 'column', sm: 'row' }}
+                      spacing={{ xs: 3, sm: 2 }}
+                      sx={{ alignItems: 'center' }}
+                    >
+                      <DesktopDatePicker
+                        value={revalue}
+                        inputFormat="yyyy-MM-dd"
+                        mask="____-__-__"
+                        minDate={new Date('2017-01-01')}
+                        onChange={(newValue) => {
+                          setReValue(newValue);
+                          // eslint-disable-next-line prefer-const
+                          let dateList = reoccurDateList.map((item) => item);
+                          dateList.push(newValue.toISOString().substring(0, 10));
+                          setReoccurDateList(dateList);
+                          console.log(newValue);
+                          setFieldValue('reoccurDate', newValue);
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            fullWidth
+                            label="재등장일을 선택하세요"
+                            margin="normal"
+                            sx={{ my: 0 }}
+                            {...getFieldProps('reoccurDate')}
+                            error={Boolean(touched.reoccurDate && errors.reoccurDate)}
+                            helperText={touched.reoccurDate && errors.reoccurDate}
+                          />
+                        )}
+                      />
+                    </Stack>
+
+                    <Stack
+                      direction={{ xs: 'column', sm: 'row' }}
+                      spacing={{ xs: 3, sm: 2 }}
+                      sx={{ alignItems: 'center' }}
+                    >
+                      <Box sx={{ width: '100%' }}>
+                        <Label title="재등장일" />
+                        <Paper variant="outlined" sx={style}>
+                          {reoccurDateList.length > 0 &&
+                            reoccurDateList.map((date) => (
+                              // eslint-disable-next-line react/jsx-key
+                              <Chip label={date} color="primary" onDelete={() => console.log('ondelete')} />
+                            ))}
+                          <Typography variant="body2">
+                            재등장 이력이 없습니다. 재등장인 경우 재등장일을 선택하여 추가해 주세요.
+                          </Typography>
+                        </Paper>
+                      </Box>
+                    </Stack>
+                  </>
+                )}
 
                 <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
                   <LoadingButton type="submit" variant="contained" loading={isSubmitting}>

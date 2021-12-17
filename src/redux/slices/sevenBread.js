@@ -8,6 +8,13 @@ const initialState = {
   error: false,
   sevenBreadItems: [],
   sevenBreadAdminItems: [],
+  sevenBreadAdminItemByItemCode: {
+    itemCode: '',
+    itemName: '',
+    majorHandler: '',
+    capturedDate: '',
+    reOccurDateList: []
+  },
   createResult: null,
   sortBy: 'earningRateDesc',
   filters: {
@@ -39,6 +46,11 @@ const slice = createSlice({
     getSevenBreadAdminItemsSuccess(state, action) {
       state.isLoading = false;
       state.sevenBreadAdminItems = action.payload;
+    },
+
+    getSevenBreadAdminItemByItemCodeSuccess(state, action) {
+      state.isLoading = false;
+      state.sevenBreadAdminItemByItemCode = action.payload;
     },
 
     filterSevenBreadItems(state, action) {
@@ -78,6 +90,18 @@ export function fetchSevenBreadItems() {
     try {
       const response = await axios.get('/api/v1/platform/v2/sevenbread/item');
       dispatch(slice.actions.getSevenBreadAdminItemsSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function fetchSevenBreadItemByItemCode(itemCode) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get(`/api/v1/platform/v2/sevenbread/item/${itemCode}`);
+      dispatch(slice.actions.getSevenBreadAdminItemByItemCodeSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

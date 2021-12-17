@@ -182,7 +182,8 @@ export default function Router() {
           children: [
             { element: <Navigate to="/admin/sevenBread/management" replace /> },
             { path: 'management', element: <SevenBreadManage /> },
-            { path: 'newItem', element: <SevenBreadNewItem /> }
+            { path: 'newItem', element: <SevenBreadNewItem /> },
+            { path: ':itemCode/edit', element: <SevenBreadNewItem /> }
           ]
         },
         {

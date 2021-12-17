@@ -40,7 +40,8 @@ export const PATH_ADMIN = {
   sevenBread: {
     root: path(ROOTS_ADMIN, '/sevenBread'),
     management: path(ROOTS_ADMIN, '/sevenBread/management'),
-    newItem: path(ROOTS_ADMIN, '/sevenBread/newItem')
+    newItem: path(ROOTS_ADMIN, '/sevenBread/newItem'),
+    editItem: path(ROOTS_ADMIN, '/sevenBread/:itemCode/edit')
   },
   admin: {
     root: path(ROOTS_ADMIN, '/stockItems'),

@@ -21,7 +21,7 @@ export default function SevenBreadNewItem() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const { name } = useParams();
+  const { itemCode } = useParams();
   const { stockItemList } = useSelector((state) => state.stockItem);
   const isEdit = pathname.includes('edit');
   const currentUser = 'James';
@@ -31,18 +31,23 @@ export default function SevenBreadNewItem() {
   }, [dispatch]);
 
   return (
-    <Page title="Admin: 007빵 종목추가 | 클라우드의 주식훈련소">
+    <Page title={`Admin: 007빵 종목${!isEdit ? '추가' : '수정'} | 클라우드의 주식훈련소`}>
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading={!isEdit ? '007빵 종목추가' : '007빵 종목수정'}
           links={[
             { name: 'Admin', href: PATH_ADMIN.root },
             { name: '007빵', href: PATH_ADMIN.sevenBread.root },
-            { name: !isEdit ? '종목추가' : name }
+            { name: !isEdit ? '종목추가' : itemCode }
           ]}
         />
 
-        <SevenBreadNewForm isEdit={isEdit} stockItemList={stockItemList} currentUser={currentUser} />
+        <SevenBreadNewForm
+          isEdit={isEdit}
+          stockItemList={stockItemList}
+          currentUser={currentUser}
+          itemCode={itemCode}
+        />
       </Container>
     </Page>
   );
