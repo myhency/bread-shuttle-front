@@ -257,7 +257,7 @@ export default function SevenBreadNewForm({ isEdit, stockItemList, itemCode }) {
                           setReValue(newValue);
                           // eslint-disable-next-line prefer-const
                           let dateList = reoccurDateList.map((item) => item);
-                          dateList.push(newValue.toISOString().substring(0, 10));
+                          dateList.push(fDateStringFormat(newValue));
                           setReoccurDateList(dateList);
                           console.log(newValue);
                           setFieldValue('reoccurDate', newValue);
@@ -288,11 +288,13 @@ export default function SevenBreadNewForm({ isEdit, stockItemList, itemCode }) {
                           {reoccurDateList.length > 0 &&
                             reoccurDateList.map((date) => (
                               // eslint-disable-next-line react/jsx-key
-                              <Chip label={date} color="primary" onDelete={() => console.log('ondelete')} />
+                              <Chip key={date} label={date} color="primary" onDelete={() => console.log('ondelete')} />
                             ))}
-                          <Typography variant="body2">
-                            재등장 이력이 없습니다. 재등장인 경우 재등장일을 선택하여 추가해 주세요.
-                          </Typography>
+                          {reoccurDateList.length === 0 && (
+                            <Typography variant="body2">
+                              재등장 이력이 없습니다. 재등장인 경우 재등장일을 선택하여 추가해 주세요.
+                            </Typography>
+                          )}
                         </Paper>
                       </Box>
                     </Stack>
