@@ -158,10 +158,16 @@ export default function SevenBreadNewForm({ isEdit, stockItemList, itemCode }) {
     }
   });
 
+  const handleOnDelete = (date) => {
+    const modifiedList = reoccurDateList.map((item) => item).filter((item) => item !== date);
+    setReoccurDateList(modifiedList);
+  };
+
   const { values, errors, touched, handleSubmit, isSubmitting, setFieldValue, getFieldProps } = formik;
 
   const defaultValue = stockItemList.filter((item) => item.itemCode === values.itemCode);
   const defaultHandlers = handlers.filter((handler) => handler.value === values.majorHandler);
+  const filteredReoccurDateList = [...new Set(reoccurDateList)]; // remove duplicates
 
   return (
     <FormikProvider value={formik}>
@@ -256,7 +262,7 @@ export default function SevenBreadNewForm({ isEdit, stockItemList, itemCode }) {
                         onChange={(newValue) => {
                           setReValue(newValue);
                           // eslint-disable-next-line prefer-const
-                          let dateList = reoccurDateList.map((item) => item);
+                          let dateList = filteredReoccurDateList.map((item) => item);
                           dateList.push(fDateStringFormat(newValue));
                           setReoccurDateList(dateList);
                           console.log(newValue);
@@ -288,7 +294,7 @@ export default function SevenBreadNewForm({ isEdit, stockItemList, itemCode }) {
                           {reoccurDateList.length > 0 &&
                             reoccurDateList.map((date) => (
                               // eslint-disable-next-line react/jsx-key
-                              <Chip key={date} label={date} color="primary" onDelete={() => console.log('ondelete')} />
+                              <Chip key={date} label={date} color="primary" onDelete={() => handleOnDelete(date)} />
                             ))}
                           {reoccurDateList.length === 0 && (
                             <Typography variant="body2">
