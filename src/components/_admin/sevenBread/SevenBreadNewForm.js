@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { Form, FormikProvider, useFormik } from 'formik';
 // material
 import { LoadingButton, DesktopDatePicker } from '@mui/lab';
@@ -58,7 +58,14 @@ export default function SevenBreadNewForm({ isEdit, stockItemList, itemCode }) {
   }, []);
 
   useEffect(() => {
-    setReoccurDateList(sevenBreadAdminItemByItemCode.reOccurDateList);
+    setReoccurDateList(
+      sevenBreadAdminItemByItemCode.reOccurDateList.map((date) => {
+        const year = date.substring(0, 4);
+        const month = date.substring(4, 6);
+        const day = date.substring(6, 8);
+        return `${year}-${month}-${day}`;
+      })
+    );
   }, [sevenBreadAdminItemByItemCode]);
 
   const NewSevenBreadItemSchema = Yup.object().shape({
@@ -82,13 +89,22 @@ export default function SevenBreadNewForm({ isEdit, stockItemList, itemCode }) {
         },
     validationSchema: NewSevenBreadItemSchema,
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
-      const params = {
-        itemCode: values.itemCode,
-        capturedDate: fDateStringFormat(values.capturedDate),
-        majorHandler: values.majorHandler
-      };
+      const params = !isEdit
+        ? {
+            itemCode: values.itemCode,
+            capturedDate: fDateStringFormat(values.capturedDate),
+            majorHandler: values.majorHandler
+          }
+        : {
+            itemCode: values.itemCode,
+            capturedDate: fDateStringFormat(values.capturedDate),
+            majorHandler: values.majorHandler,
+            reoccurDateList
+          };
+      console.log(params);
       createSevenBreadItem(params)
         .then((res) => {
+          console.log(res);
           if (res) {
             resetForm();
             setSubmitting(false);
@@ -117,6 +133,7 @@ export default function SevenBreadNewForm({ isEdit, stockItemList, itemCode }) {
                   <>
                     <Button
                       onClick={() => {
+                        navigate(`${PATH_ADMIN.sevenBread.root}/${values.itemCode}/edit`);
                         closeSnackbar(key);
                       }}
                     >
@@ -167,7 +184,7 @@ export default function SevenBreadNewForm({ isEdit, stockItemList, itemCode }) {
 
   const defaultValue = stockItemList.filter((item) => item.itemCode === values.itemCode);
   const defaultHandlers = handlers.filter((handler) => handler.value === values.majorHandler);
-  const filteredReoccurDateList = [...new Set(reoccurDateList)]; // remove duplicates
+  const filteredReoccurDateList = [...new Set(reoccurDateList)]; // this removes duplicates
 
   return (
     <FormikProvider value={formik}>
@@ -265,7 +282,6 @@ export default function SevenBreadNewForm({ isEdit, stockItemList, itemCode }) {
                           let dateList = filteredReoccurDateList.map((item) => item);
                           dateList.push(fDateStringFormat(newValue));
                           setReoccurDateList(dateList);
-                          console.log(newValue);
                           setFieldValue('reoccurDate', newValue);
                         }}
                         renderInput={(params) => (

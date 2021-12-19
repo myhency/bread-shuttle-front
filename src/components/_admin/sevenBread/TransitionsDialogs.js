@@ -19,16 +19,18 @@ import { DesktopDatePicker } from '@mui/lab';
 
 TransitionsDialogs.propTypes = {
   openDeleteDialog: PropTypes.bool,
-  handleDeleteDialogClose: PropTypes.func
+  handleDeleteDialogClose: PropTypes.func,
+  item: PropTypes.object
 };
 
 const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-export default function TransitionsDialogs({ openDeleteDialog, handleDeleteDialogClose }) {
+export default function TransitionsDialogs({ openDeleteDialog, handleDeleteDialogClose, item }) {
   const [value, setValue] = useState(new Date());
+  const { itemCode, itemName } = item;
 
   const handleClose = (type) => {
-    handleDeleteDialogClose(type);
+    handleDeleteDialogClose(type, item, value);
   };
 
   return (
@@ -42,6 +44,7 @@ export default function TransitionsDialogs({ openDeleteDialog, handleDeleteDialo
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle id="alert-dialog-slide-title">종목을 삭제합니다.</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">{`${itemName} (${itemCode})`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             종목을 삭제하면 해당 종목의 실시간 감시를 할 수 없습니다. <br />
@@ -66,13 +69,13 @@ export default function TransitionsDialogs({ openDeleteDialog, handleDeleteDialo
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button color="inherit" onClick={() => handleClose('massiveSold')}>
+          <Button color="inherit" onClick={() => handleClose('massiveSold', item, value)}>
             대량매도
           </Button>
-          <Button color="inherit" onClick={() => handleClose('lossCut')}>
+          <Button color="inherit" onClick={() => handleClose('lossCut', item, value)}>
             기준일 저가 이탈
           </Button>
-          <Button variant="contained" onClick={() => handleClose('win')}>
+          <Button variant="contained" onClick={() => handleClose('win', item, value)}>
             15% 이상 달성
           </Button>
         </DialogActions>

@@ -6,6 +6,7 @@ import axios from '../../utils/axios';
 const initialState = {
   isLoading: false,
   error: false,
+  deleteResult: '',
   sevenBreadItems: [],
   sevenBreadAdminItems: [],
   sevenBreadAdminItemByItemCode: {
@@ -48,6 +49,11 @@ const slice = createSlice({
       state.sevenBreadAdminItems = action.payload;
     },
 
+    getDeleteSevenBreadItemSuccess(state, action) {
+      state.isLoading = false;
+      state.deleteResult = action.payload;
+    },
+
     getSevenBreadAdminItemByItemCodeSuccess(state, action) {
       state.isLoading = false;
       state.sevenBreadAdminItemByItemCode = action.payload;
@@ -76,7 +82,15 @@ export const { filterSevenBreadItems, sortBySevenBreadItems } = slice.actions;
 
 // ----------------------------------------------------------------------
 
-export function createSevenBreadItem({ itemCode, capturedDate, majorHandler }) {
+export function createSevenBreadItem({ itemCode, capturedDate, majorHandler, reoccurDateList }) {
+  // console.log(reoccurDateList);
+  if (reoccurDateList) {
+    return axios.put(`/api/v1/platform/v2/sevenbread/item/trace`, {
+      itemCode,
+      reoccurDateList
+    });
+  }
+
   return axios.post('/api/v1/platform/v2/sevenbread/item', {
     itemCode,
     capturedDate,
@@ -89,6 +103,7 @@ export function fetchSevenBreadItems() {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.get('/api/v1/platform/v2/sevenbread/item');
+      console.log('seven');
       dispatch(slice.actions.getSevenBreadAdminItemsSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -102,6 +117,26 @@ export function fetchSevenBreadItemByItemCode(itemCode) {
     try {
       const response = await axios.get(`/api/v1/platform/v2/sevenbread/item/${itemCode}`);
       dispatch(slice.actions.getSevenBreadAdminItemByItemCodeSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function deleteSevenBreadItemForArchive(itemCode, date, type) {
+  console.log(itemCode, date, type);
+  const URL =
+    type !== 'win' ? '/api/v1/platform/v2/sevenbread/item/archive' : '/api/v1/platform/v2/sevenbread/item/win';
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.put(URL, {
+        itemCode,
+        deletedDate: date,
+        type
+      });
+      console.log(response);
+      dispatch(slice.actions.getDeleteSevenBreadItemSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

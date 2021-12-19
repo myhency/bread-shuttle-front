@@ -2,6 +2,7 @@ import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
 import searchFill from '@iconify/icons-eva/search-fill';
 import { useState, useEffect } from 'react';
+import { useSnackbar } from 'notistack';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
 // material
@@ -23,7 +24,7 @@ import {
 import * as styles from '@mui/material/styles';
 // redux
 import { useDispatch, useSelector } from '../../../redux/store';
-import { fetchSevenBreadItems } from '../../../redux/slices/sevenBread';
+import { fetchSevenBreadItems, deleteSevenBreadItemForArchive } from '../../../redux/slices/sevenBread';
 // routes
 import { PATH_ADMIN } from '../../../routes/paths';
 // hooks
@@ -34,6 +35,7 @@ import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 import { SevenBreadListHead, SevenBreadMoreMenu, TransitionsDialog } from '../../../components/_admin/sevenBread';
+import LoadingScreen from '../../../components/LoadingScreen';
 
 // ----------------------------------------------------------------------
 
@@ -93,15 +95,38 @@ function applySortFilter(array, comparator, query) {
 export default function SevenBreadManage() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
-  const { sevenBreadAdminItems } = useSelector((state) => state.sevenBread);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { sevenBreadAdminItems, isLoading, error, deleteResult } = useSelector((state) => state.sevenBread);
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('name');
   const [filterName, setFilterName] = useState('');
+  const [sevenBreadItemList, setSevenBreadItemList] = useState([]);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [deleteRequestedItem, setDeleteRequestedItem] = useState({});
 
   useEffect(() => {
     dispatch(fetchSevenBreadItems());
   }, [dispatch]);
+
+  useEffect(() => {
+    setSevenBreadItemList(sevenBreadAdminItems);
+  }, [sevenBreadAdminItems]);
+
+  useEffect(() => {
+    if (deleteResult !== '') {
+      enqueueSnackbar('삭제가 완료완료되었습니다.', {
+        variant: 'success'
+      });
+    }
+
+    if (error) {
+      enqueueSnackbar('삭제중 문제가 발생하였습니다.', {
+        variant: 'error'
+      });
+    }
+
+    dispatch(fetchSevenBreadItems());
+  }, [error, deleteResult]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -113,33 +138,20 @@ export default function SevenBreadManage() {
     setFilterName(event.target.value);
   };
 
-  const handleDeleteDialogClose = (type) => {
-    console.log(type);
-    switch (type) {
-      case 'massiveSold':
-        // TODO.
-        // SevenBread 에서 삭제 후
-        // SevenBreadDailyTrace 에 있는 내용을 Archive 로 옮긴다.
-        break;
-      case 'lossCut':
-        // TODO.
-        // SevenBread 에서 삭제 후
-        // SevenBreadDailyTrace 에 있는 내용을 Archive 로 옮긴다.
-        break;
-      default:
-        // TODO.
-        // SevenBread 에서 삭제 후
-        // SevenBreadDailyTrace 에 있는 내용을 Win 로 옮긴다.
-        break;
-    }
+  const handleDeleteDialogClose = async (type, item, date) => {
+    const { itemCode } = item;
+
+    dispatch(deleteSevenBreadItemForArchive(itemCode, date, type));
+
     setOpenDeleteDialog(false);
   };
 
-  const handleDeleteSevenBreadItemDelete = () => {
+  const handleDeleteSevenBreadItemDelete = ({ itemCode, itemName }) => {
     setOpenDeleteDialog(true);
+    setDeleteRequestedItem({ itemCode, itemName });
   };
 
-  const filteredItems = applySortFilter(sevenBreadAdminItems, getComparator(order, orderBy), filterName);
+  const filteredItems = applySortFilter(sevenBreadItemList, getComparator(order, orderBy), filterName);
 
   const isItemNotFound = filteredItems.length === 0;
 
@@ -167,7 +179,7 @@ export default function SevenBreadManage() {
 
         <Typography gutterBottom>
           <Typography component="span" variant="subtitle1">
-            {`${sevenBreadAdminItems.length}개의 종목이 등록되어 있습니다.`}
+            {`${sevenBreadItemList.length}개의 종목이 등록되어 있습니다.`}
           </Typography>
         </Typography>
 
@@ -187,55 +199,63 @@ export default function SevenBreadManage() {
           </Stack>
         </Stack>
 
-        <Card sx={{ pt: 3 }}>
-          <Scrollbar>
-            <TableContainer sx={{ minWidth: 800 }}>
-              <Table>
-                <SevenBreadListHead
-                  order={order}
-                  orderBy={orderBy}
-                  headLabel={TABLE_HEAD}
-                  rowCount={sevenBreadAdminItems.length}
-                  onRequestSort={handleRequestSort}
-                />
-                <TableBody>
-                  {filteredItems.map((row) => {
-                    const { capturedDate, capturedPrice, itemCode, itemName, lowestPrice, majorHandler } = row;
+        {isLoading ? (
+          <LoadingScreen />
+        ) : (
+          <Card sx={{ pt: 3 }}>
+            <Scrollbar>
+              <TableContainer sx={{ minWidth: 800 }}>
+                <Table>
+                  <SevenBreadListHead
+                    order={order}
+                    orderBy={orderBy}
+                    headLabel={TABLE_HEAD}
+                    rowCount={sevenBreadItemList.length}
+                    onRequestSort={handleRequestSort}
+                  />
+                  <TableBody>
+                    {filteredItems.map((row) => {
+                      const { capturedDate, capturedPrice, itemCode, itemName, lowestPrice, majorHandler } = row;
 
-                    return (
-                      <TableRow hover key={itemCode}>
-                        <TableCell align="left">{itemName}</TableCell>
-                        <TableCell align="left">{capturedDate}</TableCell>
-                        <TableCell align="right">{new Intl.NumberFormat('ko-KR').format(capturedPrice)}</TableCell>
-                        <TableCell align="right">{new Intl.NumberFormat('ko-KR').format(lowestPrice)}</TableCell>
-                        <TableCell align="center">
-                          {/* eslint-disable-next-line no-nested-ternary */}
-                          {majorHandler === 'G' ? '기관' : majorHandler === 'W' ? '외인' : '기관/외인'}
-                        </TableCell>
-                        <TableCell align="right">
-                          <SevenBreadMoreMenu onDelete={handleDeleteSevenBreadItemDelete} itemCode={itemCode} />
+                      return (
+                        <TableRow hover key={itemCode}>
+                          <TableCell align="left">{itemName}</TableCell>
+                          <TableCell align="left">{capturedDate}</TableCell>
+                          <TableCell align="right">{new Intl.NumberFormat('ko-KR').format(capturedPrice)}</TableCell>
+                          <TableCell align="right">{new Intl.NumberFormat('ko-KR').format(lowestPrice)}</TableCell>
+                          <TableCell align="center">
+                            {/* eslint-disable-next-line no-nested-ternary */}
+                            {majorHandler === 'G' ? '기관' : majorHandler === 'W' ? '외인' : '기관/외인'}
+                          </TableCell>
+                          <TableCell align="right">
+                            <SevenBreadMoreMenu
+                              onDelete={() => handleDeleteSevenBreadItemDelete({ itemCode, itemName })}
+                              itemCode={itemCode}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                  {isItemNotFound && (
+                    <TableBody>
+                      <TableRow>
+                        <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                          <SearchNotFound searchQuery={filterName} />
                         </TableCell>
                       </TableRow>
-                    );
-                  })}
-                </TableBody>
-                {isItemNotFound && (
-                  <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <SearchNotFound searchQuery={filterName} />
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                )}
-              </Table>
-            </TableContainer>
-          </Scrollbar>
-        </Card>
+                    </TableBody>
+                  )}
+                </Table>
+              </TableContainer>
+            </Scrollbar>
+          </Card>
+        )}
       </Container>
       <TransitionsDialog
         openDeleteDialog={openDeleteDialog}
-        handleDeleteDialogClose={(type) => handleDeleteDialogClose(type)}
+        item={deleteRequestedItem}
+        handleDeleteDialogClose={(type, item, date) => handleDeleteDialogClose(type, item, date)}
       />
     </Page>
   );
