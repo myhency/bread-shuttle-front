@@ -81,8 +81,8 @@ const sidebarConfig = [
         icon: ICONS.filter7,
         children: [
           // { title: '007빵 공지', eLink: PATH_SEVENBREAD_NOTICE },
-          { title: '007빵 실시간', path: PATH_DASHBOARD.sevenBread.realtime }
-          // { title: '007빵 리스트', path: PATH_DASHBOARD.sevenBread.list },
+          { title: '007빵 실시간', path: PATH_DASHBOARD.sevenBread.realtime },
+          { title: '007빵 리스트', path: PATH_DASHBOARD.sevenBread.list }
           // { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
         ]
       },
@@ -137,11 +137,20 @@ const sidebarConfig = [
     subheader: 'admin',
     items: [
       {
-        title: '관리자전용',
-        path: PATH_ADMIN.admin.stockItems,
-        icon: ICONS.user,
-        children: [{ title: '종목테마관리', path: PATH_ADMIN.admin.stockItems }]
+        title: '007빵',
+        path: PATH_ADMIN.sevenBread.root,
+        icon: ICONS.filter7,
+        children: [
+          { title: '007빵 종목관리', path: PATH_ADMIN.sevenBread.management },
+          { title: '007빵 종목추가', path: PATH_ADMIN.sevenBread.newItem }
+        ]
       }
+      // {
+      //   title: '관리자전용',
+      //   path: PATH_ADMIN.admin.root,
+      //   icon: ICONS.user,
+      //   children: [{ title: '종목테마관리', path: PATH_ADMIN.admin.stockItems }]
+      // }
     ]
   }
 

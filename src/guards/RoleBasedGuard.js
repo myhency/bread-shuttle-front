@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { Container, Alert, AlertTitle } from '@mui/material';
+import { Navigate, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+
+import Login from '../pages/authentication/Login';
 
 // ----------------------------------------------------------------------
 
@@ -11,14 +15,19 @@ RoleBasedGuard.propTypes = {
 
 const useCurrentRole = () => {
   // Logic here to get current user role
-  const { user } = useAuth();
-  return user.role;
+  const { user, isAuthenticated } = useAuth();
+
+  return { role: user?.role || '', isAuthenticated };
 };
 
 export default function RoleBasedGuard({ accessibleRoles, children }) {
-  const currentRole = useCurrentRole();
+  const { role, isAuthenticated } = useCurrentRole();
 
-  if (!accessibleRoles.includes(currentRole)) {
+  if (!isAuthenticated) {
+    return <Login />;
+  }
+
+  if (!accessibleRoles.includes(role)) {
     return (
       <Container>
         <Alert severity="error">
