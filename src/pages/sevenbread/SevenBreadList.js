@@ -1,5 +1,7 @@
+/* eslint-disable no-nested-ternary */
 import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
+import { useMediaQuery } from 'react-responsive';
 import { sentenceCase } from 'change-case';
 import { useState, useEffect, useRef } from 'react';
 import searchFill from '@iconify/icons-eva/search-fill';
@@ -25,7 +27,8 @@ import {
   OutlinedInput,
   InputAdornment,
   Box,
-  TextField
+  TextField,
+  Paper
 } from '@mui/material';
 import { DesktopDatePicker } from '@mui/lab';
 // redux
@@ -58,6 +61,156 @@ const TABLE_HEAD = [
 ];
 
 // ----------------------------------------------------------------------
+
+const SMTable = ({ data }) => (
+  <>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row'
+      }}
+      p={1}
+      key="header"
+    >
+      <Paper sx={{ p: 1, flexGrow: 1, bgcolor: 'background.neutral' }}>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          alignItems={{ sm: 'center' }}
+          justifyContent="space-between"
+          sx={{ mb: 0.5 }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row'
+            }}
+            key="header"
+          >
+            <Box
+              style={{
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+            >
+              <div>
+                <Typography variant="button" style={{ color: '#303C6C' }}>
+                  종목명
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="caption">기준일</Typography>
+              </div>
+              <div>
+                <Typography variant="caption">수급주체</Typography>
+              </div>
+            </Box>
+            <Box
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-end',
+                flexGrow: 1
+              }}
+            >
+              <div
+                style={{
+                  flexGrow: 1,
+                  justifyContent: 'center'
+                }}
+              >
+                <Typography variant="caption">&nbsp;</Typography>
+              </div>
+              <div>
+                <Typography variant="caption" style={{ color: 'red' }}>
+                  기준일 종가(원)
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="caption" style={{ color: '#747171' }}>
+                  기준일 저가(원)
+                </Typography>
+              </div>
+            </Box>
+          </Box>
+        </Stack>
+      </Paper>
+    </Box>
+    {data.map((row) => {
+      const { capturedDate, capturedPrice, itemCode, itemName, lowestPrice, majorHandler } = row;
+
+      return (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            borderBottom: '1px solid lightgrey'
+          }}
+          p={1.5}
+          key={itemCode}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              margin: '10px 0px 5px 0px'
+            }}
+            key="header"
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+            >
+              <div>
+                <Typography variant="button">{itemName}</Typography>
+              </div>
+              <div>
+                <Typography variant="caption">{capturedDate}</Typography>
+              </div>
+              <div>
+                <Typography variant="caption">
+                  {majorHandler === 'G' ? '기관' : majorHandler === 'W' ? '외인' : '기관/외인'}
+                </Typography>
+              </div>
+            </Box>
+            <Box
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-end',
+                flexGrow: 1
+              }}
+            >
+              <div
+                style={{
+                  flexGrow: 1,
+                  justifyContent: 'center'
+                }}
+              >
+                <Box sx={{ flexGrow: 1 }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'row' }} spacing={1}>
+                    <IconLinkBox itemCode={itemCode} itemName={itemName} />
+                  </Box>
+                </Box>
+              </div>
+              <div>
+                <Typography variant="button" style={{ color: 'red' }}>
+                  {new Intl.NumberFormat('ko-KR').format(capturedPrice)}
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="caption" style={{ color: '#747171' }}>
+                  {new Intl.NumberFormat('ko-KR').format(lowestPrice)}
+                </Typography>
+              </div>
+            </Box>
+          </Box>
+        </Box>
+      );
+    })}
+  </>
+);
 
 const SearchStyle = styles.styled(OutlinedInput)(({ theme }) => ({
   width: 240,
@@ -103,6 +256,9 @@ function applySortFilter(array, comparator, query) {
 
 export default function SevenBreadList() {
   const { themeStretch } = useSettings();
+  const isSM = useMediaQuery({
+    query: '(max-width: 600px)'
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { sevenBreadAdminItems } = useSelector((state) => state.sevenBread);
@@ -169,59 +325,63 @@ export default function SevenBreadList() {
 
         <Card sx={{ pt: 3 }}>
           <Scrollbar>
-            <TableContainer sx={{ minWidth: 800 }}>
-              <Table>
-                <SevenBreadListHead
-                  order={order}
-                  orderBy={orderBy}
-                  headLabel={TABLE_HEAD}
-                  rowCount={sevenBreadAdminItems.length}
-                  onRequestSort={handleRequestSort}
-                />
-                <TableBody>
-                  {filteredItems.map((row) => {
-                    const { capturedDate, capturedPrice, itemCode, itemName, lowestPrice, majorHandler } = row;
+            {isSM ? (
+              <SMTable data={filteredItems} />
+            ) : (
+              <TableContainer sx={{ minWidth: 800 }}>
+                <Table>
+                  <SevenBreadListHead
+                    order={order}
+                    orderBy={orderBy}
+                    headLabel={TABLE_HEAD}
+                    rowCount={sevenBreadAdminItems.length}
+                    onRequestSort={handleRequestSort}
+                  />
+                  <TableBody>
+                    {filteredItems.map((row) => {
+                      const { capturedDate, capturedPrice, itemCode, itemName, lowestPrice, majorHandler } = row;
 
-                    return (
-                      <TableRow hover key={itemCode}>
-                        <TableCell align="center">
-                          <Box sx={{ flexGrow: 1 }}>
-                            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }} spacing={2}>
-                              <IconLinkBox itemCode={itemCode} itemName={itemName} />
+                      return (
+                        <TableRow hover key={itemCode}>
+                          <TableCell align="center">
+                            <Box sx={{ flexGrow: 1 }}>
+                              <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }} spacing={2}>
+                                <IconLinkBox itemCode={itemCode} itemName={itemName} />
+                              </Box>
                             </Box>
-                          </Box>
-                        </TableCell>
-                        <TableCell align="left" onClick={(event) => handleRowOnClick(event, itemCode)}>
-                          {itemName}
-                        </TableCell>
-                        <TableCell align="left" onClick={(event) => handleRowOnClick(event, itemCode)}>
-                          {capturedDate}
-                        </TableCell>
-                        <TableCell align="right" onClick={(event) => handleRowOnClick(event, itemCode)}>
-                          {new Intl.NumberFormat('ko-KR').format(capturedPrice)}
-                        </TableCell>
-                        <TableCell align="right" onClick={(event) => handleRowOnClick(event, itemCode)}>
-                          {new Intl.NumberFormat('ko-KR').format(lowestPrice)}
-                        </TableCell>
-                        <TableCell align="center" onClick={(event) => handleRowOnClick(event, itemCode)}>
-                          {/* eslint-disable-next-line no-nested-ternary */}
-                          {majorHandler === 'G' ? '기관' : majorHandler === 'W' ? '외인' : '기관/외인'}
+                          </TableCell>
+                          <TableCell align="left" onClick={(event) => handleRowOnClick(event, itemCode)}>
+                            {itemName}
+                          </TableCell>
+                          <TableCell align="left" onClick={(event) => handleRowOnClick(event, itemCode)}>
+                            {capturedDate}
+                          </TableCell>
+                          <TableCell align="right" onClick={(event) => handleRowOnClick(event, itemCode)}>
+                            {new Intl.NumberFormat('ko-KR').format(capturedPrice)}
+                          </TableCell>
+                          <TableCell align="right" onClick={(event) => handleRowOnClick(event, itemCode)}>
+                            {new Intl.NumberFormat('ko-KR').format(lowestPrice)}
+                          </TableCell>
+                          <TableCell align="center" onClick={(event) => handleRowOnClick(event, itemCode)}>
+                            {/* eslint-disable-next-line no-nested-ternary */}
+                            {majorHandler === 'G' ? '기관' : majorHandler === 'W' ? '외인' : '기관/외인'}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                  {isItemNotFound && (
+                    <TableBody>
+                      <TableRow>
+                        <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                          <SearchNotFound searchQuery={filterName} />
                         </TableCell>
                       </TableRow>
-                    );
-                  })}
-                </TableBody>
-                {isItemNotFound && (
-                  <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <SearchNotFound searchQuery={filterName} />
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                )}
-              </Table>
-            </TableContainer>
+                    </TableBody>
+                  )}
+                </Table>
+              </TableContainer>
+            )}
           </Scrollbar>
         </Card>
       </Container>
