@@ -18,6 +18,7 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
+import IconLinkBox from '../../components/_share/IconLinkBox';
 // utils
 import { fDateStringFormat } from '../../utils/formatTime';
 
@@ -48,7 +49,7 @@ const ItemTable = ({ data, title }) => {
         </Box>
       )}
       {data.map((row) => {
-        const { id, itemName, closingPrice, fluctuationRate, volume, marketCap, theme } = row;
+        const { id, itemCode, itemName, closingPrice, fluctuationRate, volume, marketCap, theme } = row;
         const { volumeBy, amount, mChartLink, chartEmoji, shortHandTheme } = getOthers(row);
 
         return (
@@ -134,6 +135,11 @@ const ItemTable = ({ data, title }) => {
               <Typography variant="caption" style={{ color: '#747171' }}>
                 {theme}
               </Typography>
+            </Box>
+            <Box sx={{ flexGrow: 1 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'left' }} spacing={2}>
+                <IconLinkBox itemCode={itemCode} itemName={itemName} />
+              </Box>
             </Box>
           </Box>
         );
