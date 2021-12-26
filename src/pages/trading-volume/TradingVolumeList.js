@@ -335,6 +335,12 @@ export default function TradingVolumeList() {
   }, [dispatch, value, tradingVolumeDateList]);
 
   useEffect(() => {
+    if (tradingVolumeDateList.length > 0) {
+      setValue(new Date(tradingVolumeDateList[0]));
+    }
+  }, [tradingVolumeDateList]);
+
+  useEffect(() => {
     setFilteredTradingVolumeItems(getSortedAndFilteredList(tradingVolumeItems));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tradingVolumeItems, isKospi]);
