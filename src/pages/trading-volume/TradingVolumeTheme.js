@@ -76,26 +76,30 @@ const ItemTable = ({ data, title }) => {
                   flexDirection: 'column'
                 }}
               >
-                <div>
+                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                   <Typography
                     sx={{ color: '#0061B0', cursor: 'pointer' }}
                     onClick={() => window.open(mChartLink, '_blank')}
                   >
                     {itemName}
                   </Typography>
-                </div>
-                <div>
-                  <Typography variant="caption">{new Intl.NumberFormat('ko-KR').format(closingPrice)}원</Typography>
-                </div>
-                <div>
                   <Typography
                     style={{
                       color: fluctuationRate > 0 ? 'red' : 'blue'
                     }}
                   >
-                    {chartEmoji}
-                    {fluctuationRate}%
+                    {` (${fluctuationRate}%)`}
                   </Typography>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'left' }} spacing={2}>
+                      <IconLinkBox itemCode={itemCode} itemName={itemName} />
+                    </Box>
+                  </Box>
+                </Box>
+                <div>
+                  <Typography variant="caption">{`종가 : ${new Intl.NumberFormat('ko-KR').format(
+                    closingPrice
+                  )}원`}</Typography>
                 </div>
               </Box>
               <Box
@@ -116,12 +120,7 @@ const ItemTable = ({ data, title }) => {
                 </div>
                 <div>
                   <Typography variant="caption" style={{ color: '#747171' }}>
-                    {new Intl.NumberFormat('ko-KR').format(amount)}억
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="caption" style={{ color: '#747171' }}>
-                    {new Intl.NumberFormat('ko-KR').format(Math.round(marketCap))}억
+                    {`시총 : ${new Intl.NumberFormat('ko-KR').format(Math.round(marketCap))}억`}
                   </Typography>
                 </div>
               </Box>
@@ -135,11 +134,6 @@ const ItemTable = ({ data, title }) => {
               <Typography variant="caption" style={{ color: '#747171' }}>
                 {theme}
               </Typography>
-            </Box>
-            <Box sx={{ flexGrow: 1 }}>
-              <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'left' }} spacing={2}>
-                <IconLinkBox itemCode={itemCode} itemName={itemName} />
-              </Box>
             </Box>
           </Box>
         );
