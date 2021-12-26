@@ -41,20 +41,22 @@ import {
   TradingVolumeListHead,
   TradingVolumeListToolbar
 } from '../../components/_trading-volume/list';
+import IconLinkBox from '../../components/_share/IconLinkBox';
 // utils
 import { fDateStringFormat } from '../../utils/formatTime';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'itemName', label: '종목명', alignRight: false, width: '12%' },
+  { id: 'links', label: '유용한 링크', align: 'center', width: '12%' },
+  { id: 'itemName', label: '종목명', align: 'left', width: '12%' },
   // { id: 'closingPrice', label: '현재가', alignRight: true },
-  { id: 'fluctuationRate', label: '등락율', alignRight: true },
+  { id: 'fluctuationRate', label: '등락율', align: 'right' },
   // { id: 'volume', label: '거래량', alignRight: true },
-  { id: 'numberOfOutstandingShares', label: '거래량%', alignRight: true, width: '10%' },
-  { id: 'amount', label: '거래대금(억)', alignRight: true, width: '10%' },
-  { id: 'marketCap', label: '시가총액', alignRight: true, width: '8%' },
-  { id: 'theme', label: '테마', alignRight: false }
+  { id: 'numberOfOutstandingShares', label: '거래량%', align: 'right', width: '10%' },
+  { id: 'amount', label: '거래대금(억)', align: 'right', width: '10%' },
+  { id: 'marketCap', label: '시가총액', align: 'right', width: '8%' },
+  { id: 'theme', label: '테마', align: 'left' }
 ];
 
 // ----------------------------------------------------------------------
@@ -125,79 +127,8 @@ const CellText = styles.styled(Typography)(() => ({
 
 const SMHead = ({ data }) => (
   <>
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'row'
-      }}
-      p={1}
-      key="header"
-    >
-      <Paper sx={{ p: 1, flexGrow: 1, bgcolor: 'background.neutral' }}>
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          alignItems={{ sm: 'center' }}
-          justifyContent="space-between"
-          sx={{ mb: 0.5 }}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row'
-            }}
-            key="header"
-          >
-            <Box
-              style={{
-                display: 'flex',
-                flexDirection: 'column'
-              }}
-            >
-              <div>
-                <Typography variant="caption" style={{ color: '#303C6C' }}>
-                  종목명
-                </Typography>
-              </div>
-              <div>
-                <Typography variant="caption">&nbsp;</Typography>
-              </div>
-              <div>
-                <Typography variant="caption">등락율</Typography>
-              </div>
-            </Box>
-            <Box
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-                flexGrow: 1
-              }}
-            >
-              <div
-                style={{
-                  flexGrow: 1,
-                  justifyContent: 'center'
-                }}
-              >
-                <Typography variant="caption">거래량%</Typography>
-              </div>
-              <div>
-                <Typography variant="caption" style={{ color: '#747171' }}>
-                  거래대금
-                </Typography>
-              </div>
-              <div>
-                <Typography variant="caption" style={{ color: '#747171' }}>
-                  시가총액
-                </Typography>
-              </div>
-            </Box>
-          </Box>
-        </Stack>
-      </Paper>
-    </Box>
     {data.map((row) => {
-      const { id, itemName, closingPrice, fluctuationRate, volume, marketCap, theme } = row;
+      const { id, itemName, itemCode, closingPrice, fluctuationRate, volume, marketCap, theme } = row;
       const { volumeBy, amount, mChartLink, chartEmoji, shortHandTheme } = getOthers(row);
 
       return (
@@ -224,26 +155,30 @@ const SMHead = ({ data }) => (
                 flexDirection: 'column'
               }}
             >
-              <div>
+              <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                 <Typography
                   sx={{ color: '#0061B0', cursor: 'pointer' }}
                   onClick={() => window.open(mChartLink, '_blank')}
                 >
                   {itemName}
                 </Typography>
-              </div>
-              <div>
-                <Typography variant="caption">&nbsp;</Typography>
-              </div>
-              <div>
                 <Typography
                   style={{
                     color: fluctuationRate > 0 ? 'red' : 'blue'
                   }}
                 >
-                  {chartEmoji}
-                  {fluctuationRate}%
+                  {` (${fluctuationRate}%)`}
                 </Typography>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'left' }} spacing={2}>
+                    <IconLinkBox itemCode={itemCode} itemName={itemName} />
+                  </Box>
+                </Box>
+              </Box>
+              <div>
+                <Typography variant="caption">{`종가 : ${new Intl.NumberFormat('ko-KR').format(
+                  closingPrice
+                )}원`}</Typography>
               </div>
             </Box>
             <Box
@@ -264,12 +199,7 @@ const SMHead = ({ data }) => (
               </div>
               <div>
                 <Typography variant="caption" style={{ color: '#747171' }}>
-                  {new Intl.NumberFormat('ko-KR').format(amount)}억
-                </Typography>
-              </div>
-              <div>
-                <Typography variant="caption" style={{ color: '#747171' }}>
-                  {new Intl.NumberFormat('ko-KR').format(Math.round(marketCap))}억
+                  {`시총 : ${new Intl.NumberFormat('ko-KR').format(Math.round(marketCap))}억`}
                 </Typography>
               </div>
             </Box>
@@ -480,11 +410,18 @@ export default function TradingVolumeList() {
                   />
                   <TableBody>
                     {filteredTradingVolumeItems.map((row) => {
-                      const { id, itemName, closingPrice, fluctuationRate, volume, marketCap, theme } = row;
+                      const { id, itemCode, itemName, closingPrice, fluctuationRate, volume, marketCap, theme } = row;
                       const { volumeBy, amount, chartLink, chartEmoji, shortHandTheme } = getOthers(row);
 
                       return (
                         <TableRow hover key={id} tabIndex={-1}>
+                          <TableCell align="center">
+                            <Box sx={{ flexGrow: 1 }}>
+                              <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }} spacing={2}>
+                                <IconLinkBox itemCode={itemCode} itemName={itemName} />
+                              </Box>
+                            </Box>
+                          </TableCell>
                           <TableCell align="left">
                             <Typography
                               sx={{
