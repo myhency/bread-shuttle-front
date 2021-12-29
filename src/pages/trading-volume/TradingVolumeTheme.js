@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
 import { useMediaQuery } from 'react-responsive';
 import { useState, useEffect, useRef } from 'react';
 // material
-import { Card, Stack, Container, Typography, TextField, Box, Paper, Grid } from '@mui/material';
+import { Card, Stack, Container, Typography, TextField, Box, Grid } from '@mui/material';
 import { DesktopDatePicker } from '@mui/lab';
+import { alpha, useTheme, styled } from '@mui/material/styles';
 // redux
 import ThemeCategoryTreemap from '../../components/_trading-volume/ThemeCategoryTreemap';
 import { useDispatch, useSelector } from '../../redux/store';
@@ -21,6 +23,17 @@ import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import IconLinkBox from '../../components/_share/IconLinkBox';
 // utils
 import { fDateStringFormat } from '../../utils/formatTime';
+
+const IconWrapperStyle = styled('div')(({ color }) => ({
+  width: 16,
+  height: 16,
+  display: 'flex',
+  borderRadius: '0%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color,
+  backgroundColor: alpha(color, 1)
+}));
 
 const ItemTable = ({ data, title }) => {
   const subtitle = title !== '' ? `(${title})` : title;
@@ -49,8 +62,8 @@ const ItemTable = ({ data, title }) => {
         </Box>
       )}
       {data.map((row) => {
-        const { id, itemCode, itemName, closingPrice, fluctuationRate, volume, marketCap, theme } = row;
-        const { volumeBy, amount, mChartLink, chartEmoji, shortHandTheme } = getOthers(row);
+        const { id, itemCode, itemName, closingPrice, fluctuationRate, marketCap, theme } = row;
+        const { volumeBy, mChartLink } = getOthers(row);
 
         return (
           <Box
@@ -160,6 +173,7 @@ const getOthers = (volumeData) => {
 };
 
 export default function TradingVolumeTheme() {
+  const theme = useTheme();
   const { themeStretch } = useSettings();
   const [value, setValue] = useState(new Date());
   const [categoryName, setCategoryName] = useState('');
@@ -170,8 +184,9 @@ export default function TradingVolumeTheme() {
   const [chartData, setChartData] = useState([]);
   const [categoryItemsByCategoryName, setCategoryItemsByCategoryName] = useState([]);
   const dispatch = useDispatch();
-  const { tradingVolumeDateList, themeCategoryByDate, themeCategoryItemsByCategoryName, isLoading, error } =
-    useSelector((state) => state.tradingVolume);
+  const { tradingVolumeDateList, themeCategoryByDate, themeCategoryItemsByCategoryName, error } = useSelector(
+    (state) => state.tradingVolume
+  );
 
   const isDefault = tradingVolumeDateList.length === 0;
 
@@ -231,13 +246,26 @@ export default function TradingVolumeTheme() {
           ]}
         />
         {!isDefault && (
-          <Typography gutterBottom>
-            <Typography component="span" variant="subtitle1">
-              {`${tradingVolumeDateList[tradingVolumeDateList.length - 1]} ~ ${
-                tradingVolumeDateList[0]
-              } 까지의 종목을 확인할 수 있습니다.`}
+          <>
+            <Typography gutterBottom>
+              <Typography component="span" variant="subtitle1">
+                {`${tradingVolumeDateList[tradingVolumeDateList.length - 1]} ~ ${
+                  tradingVolumeDateList[0]
+                } 까지의 종목을 확인할 수 있습니다.`}
+              </Typography>
             </Typography>
-          </Typography>
+            <Stack direction="row">
+              <Typography variant="caption">포착된 종목 개수에 따라서, 0~2개 &nbsp; </Typography>
+              <IconWrapperStyle color={theme.palette.info.light} />
+              <Typography variant="caption"> , 3~5개 &nbsp;</Typography>
+              <IconWrapperStyle color={theme.palette.error.light} />
+              <Typography variant="caption"> , 6~9개 &nbsp; </Typography>
+              <IconWrapperStyle color={theme.palette.error.main} />
+              <Typography variant="caption"> , 10~20개 &nbsp; </Typography>
+              <IconWrapperStyle color={theme.palette.error.dark} />
+              <Typography variant="caption"> &nbsp; 로 표현됩니다.</Typography>
+            </Stack>
+          </>
         )}
         <Stack direction="row" flexWrap="wrap" alignItems="center" justifyContent="space-between" sx={{ mb: 5 }}>
           <DesktopDatePicker
@@ -253,15 +281,6 @@ export default function TradingVolumeTheme() {
             renderInput={(params) => <TextField {...params} ref={searchForm} margin="normal" name="searchInput" />}
           />
         </Stack>
-        {/* {error && (
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={12}>
-              <Card sx={{ p: 3 }}>
-                <Typography variant="subtitle2">날짜를 선택해 주세요.</Typography>
-              </Card>
-            </Grid>
-          </Grid>
-        )} */}
         {!error && (
           <Grid container spacing={3}>
             <Grid item xs={12} md={8}>
