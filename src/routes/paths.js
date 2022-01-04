@@ -134,7 +134,7 @@ export const PATH_NAVER_LINK = 'https://finance.naver.com/item/coinfo.naver?code
 export const PATH_HANKYUNG_LINK = (searchText) => {
   const buffer = iconv.encode(searchText, 'euc-kr');
   const param = escape(buffer.toString('binary'));
-  const sdate = fDateStringFormat(new Date().setDate(new Date().getDate() - 93));
+  const sdate = fDateStringFormat(new Date().setDate(new Date().getDate() - 186));
   const edate = fDateStringFormat(new Date());
   return `http://consensus.hankyung.com/apps.analysis/analysis.list?sdate=${sdate}&edate=${edate}&now_page=1&search_value=&report_type=&pagenum=20&search_text=${param}&business_code=`;
 };
