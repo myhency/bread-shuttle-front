@@ -23,7 +23,7 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function ThemeCategoryTreemap({ data, height, onAreaClick }) {
+export default function ThemeCategoryTreemap({ data, height, onAreaClick, title }) {
   const theme = useTheme();
 
   const CHART_DATA = [
@@ -51,7 +51,7 @@ export default function ThemeCategoryTreemap({ data, height, onAreaClick }) {
       }
     },
     title: {
-      text: '날짜별 주도 테마 TOP 20'
+      text: title
     },
     dataLabels: {
       enabled: true,
@@ -62,6 +62,9 @@ export default function ThemeCategoryTreemap({ data, height, onAreaClick }) {
         return [text, op.value];
       },
       offsetY: -4
+    },
+    noData: {
+      text: '검색된 종목이 없습니다.'
     },
     plotOptions: {
       treemap: {

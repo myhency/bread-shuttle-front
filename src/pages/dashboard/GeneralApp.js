@@ -18,7 +18,8 @@ import {
   AppTotalInstalled,
   AppCurrentDownload,
   AppTotalActiveUsers,
-  AppTopInstalledCountries
+  AppTopInstalledCountries,
+  AppThemeCategoryTreemap
 } from '../../components/_dashboard/general-app';
 
 // ----------------------------------------------------------------------
@@ -39,16 +40,16 @@ export default function GeneralApp() {
             <AppFeatured />
           </Grid>
 
-          {/* <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={7}>
+            <AppThemeCategoryTreemap />
+          </Grid>
+
+          {/* <Grid item xs={12} md={3}>
             <AppTotalActiveUsers />
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={3}>
             <AppTotalInstalled />
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <AppTotalDownloads />
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
