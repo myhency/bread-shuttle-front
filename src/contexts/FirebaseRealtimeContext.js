@@ -46,6 +46,10 @@ function DatabaseProvider({ children }) {
     firebase.database().ref(`sevenbread/alarm/${fDateString(new Date())}`)
   );
 
+  const [volumeRealTimeSnapshots, vLoading, vError] = useList(
+    firebase.database().ref(`bread-test/volume/${fDateString(new Date())}`)
+  );
+
   // const [sevenBreadSnapshots, sLoading, sError] = useList(firebase.database().ref(`sevenbread/alarm/20211105`));
 
   return (
@@ -62,7 +66,10 @@ function DatabaseProvider({ children }) {
         bError,
         sevenBreadSnapshots,
         sLoading,
-        sError
+        sError,
+        volumeRealTimeSnapshots,
+        vLoading,
+        vError
       }}
     >
       {children}

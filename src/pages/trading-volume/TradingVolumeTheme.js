@@ -285,7 +285,12 @@ export default function TradingVolumeTheme() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={8}>
               <Card sx={{ p: 3 }}>
-                <ThemeCategoryTreemap data={chartData} height={chartHeight} onAreaClick={handleChartOnClick} />
+                <ThemeCategoryTreemap
+                  data={chartData}
+                  height={chartHeight}
+                  onAreaClick={handleChartOnClick}
+                  title="날짜별 주도 테마 Top 20"
+                />
               </Card>
             </Grid>
             <Grid item xs={12} md={4}>

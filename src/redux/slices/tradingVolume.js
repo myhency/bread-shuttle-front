@@ -12,6 +12,7 @@ const initialState = {
   tradingVolumeDateList: [],
   tradingVolumeItemsByFilter: [],
   themeCategoryByDate: [],
+  themeCategoryByItemCodes: [],
   themeCategoryItemsByCategoryName: [],
   filterBy: 'itemName'
 };
@@ -58,6 +59,11 @@ const slice = createSlice({
     getThemeCategoryItemsByCategoryNameSuccess(state, action) {
       state.isLoading = false;
       state.themeCategoryItemsByCategoryName = action.payload;
+    },
+
+    getThemeCategoryByItemCodesSuccess(state, action) {
+      state.isLoading = false;
+      state.themeCategoryByItemCodes = action.payload;
     },
 
     filterByCondition(state, action) {
@@ -135,6 +141,27 @@ export function fetchThemeCategoryItemsByCategoryName(request) {
         `/api/v1/platform/analyze/volume/category?categoryName=${categoryName}&dateStr=${dateStr}`
       );
       dispatch(slice.actions.getThemeCategoryItemsByCategoryNameSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function fetchThemeCategoryByItemCodes(itemCodes) {
+  console.log({
+    itemCodes
+  });
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.post('/api/v1/platform/item/theme/category/realtime', {
+        itemCodes
+      });
+      console.log(response.data);
+      if (response.status === 204) {
+        dispatch(slice.actions.getThemeCategoryByItemCodesSuccess(initialState.themeCategoryByItemCodes));
+      }
+      dispatch(slice.actions.getThemeCategoryByItemCodesSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
