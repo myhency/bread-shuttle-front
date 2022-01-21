@@ -1,0 +1,36 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - 'feature/v2-init'
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set env
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/v}" >> $GITHUB_ENV
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Install Dependencies    # 의존 파일 설치
+      run: npm install
+    - name: Build                   # React Build
+      run: npm run build
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{secrets.DOCKERHUB_USERNAME}}
+        password: ${{secrets.DOCKERHUB_TOKEN}}
+    - name: Build the Docker image
+      env:
+        NAME: hencyyeo
+        REPO: bread-shuttle-front
+      run: |
+        docker build --platform linux/amd64 -t $REPO:v0.0.5-rc26 .
+        docker tag $REPO:v0.0.4-rc6 $NAME/$REPO:v0.0.5-rc26
+        docker push $NAME/$REPO:v0.0.5-rc26
