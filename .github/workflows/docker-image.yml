@@ -23,16 +23,16 @@ jobs:
       env: 
         CI: false                 # React Build
       run: npm run build
-    # - name: Login to DockerHub
-    #   uses: docker/login-action@v1
-    #   with:
-    #     username: ${{secrets.DOCKERHUB_USERNAME}}
-    #     password: ${{secrets.DOCKERHUB_TOKEN}}
-    # - name: Build the Docker image
-    #   env:
-    #     NAME: hencyyeo
-    #     REPO: bread-shuttle-front
-    #   run: |
-    #     docker build --platform linux/amd64 -t $REPO:v0.0.5-rc26 .
-    #     docker tag $REPO:v0.0.4-rc6 $NAME/$REPO:v0.0.5-rc26
-    #     docker push $NAME/$REPO:v0.0.5-rc26
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{secrets.DOCKERHUB_USERNAME}}
+        password: ${{secrets.DOCKERHUB_TOKEN}}
+    - name: Build the Docker image
+      env:
+        NAME: hencyyeo
+        REPO: bread-shuttle-front
+      run: |
+        docker build --platform linux/amd64 -t $REPO:v0.0.5-rc27 .
+        docker tag $REPO:v0.0.4-rc7 $NAME/$REPO:v0.0.5-rc27
+        docker push $NAME/$REPO:v0.0.5-rc27
