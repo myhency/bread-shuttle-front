@@ -1,5 +1,5 @@
 # npm run build
-# docker build -t bread-shuttle-front:v0.0.5-rc26 .
+# docker build --platform linux/amd64 -t bread-shuttle-front:v0.0.5-rc26 .
 # docker tag bread-shuttle-front:v0.0.5-rc26 hencyyeo/bread-shuttle-front:v0.0.5-rc26
 # docker push hencyyeo/bread-shuttle-front:v0.0.5-rc26
 # docker run -itd --name cloud-front-v2 -p 3001:80 bread-shuttle-front:v0.0.2
