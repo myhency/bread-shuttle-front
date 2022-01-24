@@ -34,7 +34,7 @@ jobs:
         REPO: bread-shuttle-front
       run: |
         docker build --platform linux/amd64 -t $REPO:v0.0.5-rc27 .
-        docker tag $REPO:v0.0.4-rc7 $NAME/$REPO:v0.0.5-rc27
+        docker tag $REPO:v0.0.5-rc27 $NAME/$REPO:v0.0.5-rc27
         docker push $NAME/$REPO:v0.0.5-rc27
 
 
