@@ -235,7 +235,7 @@ export default function TradingVolumeTheme() {
   };
 
   return (
-    <Page title="유통주식수대비 거래량 | 클라우드의 주식훈련소">
+    <Page title="유통주식수대비 거래량 | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="날짜별 주도 테마"

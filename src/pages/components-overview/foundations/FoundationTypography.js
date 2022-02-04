@@ -89,7 +89,7 @@ function GetFontInfo({ name }) {
 
 export default function FoundationTypography() {
   return (
-    <RootStyle title="Foundations: Typography | 클라우드의 주식훈련소">
+    <RootStyle title="Foundations: Typography | Cloud's pick">
       <Box
         sx={{
           pt: 6,

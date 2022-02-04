@@ -30,7 +30,7 @@ export default function AutocompleteComponent() {
   const [inputValue, setInputValue] = useState('');
 
   return (
-    <RootStyle title="Components: Autocomplete | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Autocomplete | Cloud's pick">
       <Box
         sx={{
           pt: 6,

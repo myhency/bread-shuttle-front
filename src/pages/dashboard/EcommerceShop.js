@@ -131,7 +131,7 @@ export default function EcommerceShop() {
   };
 
   return (
-    <Page title="Ecommerce: Shop | 클라우드의 주식훈련소">
+    <Page title="Ecommerce: Shop | Cloud's pick">
       {values && (
         <Backdrop open={isSubmitting} sx={{ zIndex: 9999 }}>
           <CircularProgress />

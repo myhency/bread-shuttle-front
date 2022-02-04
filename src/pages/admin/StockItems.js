@@ -131,7 +131,7 @@ export default function StockItems() {
   const isUserNotFound = filteredUsers.length === 0;
 
   return (
-    <Page title="Admin: 종목테마관리 | 클라우드의 주식훈련소">
+    <Page title="Admin: 종목테마관리 | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="종목테마관리"

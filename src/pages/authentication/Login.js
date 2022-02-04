@@ -56,7 +56,7 @@ export default function Login() {
   };
 
   return (
-    <RootStyle title="로그인 | 클라우드의 주식훈련소">
+    <RootStyle title="로그인 | Cloud's pick">
       <AuthLayout>
         클라우드의 수급주 &nbsp;
         <Link underline="none" variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>

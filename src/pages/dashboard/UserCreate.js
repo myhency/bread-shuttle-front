@@ -31,7 +31,7 @@ export default function UserCreate() {
   }, [dispatch]);
 
   return (
-    <Page title="User: Create a new user | 클라우드의 주식훈련소">
+    <Page title="User: Create a new user | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading={!isEdit ? 'Create a new user' : 'Edit user'}

@@ -42,7 +42,7 @@ export default function FoundationGrid() {
   };
 
   return (
-    <RootStyle title="Foundations: Grid | 클라우드의 주식훈련소">
+    <RootStyle title="Foundations: Grid | Cloud's pick">
       <Box
         sx={{
           pt: 6,

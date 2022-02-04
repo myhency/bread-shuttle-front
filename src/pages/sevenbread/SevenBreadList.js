@@ -291,7 +291,7 @@ export default function SevenBreadList() {
   const isItemNotFound = filteredItems.length === 0;
 
   return (
-    <Page title="007빵 리스트 | 클라우드의 주식훈련소">
+    <Page title="007빵 리스트 | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="007빵 리스트"

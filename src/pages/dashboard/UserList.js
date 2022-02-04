@@ -148,7 +148,7 @@ export default function UserList() {
   const isUserNotFound = filteredUsers.length === 0;
 
   return (
-    <Page title="User: List | 클라우드의 주식훈련소">
+    <Page title="User: List | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="User List"

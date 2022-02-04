@@ -103,7 +103,7 @@ export default function UserProfile() {
   ];
 
   return (
-    <Page title="User: Profile | 클라우드의 주식훈련소">
+    <Page title="User: Profile | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Profile"

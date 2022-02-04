@@ -84,7 +84,7 @@ export default function RatingComponent() {
   const [hover, setHover] = useState(-1);
 
   return (
-    <RootStyle title="Components: Rating | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Rating | Cloud's pick">
       <Box
         sx={{
           pt: 6,

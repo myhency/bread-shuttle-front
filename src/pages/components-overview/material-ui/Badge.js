@@ -21,7 +21,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function BadgeComponent() {
   return (
-    <RootStyle title="Components: Badge | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Badge | Cloud's pick">
       <Box
         sx={{
           pt: 6,

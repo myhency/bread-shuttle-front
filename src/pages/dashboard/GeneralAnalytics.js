@@ -25,7 +25,7 @@ export default function GeneralAnalytics() {
   const { themeStretch } = useSettings();
 
   return (
-    <Page title="General: Analytics | 클라우드의 주식훈련소">
+    <Page title="General: Analytics | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Box sx={{ pb: 5 }}>
           <Typography variant="h4">Hi, Welcome back</Typography>

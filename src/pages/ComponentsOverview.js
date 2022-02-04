@@ -24,7 +24,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function ComponentsOverview() {
   return (
-    <RootStyle title="Components Overview | 클라우드의 주식훈련소">
+    <RootStyle title="Components Overview | Cloud's pick">
       <ComponentHero />
       <Container maxWidth="lg">
         <ComponentFoundation />

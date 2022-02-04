@@ -98,7 +98,7 @@ export default function ListsComponent() {
   };
 
   return (
-    <RootStyle title="Components: Lists | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Lists | Cloud's pick">
       <Box
         sx={{
           pt: 6,

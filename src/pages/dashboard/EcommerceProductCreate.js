@@ -31,7 +31,7 @@ export default function EcommerceProductCreate() {
   }, [dispatch]);
 
   return (
-    <Page title="Ecommerce: Create a new product | 클라우드의 주식훈련소">
+    <Page title="Ecommerce: Create a new product | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading={!isEdit ? 'Create a new product' : 'Edit product'}

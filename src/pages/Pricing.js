@@ -64,7 +64,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function Pricing() {
   return (
-    <RootStyle title="Pricing | 클라우드의 주식훈련소">
+    <RootStyle title="Pricing | Cloud's pick">
       <Container maxWidth="lg">
         <Typography variant="h3" align="center" paragraph>
           Flexible plans for your
