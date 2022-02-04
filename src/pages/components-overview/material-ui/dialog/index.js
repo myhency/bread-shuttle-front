@@ -34,7 +34,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function DialogComponent() {
   return (
-    <RootStyle title="Components: Dialog | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Dialog | Cloud's pick">
       <Box
         sx={{
           pt: 6,

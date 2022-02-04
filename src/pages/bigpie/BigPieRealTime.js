@@ -76,7 +76,7 @@ export default function BigPieRealTime() {
   }, [macaronSnapshots]);
 
   return (
-    <Page title="빅파이 실시간 | 클라우드의 주식훈련소">
+    <Page title="빅파이 실시간 | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid
           container
@@ -181,7 +181,7 @@ export default function BigPieRealTime() {
   );
 }
 
-// <Page title="빅파이 실시간 | 클라우드의 주식훈련소">
+// <Page title="빅파이 실시간 | Cloud's pick">
 //   <Container maxWidth={themeStretch ? false : 'xl'}>
 //     <Grid container spacing={3}>
 //       {/* <Grid item xs={12} md={8}>

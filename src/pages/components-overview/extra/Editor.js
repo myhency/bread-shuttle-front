@@ -27,7 +27,7 @@ export default function Editor() {
   const [draftSimple, setDraftSimple] = useState(EditorState.createEmpty());
 
   return (
-    <RootStyle title="Components: Editor | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Editor | Cloud's pick">
       <Box
         sx={{
           pt: 6,

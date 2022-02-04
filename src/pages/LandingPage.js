@@ -29,7 +29,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function LandingPage() {
   return (
-    <RootStyle title="The starting point for your next project | 클라우드의 주식훈련소" id="move_top">
+    <RootStyle title="The starting point for your next project | Cloud's pick" id="move_top">
       <LandingHero />
       <ContentStyle>
         <LandingMinimal />

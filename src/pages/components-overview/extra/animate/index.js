@@ -40,7 +40,7 @@ export default function Animate() {
   };
 
   return (
-    <RootStyle title="Components: Animate | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Animate | Cloud's pick">
       <Box
         sx={{
           pt: 6,

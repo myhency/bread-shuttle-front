@@ -156,7 +156,7 @@ export default function SevenBreadManage() {
   const isItemNotFound = filteredItems.length === 0;
 
   return (
-    <Page title="Admin: 007빵 종목관리 | 클라우드의 주식훈련소">
+    <Page title="Admin: 007빵 종목관리 | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="007빵 종목관리"

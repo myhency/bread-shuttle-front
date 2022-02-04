@@ -44,7 +44,7 @@ export default function ButtonsComponent() {
   };
 
   return (
-    <RootStyle title="Components: Buttons | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Buttons | Cloud's pick">
       <Box
         sx={{
           pt: 6,

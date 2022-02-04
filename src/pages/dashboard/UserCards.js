@@ -35,7 +35,7 @@ export default function UserCards() {
   }, [dispatch]);
 
   return (
-    <Page title="User: Cards | 클라우드의 주식훈련소">
+    <Page title="User: Cards | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="User Cards"

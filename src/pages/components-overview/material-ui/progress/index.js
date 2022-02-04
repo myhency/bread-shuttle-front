@@ -68,7 +68,7 @@ export default function ProgressComponent() {
   }, []);
 
   return (
-    <RootStyle title="Components: Progress | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Progress | Cloud's pick">
       <Box
         sx={{
           pt: 6,

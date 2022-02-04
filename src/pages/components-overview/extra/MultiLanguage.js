@@ -44,7 +44,7 @@ export default function MultiLanguage() {
   };
 
   return (
-    <RootStyle title="Components: Multi Language | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Multi Language | Cloud's pick">
       <Box
         sx={{
           pt: 6,

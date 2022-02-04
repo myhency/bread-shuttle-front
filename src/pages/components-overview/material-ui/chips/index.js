@@ -19,7 +19,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function ChipsComponent() {
   return (
-    <RootStyle title="Components: Chip | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Chip | Cloud's pick">
       <Box
         sx={{
           pt: 6,

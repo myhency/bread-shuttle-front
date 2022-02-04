@@ -74,7 +74,7 @@ export default function BigPieList() {
     }));
 
   return (
-    <Page title="날짜별 빅파이 | 클라우드의 주식훈련소">
+    <Page title="날짜별 빅파이 | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="날짜별 빅파이"

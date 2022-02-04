@@ -24,7 +24,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function StepperComponent() {
   return (
-    <RootStyle title="Components: StepperView | 클라우드의 주식훈련소">
+    <RootStyle title="Components: StepperView | Cloud's pick">
       <Box
         sx={{
           pt: 6,

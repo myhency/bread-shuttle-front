@@ -20,7 +20,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function AlertsComponent() {
   return (
-    <RootStyle title="Components: Alert | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Alert | Cloud's pick">
       <Box
         sx={{
           pt: 6,

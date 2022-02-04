@@ -29,7 +29,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function TransferListComponent() {
   return (
-    <RootStyle title="Components: Transfer List | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Transfer List | Cloud's pick">
       <Box
         sx={{
           pt: 6,

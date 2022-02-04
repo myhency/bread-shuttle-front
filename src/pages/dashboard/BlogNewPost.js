@@ -15,7 +15,7 @@ export default function BlogNewPost() {
   const { themeStretch } = useSettings();
 
   return (
-    <Page title="Blog: New Post | 클라우드의 주식훈련소">
+    <Page title="Blog: New Post | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Create a new post"

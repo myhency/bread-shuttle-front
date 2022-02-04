@@ -36,7 +36,7 @@ const style = {
 
 export default function TooltipsComponent() {
   return (
-    <RootStyle title="Components: Tooltip | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Tooltip | Cloud's pick">
       <Box
         sx={{
           pt: 6,

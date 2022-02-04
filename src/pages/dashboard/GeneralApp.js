@@ -29,7 +29,7 @@ export default function GeneralApp() {
   const { user } = useAuth();
 
   return (
-    <Page title="대시보드: 거래현황 | 클라우드의 주식훈련소">
+    <Page title="대시보드: 거래현황 | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={7}>

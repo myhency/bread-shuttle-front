@@ -150,7 +150,7 @@ export default function Calendar() {
   };
 
   return (
-    <Page title="Calendar | 클라우드의 주식훈련소">
+    <Page title="Calendar | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <HeaderBreadcrumbs
           heading="Calendar"

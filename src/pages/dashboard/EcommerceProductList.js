@@ -165,7 +165,7 @@ export default function EcommerceProductList() {
   const isProductNotFound = filteredProducts.length === 0;
 
   return (
-    <Page title="Ecommerce: Product List | 클라우드의 주식훈련소">
+    <Page title="Ecommerce: Product List | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Product List"

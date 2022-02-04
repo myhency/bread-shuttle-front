@@ -31,7 +31,7 @@ export default function SevenBreadNewItem() {
   }, [dispatch]);
 
   return (
-    <Page title={`Admin: 007빵 종목${!isEdit ? '추가' : '수정'} | 클라우드의 주식훈련소`}>
+    <Page title={`Admin: 007빵 종목${!isEdit ? '추가' : '수정'} | Cloud's pick`}>
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading={!isEdit ? '007빵 종목추가' : '007빵 종목수정'}

@@ -18,7 +18,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function Contact() {
   return (
-    <RootStyle title="Contact us | 클라우드의 주식훈련소">
+    <RootStyle title="Contact us | Cloud's pick">
       <ContactHero />
 
       <Container sx={{ my: 10 }}>

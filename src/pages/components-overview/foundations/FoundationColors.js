@@ -105,7 +105,7 @@ export default function FoundationColors() {
   };
 
   return (
-    <RootStyle title="Foundations: Color | 클라우드의 주식훈련소">
+    <RootStyle title="Foundations: Color | Cloud's pick">
       <Box
         sx={{
           pt: 6,

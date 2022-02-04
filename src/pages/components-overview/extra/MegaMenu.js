@@ -26,7 +26,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function MegaMenu() {
   return (
-    <RootStyle title="Mega Menu | 클라우드의 주식훈련소">
+    <RootStyle title="Mega Menu | Cloud's pick">
       <Box
         sx={{
           pt: 6,

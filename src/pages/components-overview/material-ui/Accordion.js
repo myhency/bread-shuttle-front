@@ -38,7 +38,7 @@ export default function AccordionComponent() {
   };
 
   return (
-    <RootStyle title="Components: Accordion | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Accordion | Cloud's pick">
       <Box
         sx={{
           pt: 6,

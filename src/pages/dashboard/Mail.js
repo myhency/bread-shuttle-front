@@ -28,7 +28,7 @@ export default function Mail() {
   }, [dispatch]);
 
   return (
-    <Page title="Mail | 클라우드의 주식훈련소">
+    <Page title="Mail | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <HeaderBreadcrumbs
           heading="Mail"

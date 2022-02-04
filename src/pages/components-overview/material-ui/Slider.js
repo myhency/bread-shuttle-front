@@ -73,7 +73,7 @@ export default function SliderComponent() {
   };
 
   return (
-    <RootStyle title="Components: Slider | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Slider | Cloud's pick">
       <Box
         sx={{
           pt: 6,

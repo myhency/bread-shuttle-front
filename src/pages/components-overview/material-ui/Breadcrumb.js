@@ -22,7 +22,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function BreadcrumbComponent() {
   return (
-    <RootStyle title="Components: Breadcrumbs | 클라우드의 주식훈련소">
+    <RootStyle title="Components: Breadcrumbs | Cloud's pick">
       <Box
         sx={{
           pt: 6,
