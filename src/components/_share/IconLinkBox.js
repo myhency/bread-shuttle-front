@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 import {
   path,
@@ -7,6 +8,7 @@ import {
   PATH_FN_LINK,
   PATH_NAVER_LINK,
   PATH_HANKYUNG_LINK,
+  PATH_HANKYUNG_MLINK,
   PATH_GOOGLE_NEWS_LINK
 } from '../../routes/paths';
 
@@ -16,6 +18,9 @@ IconLinkBox.propTypes = {
 };
 
 export default function IconLinkBox({ itemCode, itemName }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <>
       <Box
@@ -34,7 +39,7 @@ export default function IconLinkBox({ itemCode, itemName }) {
         component="img"
         src="http://consensus.hankyung.com/images/btn_attached.gif"
         sx={{ cursor: 'pointer', height: 21, width: 21, borderRadius: 0.5, ml: 0.2, mr: 0.2 }}
-        onClick={() => window.open(PATH_HANKYUNG_LINK(itemName))}
+        onClick={() => window.open(isMobile ? PATH_HANKYUNG_MLINK(itemName) : PATH_HANKYUNG_LINK(itemName))}
       />
       <Box
         component="img"
