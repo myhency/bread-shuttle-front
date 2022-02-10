@@ -7,7 +7,8 @@ import {
   PATH_NAVER_ECONOMIC_NEWS,
   PATH_COMPANY_GUIDE,
   PATH_TELEGRAM_THIS_MONTH,
-  PATH_ADMIN
+  PATH_ADMIN,
+  PATH_TODAY_REPORT
 } from '../../routes/paths';
 // components
 // import Label from '../../components/Label';
@@ -80,22 +81,22 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.sevenBread.root,
         icon: ICONS.filter7,
         children: [
-          // { title: '007빵 공지', eLink: PATH_SEVENBREAD_NOTICE },
+          { title: '007빵 공지', eLink: PATH_SEVENBREAD_NOTICE },
           { title: '007빵 실시간', path: PATH_DASHBOARD.sevenBread.realtime },
-          { title: '007빵 리스트', path: PATH_DASHBOARD.sevenBread.list }
-          // { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
+          { title: '007빵 리스트', path: PATH_DASHBOARD.sevenBread.list },
+          { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
         ]
       },
-      // {
-      //   title: '알리미',
-      //   path: PATH_DASHBOARD.general.ecommerce,
-      //   icon: ICONS.notificationsactive,
-      //   children: [
-      //     { title: '알리미 리스트', path: PATH_DASHBOARD.general.ecommerce },
-      //     { title: '알람완료', path: PATH_DASHBOARD.general.analytics },
-      //     { title: '손절처리', path: PATH_DASHBOARD.general.banking }
-      //   ]
-      // },
+      {
+        title: '알리미',
+        path: PATH_DASHBOARD.general.ecommerce,
+        icon: ICONS.notificationsactive,
+        children: [
+          { title: '알리미 리스트', path: PATH_DASHBOARD.general.ecommerce },
+          { title: '알람완료', path: PATH_DASHBOARD.general.analytics },
+          { title: '손절처리', path: PATH_DASHBOARD.general.banking }
+        ]
+      },
       {
         title: '유통주식수대비 거래량',
         path: PATH_DASHBOARD.tradingVolume.root,
@@ -120,10 +121,11 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.general.ecommerce,
         icon: ICONS.bookmarks,
         children: [
-          // { title: '공지/강의', eLink: PATH_NOTICE_LECTURE },
+          // { title: '오늘의 리포트', eLink: PATH_TODAY_REPORT },
+          { title: '공지/강의', eLink: PATH_NOTICE_LECTURE },
           { title: '증시스케줄', eLink: PATH_STOCK_CALENDAR },
           { title: '네이버 경제뉴스', eLink: PATH_NAVER_ECONOMIC_NEWS },
-          { title: 'Company Guide', eLink: PATH_COMPANY_GUIDE },
+          { title: '증자분할 달력', eLink: PATH_COMPANY_GUIDE },
           { title: '이달의 텔레그램', eLink: PATH_TELEGRAM_THIS_MONTH }
         ]
       }
@@ -144,13 +146,13 @@ const sidebarConfig = [
           { title: '007빵 종목관리', path: PATH_ADMIN.sevenBread.management },
           { title: '007빵 종목추가', path: PATH_ADMIN.sevenBread.newItem }
         ]
+      },
+      {
+        title: '관리자전용',
+        path: PATH_ADMIN.admin.root,
+        icon: ICONS.user,
+        children: [{ title: '종목테마관리', path: PATH_ADMIN.admin.stockItems }]
       }
-      // {
-      //   title: '관리자전용',
-      //   path: PATH_ADMIN.admin.root,
-      //   icon: ICONS.user,
-      //   children: [{ title: '종목테마관리', path: PATH_ADMIN.admin.stockItems }]
-      // }
     ]
   }
 

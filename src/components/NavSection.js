@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import { NavLink as RouterLink, matchPath, useLocation } from 'react-router-dom';
 import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
@@ -68,6 +68,7 @@ function NavItem({ item, isShow }) {
   const [open, setOpen] = useState(isActiveRoot);
 
   const handleOpen = () => {
+    console.log('item:', item);
     setOpen(!open);
   };
 
@@ -83,11 +84,15 @@ function NavItem({ item, isShow }) {
     fontWeight: 'fontWeightMedium'
   };
 
+  useEffect(() => {
+    if (item.title === '즐겨찾기') setOpen(true);
+  }, []);
+
   if (children) {
     return (
       <>
         <ListItemStyle
-          onClick={handleOpen}
+          onClick={() => handleOpen(item)}
           sx={{
             ...(isActiveRoot && activeRootStyle)
           }}
