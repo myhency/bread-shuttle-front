@@ -133,7 +133,6 @@ export function fetchThemeCategoryByDate(dateStr) {
 
 export function fetchThemeCategoryItemsByCategoryName(request) {
   const { categoryName, dateStr } = request;
-  console.log(request);
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
@@ -148,9 +147,6 @@ export function fetchThemeCategoryItemsByCategoryName(request) {
 }
 
 export function fetchThemeCategoryByItemCodes(itemCodes) {
-  console.log({
-    itemCodes
-  });
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {

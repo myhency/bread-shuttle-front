@@ -56,8 +56,6 @@ const CustomLoadingScreen = ({ message }) => (
 );
 
 function applyFilter(sevenBreadItems, sortBy, filters) {
-  console.log('before applyFilter');
-  console.log(sevenBreadItems);
   // SORT BY
   if (sortBy === 'earningRateDesc') {
     sevenBreadItems = orderBy(sevenBreadItems, ['fluctuationRateBy'], ['desc']);
@@ -163,7 +161,6 @@ export default function SevenBreadRealTime() {
     try {
       todaySnapshots.forEach((v) => console.log(v.val()));
       setSwingBigPie(todaySnapshots);
-      console.log(tLoading);
     } catch (error) {
       console.log(error);
     }

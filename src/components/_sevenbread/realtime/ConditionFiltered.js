@@ -68,9 +68,6 @@ export default function ConditionFiltered({ formik, filters, isShowReset, isDefa
     // setFieldValue('price', '');
   };
 
-  console.log('isDefault');
-  console.log(isDefault);
-
   return (
     <RootStyle>
       {price && (

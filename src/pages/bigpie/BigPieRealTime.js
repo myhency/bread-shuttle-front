@@ -60,7 +60,6 @@ export default function BigPieRealTime() {
     try {
       todaySnapshots.forEach((v) => console.log(v.val()));
       setSwingBigPie(todaySnapshots);
-      console.log(tLoading);
     } catch (error) {
       console.log(error);
     }

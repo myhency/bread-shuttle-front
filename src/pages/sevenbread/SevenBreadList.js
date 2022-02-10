@@ -281,8 +281,6 @@ export default function SevenBreadList() {
   };
 
   const handleRowOnClick = (event, itemCode) => {
-    console.log(itemCode);
-    console.log(event);
     navigate(PATH_ADMIN.sevenBread.management);
   };
 

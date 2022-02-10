@@ -103,7 +103,6 @@ export function fetchSevenBreadItems() {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.get('/api/v1/platform/v2/sevenbread/item');
-      console.log('seven');
       dispatch(slice.actions.getSevenBreadAdminItemsSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -124,7 +123,6 @@ export function fetchSevenBreadItemByItemCode(itemCode) {
 }
 
 export function deleteSevenBreadItemForArchive(itemCode, date, type) {
-  console.log(itemCode, date, type);
   const URL =
     type !== 'win' ? '/api/v1/platform/v2/sevenbread/item/archive' : '/api/v1/platform/v2/sevenbread/item/win';
   return async (dispatch) => {
@@ -135,7 +133,6 @@ export function deleteSevenBreadItemForArchive(itemCode, date, type) {
         deletedDate: date,
         type
       });
-      console.log(response);
       dispatch(slice.actions.getDeleteSevenBreadItemSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
