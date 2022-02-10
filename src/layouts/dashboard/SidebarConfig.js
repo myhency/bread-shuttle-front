@@ -7,7 +7,8 @@ import {
   PATH_NAVER_ECONOMIC_NEWS,
   PATH_COMPANY_GUIDE,
   PATH_TELEGRAM_THIS_MONTH,
-  PATH_ADMIN
+  PATH_ADMIN,
+  PATH_TODAY_REPORT
 } from '../../routes/paths';
 // components
 // import Label from '../../components/Label';
@@ -120,10 +121,11 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.general.ecommerce,
         icon: ICONS.bookmarks,
         children: [
+          { title: '오늘의 리포트', eLink: PATH_TODAY_REPORT },
           { title: '공지/강의', eLink: PATH_NOTICE_LECTURE },
           { title: '증시스케줄', eLink: PATH_STOCK_CALENDAR },
           { title: '네이버 경제뉴스', eLink: PATH_NAVER_ECONOMIC_NEWS },
-          { title: 'Company Guide', eLink: PATH_COMPANY_GUIDE },
+          { title: '증자분할 달력', eLink: PATH_COMPANY_GUIDE },
           { title: '이달의 텔레그램', eLink: PATH_TELEGRAM_THIS_MONTH }
         ]
       }
