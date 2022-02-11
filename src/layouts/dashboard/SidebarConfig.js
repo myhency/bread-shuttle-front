@@ -121,7 +121,7 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.general.ecommerce,
         icon: ICONS.bookmarks,
         children: [
-          // { title: '오늘의 리포트', eLink: PATH_TODAY_REPORT },
+          { title: '오늘의 리포트', eLink: PATH_TODAY_REPORT },
           { title: '공지/강의', eLink: PATH_NOTICE_LECTURE },
           { title: '증시스케줄', eLink: PATH_STOCK_CALENDAR },
           { title: '네이버 경제뉴스', eLink: PATH_NAVER_ECONOMIC_NEWS },

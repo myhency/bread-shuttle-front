@@ -142,5 +142,4 @@ export const PATH_HANKYUNG_MLINK = (searchText) =>
   `http://consensus.hankyung.com/apps.analysis/analysis.list?skinType=&search_date=6m&search_text=${searchText}`;
 export const PATH_GOOGLE_NEWS_LINK = (searchText) => `https://www.google.com/search?q=${searchText}&tbm=nws`;
 
-export const PATH_TODAY_REPORT =
-  'https://company.wisereport.co.kr/wiseReport/summary/ReportSummary.aspx?cn=wisefn&enc=UnFLUDcxcGZONlRNelgxQmt2N1htb3VKb3ZHdDVRdWxuOC9xTXFiQStyZnVjdXMrWTNUb2NHS013QUk0WG5vSw==';
+export const PATH_TODAY_REPORT = 'https://comp.wisereport.co.kr/wiseReport/summary/ReportSummary.aspx';
