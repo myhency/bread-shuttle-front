@@ -39,7 +39,7 @@ export default function Page404() {
               <PageNotFoundIllustration sx={{ height: 260, my: { xs: 5, sm: 10 } }} />
             </motion.div>
 
-            <Button to="/dashboard" size="large" variant="contained" component={RouterLink}>
+            <Button to="/dashboard/bigpie/realtime" size="large" variant="contained" component={RouterLink}>
               홈으로 가기
             </Button>
           </Box>
