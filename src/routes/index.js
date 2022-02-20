@@ -81,11 +81,11 @@ export default function Router() {
         </AuthGuard>
       ),
       children: [
-        { element: <Navigate to="/dashboard/app" replace /> },
-        { path: 'app', element: <GeneralApp /> },
-        { path: 'analytics', element: <GeneralAnalytics /> },
-        { path: 'banking', element: <GeneralBanking /> },
-        { path: 'booking', element: <GeneralBooking /> },
+        // { element: <Navigate to="/dashboard/app" replace /> },
+        // { path: 'app', element: <GeneralApp /> },
+        // { path: 'analytics', element: <GeneralAnalytics /> },
+        // { path: 'banking', element: <GeneralBanking /> },
+        // { path: 'booking', element: <GeneralBooking /> },
         {
           path: 'bigpie',
           children: [
@@ -212,7 +212,7 @@ export default function Router() {
     },
     {
       path: '/',
-      element: <Navigate to="/dashboard" />
+      element: <Navigate to="/dashboard/bigpie/realtime" />
     },
     { path: '*', element: <Navigate to="/404" replace /> }
   ]);

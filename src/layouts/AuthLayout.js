@@ -35,7 +35,7 @@ AuthLayout.propTypes = {
 export default function AuthLayout({ children }) {
   return (
     <HeaderStyle>
-      <RouterLink to="/dashboard">
+      <RouterLink to="/dashboard/bigpie/realtime">
         <Logo />
       </RouterLink>
 

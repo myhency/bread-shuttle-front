@@ -49,17 +49,17 @@ const ICONS = {
 const sidebarConfig = [
   // DASHBOARD
   // ----------------------------------------------------------------------
-  {
-    isAdmin: false,
-    subheader: 'Dashboard',
-    items: [
-      {
-        title: '거래현황',
-        path: PATH_DASHBOARD.general.app,
-        icon: ICONS.dashboard
-      }
-    ]
-  },
+  // {
+  //   isAdmin: false,
+  //   subheader: 'Dashboard',
+  //   items: [
+  //     {
+  //       title: '거래현황',
+  //       path: PATH_DASHBOARD.general.app,
+  //       icon: ICONS.dashboard
+  //     }
+  //   ]
+  // },
 
   // GENERAL
   // ----------------------------------------------------------------------
@@ -81,22 +81,22 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.sevenBread.root,
         icon: ICONS.filter7,
         children: [
-          { title: '007빵 공지', eLink: PATH_SEVENBREAD_NOTICE },
+          // { title: '007빵 공지', eLink: PATH_SEVENBREAD_NOTICE },
           { title: '007빵 실시간', path: PATH_DASHBOARD.sevenBread.realtime },
-          { title: '007빵 리스트', path: PATH_DASHBOARD.sevenBread.list },
-          { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
+          { title: '007빵 리스트', path: PATH_DASHBOARD.sevenBread.list }
+          // { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
         ]
       },
-      {
-        title: '알리미',
-        path: PATH_DASHBOARD.general.ecommerce,
-        icon: ICONS.notificationsactive,
-        children: [
-          { title: '알리미 리스트', path: PATH_DASHBOARD.general.ecommerce },
-          { title: '알람완료', path: PATH_DASHBOARD.general.analytics },
-          { title: '손절처리', path: PATH_DASHBOARD.general.banking }
-        ]
-      },
+      // {
+      //   title: '알리미',
+      //   path: PATH_DASHBOARD.general.ecommerce,
+      //   icon: ICONS.notificationsactive,
+      //   children: [
+      //     { title: '알리미 리스트', path: PATH_DASHBOARD.general.ecommerce },
+      //     { title: '알람완료', path: PATH_DASHBOARD.general.analytics },
+      //     { title: '손절처리', path: PATH_DASHBOARD.general.banking }
+      //   ]
+      // },
       {
         title: '유통주식수대비 거래량',
         path: PATH_DASHBOARD.tradingVolume.root,
@@ -122,11 +122,11 @@ const sidebarConfig = [
         icon: ICONS.bookmarks,
         children: [
           { title: '오늘의 리포트', eLink: PATH_TODAY_REPORT },
-          { title: '공지/강의', eLink: PATH_NOTICE_LECTURE },
+          // { title: '공지/강의', eLink: PATH_NOTICE_LECTURE },
           { title: '증시스케줄', eLink: PATH_STOCK_CALENDAR },
           { title: '네이버 경제뉴스', eLink: PATH_NAVER_ECONOMIC_NEWS },
-          { title: '증자분할 달력', eLink: PATH_COMPANY_GUIDE },
-          { title: '이달의 텔레그램', eLink: PATH_TELEGRAM_THIS_MONTH }
+          { title: '증자분할 달력', eLink: PATH_COMPANY_GUIDE }
+          // { title: '이달의 텔레그램', eLink: PATH_TELEGRAM_THIS_MONTH }
         ]
       }
     ]
