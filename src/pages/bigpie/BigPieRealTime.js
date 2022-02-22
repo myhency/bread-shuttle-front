@@ -56,24 +56,38 @@ export default function BigPieRealTime() {
   const [swingBigPie, setSwingBigPie] = useState([]);
   const [dayTradingBigPie, setDayTradingBigPie] = useState([]);
 
-  useEffect(() => {
-    try {
-      todaySnapshots.forEach((v) => console.log(v.val()));
-      setSwingBigPie(todaySnapshots);
-      console.log(tLoading);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [todaySnapshots]);
+  // useEffect(() => {
+  //   try {
+  //     todaySnapshots.forEach((v) => console.log(v.val()));
+  //     setSwingBigPie(todaySnapshots);
+  //     console.log(tLoading);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [todaySnapshots]);
+
+  // useEffect(() => {
+  //   try {
+  //     macaronSnapshots.forEach((v) => console.log(v.val()));
+  //     setDayTradingBigPie(macaronSnapshots);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [macaronSnapshots]);
 
   useEffect(() => {
-    try {
-      macaronSnapshots.forEach((v) => console.log(v.val()));
-      setDayTradingBigPie(macaronSnapshots);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [macaronSnapshots]);
+    const testItem = [
+      {
+        val: () => ({
+          close: 0,
+          code: '1',
+          name: '',
+          party: '40일선'
+        })
+      }
+    ];
+    setDayTradingBigPie(testItem);
+  }, []);
 
   return (
     <Page title="빅파이 실시간 | Cloud's pick">
