@@ -74,14 +74,14 @@ export default function BigPieList() {
     }));
 
   return (
-    <Page title="날짜별 빅파이 | Cloud's pick">
+    <Page title="날짜별 조회 | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="날짜별 빅파이"
+          heading="날짜별 조회"
           links={[
             { name: 'TRADE', href: PATH_DASHBOARD.bigpie },
-            { name: '빅파이', href: PATH_DASHBOARD.bigpie.realtime },
-            { name: '날짜별 빅파이' }
+            { name: '거래량상위추적', href: PATH_DASHBOARD.bigpie.realtime },
+            { name: '날짜별 조회' }
           ]}
         />
         <Card

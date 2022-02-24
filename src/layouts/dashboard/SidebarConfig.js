@@ -68,22 +68,22 @@ const sidebarConfig = [
     subheader: 'Trade',
     items: [
       {
-        title: '빅파이',
+        title: '거래량상위추적',
         path: PATH_DASHBOARD.bigpie.root,
         icon: ICONS.bus,
         children: [
-          { title: '빅파이 실시간', path: PATH_DASHBOARD.bigpie.realtime },
-          { title: '날짜별 빅파이', path: PATH_DASHBOARD.bigpie.list }
+          { title: '실시간 현황', path: PATH_DASHBOARD.bigpie.realtime },
+          { title: '날짜별 조회', path: PATH_DASHBOARD.bigpie.list }
         ]
       },
       {
-        title: '007빵',
+        title: '기관외인수급추적',
         path: PATH_DASHBOARD.sevenBread.root,
         icon: ICONS.filter7,
         children: [
           // { title: '007빵 공지', eLink: PATH_SEVENBREAD_NOTICE },
-          { title: '007빵 실시간', path: PATH_DASHBOARD.sevenBread.realtime },
-          { title: '007빵 리스트', path: PATH_DASHBOARD.sevenBread.list }
+          { title: '실시간 현황', path: PATH_DASHBOARD.sevenBread.realtime },
+          { title: '리스트 조회', path: PATH_DASHBOARD.sevenBread.list }
           // { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
         ]
       },
@@ -139,12 +139,12 @@ const sidebarConfig = [
     subheader: 'admin',
     items: [
       {
-        title: '007빵',
+        title: '기관외인수급추적',
         path: PATH_ADMIN.sevenBread.root,
         icon: ICONS.filter7,
         children: [
-          { title: '007빵 종목관리', path: PATH_ADMIN.sevenBread.management },
-          { title: '007빵 종목추가', path: PATH_ADMIN.sevenBread.newItem }
+          { title: '종목관리', path: PATH_ADMIN.sevenBread.management },
+          { title: '종목추가', path: PATH_ADMIN.sevenBread.newItem }
         ]
       },
       {

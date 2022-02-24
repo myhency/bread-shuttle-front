@@ -31,13 +31,13 @@ export default function SevenBreadNewItem() {
   }, [dispatch]);
 
   return (
-    <Page title={`Admin: 007빵 종목${!isEdit ? '추가' : '수정'} | Cloud's pick`}>
+    <Page title={`Admin: 기관외인수급추적 종목${!isEdit ? '추가' : '수정'} | Cloud's pick`}>
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading={!isEdit ? '007빵 종목추가' : '007빵 종목수정'}
+          heading={!isEdit ? '기관외인수급추적 종목추가' : '기관외인수급추적 종목수정'}
           links={[
             { name: 'Admin', href: PATH_ADMIN.root },
-            { name: '007빵', href: PATH_ADMIN.sevenBread.root },
+            { name: '기관외인수급추적', href: PATH_ADMIN.sevenBread.root },
             { name: !isEdit ? '종목추가' : itemCode }
           ]}
         />
