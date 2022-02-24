@@ -291,13 +291,13 @@ export default function SevenBreadList() {
   const isItemNotFound = filteredItems.length === 0;
 
   return (
-    <Page title="007빵 리스트 | Cloud's pick">
+    <Page title="기관외인수급추적 리스트 | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="007빵 리스트"
+          heading="기관외인수급추적 리스트"
           links={[
             { name: 'TRADE', href: PATH_DASHBOARD.sevenBread },
-            { name: '007빵', href: PATH_DASHBOARD.sevenBread.root },
+            { name: '기관외인수급추적', href: PATH_DASHBOARD.sevenBread.root },
             { name: '리스트' }
           ]}
         />

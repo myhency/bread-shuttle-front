@@ -90,7 +90,7 @@ export default function BigPieRealTime() {
   // }, []);
 
   return (
-    <Page title="빅파이 실시간 | Cloud's pick">
+    <Page title="거래량상위추적 실시간 | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid
           container
@@ -150,7 +150,7 @@ export default function BigPieRealTime() {
                   <BigPieGridTitle
                     title="스윙용"
                     subtitle="15시부근 매수해서 3일 유지"
-                    message="(스윙가능) 유통주식 상위종목+빅파이+마카롱에 떴었으나 현재는 마카롱조건에 해당되지 않는 종목이 노출됩니다. 오늘의 검색 종목에 표시되어있고 5%가 넘지 않았다면 15:00부근 종가매수가 가능합니다."
+                    message="(스윙가능) 유통주식 상위종목+거래량상위추적+마카롱에 떴었으나 현재는 마카롱조건에 해당되지 않는 종목이 노출됩니다. 오늘의 검색 종목에 표시되어있고 5%가 넘지 않았다면 15:00부근 종가매수가 가능합니다."
                   />
                 </Grid>
                 {swingBigPie.length === 0 ? (

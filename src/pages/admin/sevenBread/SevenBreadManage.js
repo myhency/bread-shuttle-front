@@ -156,13 +156,13 @@ export default function SevenBreadManage() {
   const isItemNotFound = filteredItems.length === 0;
 
   return (
-    <Page title="Admin: 007빵 종목관리 | Cloud's pick">
+    <Page title="Admin: 기관외인수급추적 종목관리 | Cloud's pick">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="007빵 종목관리"
+          heading="기관외인수급추적 종목관리"
           links={[
             { name: 'Admin', href: PATH_ADMIN.root },
-            { name: '007빵', href: PATH_ADMIN.sevenBread.root },
+            { name: '기관외인수급추적', href: PATH_ADMIN.sevenBread.root },
             { name: '종목관리' }
           ]}
           action={
