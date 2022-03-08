@@ -144,3 +144,4 @@ export const PATH_GOOGLE_NEWS_LINK = (searchText) => `https://www.google.com/sea
 
 export const PATH_TODAY_REPORT = 'https://comp.wisereport.co.kr/wiseReport/summary/ReportSummary.aspx';
 export const PATH_BIGPIE_MANUAL_LINK = 'https://far-pudding-e28.notion.site/43d0a77ebcc24a2f8af530021c6b81bd';
+export const PATH_BREADSHUTTLE_MANUAL_LINK = 'https://lively-flamingo-301.notion.site/62a424fd3d1743518da41ace35288c14';

@@ -6,7 +6,16 @@ import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
 import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
 // material
 import { alpha, useTheme, styled } from '@mui/material/styles';
-import { Box, List, Collapse, ListItemText, ListItemIcon, ListSubheader, ListItemButton } from '@mui/material';
+import {
+  Typography,
+  Box,
+  List,
+  Collapse,
+  ListItemText,
+  ListItemIcon,
+  ListSubheader,
+  ListItemButton
+} from '@mui/material';
 import useAuth from '../hooks/useAuth';
 // import { fontSize } from '@mui/system';
 
@@ -197,8 +206,20 @@ export default function NavSection({ navConfig, isShow = true, ...other }) {
 
   return (
     <Box {...other}>
-      {filteredNavConfig.map((list) => {
-        const { subheader, items } = list;
+      {filteredNavConfig.map((list, index) => {
+        const { subheader, items, eLink } = list;
+        if (index === 0) {
+          return (
+            <List key={subheader} disablePadding>
+              <ListSubheaderStyle
+                sx={{ fontSize: '1rem', cursor: 'pointer' }}
+                onClick={() => window.open(eLink, '_blank')}
+              >
+                {subheader}
+              </ListSubheaderStyle>
+            </List>
+          );
+        }
         return (
           <List key={subheader} disablePadding>
             {isShow && <ListSubheaderStyle>{subheader}</ListSubheaderStyle>}
