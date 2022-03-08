@@ -143,3 +143,4 @@ export const PATH_HANKYUNG_MLINK = (searchText) =>
 export const PATH_GOOGLE_NEWS_LINK = (searchText) => `https://www.google.com/search?q=${searchText}&tbm=nws`;
 
 export const PATH_TODAY_REPORT = 'https://comp.wisereport.co.kr/wiseReport/summary/ReportSummary.aspx';
+export const PATH_BIGPIE_MANUAL_LINK = 'https://far-pudding-e28.notion.site/43d0a77ebcc24a2f8af530021c6b81bd';

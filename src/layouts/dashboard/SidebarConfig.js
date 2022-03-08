@@ -1,14 +1,12 @@
 // routes
 import {
   PATH_DASHBOARD,
-  PATH_SEVENBREAD_NOTICE,
-  PATH_NOTICE_LECTURE,
   PATH_STOCK_CALENDAR,
   PATH_NAVER_ECONOMIC_NEWS,
   PATH_COMPANY_GUIDE,
-  PATH_TELEGRAM_THIS_MONTH,
   PATH_ADMIN,
-  PATH_TODAY_REPORT
+  PATH_TODAY_REPORT,
+  PATH_BIGPIE_MANUAL_LINK
 } from '../../routes/paths';
 // components
 // import Label from '../../components/Label';
@@ -73,7 +71,8 @@ const sidebarConfig = [
         icon: ICONS.bus,
         children: [
           { title: '실시간 현황', path: PATH_DASHBOARD.bigpie.realtime },
-          { title: '날짜별 조회', path: PATH_DASHBOARD.bigpie.list }
+          { title: '날짜별 조회', path: PATH_DASHBOARD.bigpie.list },
+          { title: '매뉴얼', eLink: PATH_BIGPIE_MANUAL_LINK }
         ]
       },
       {
