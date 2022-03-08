@@ -6,7 +6,8 @@ import {
   PATH_COMPANY_GUIDE,
   PATH_ADMIN,
   PATH_TODAY_REPORT,
-  PATH_BIGPIE_MANUAL_LINK
+  PATH_BIGPIE_MANUAL_LINK,
+  PATH_BREADSHUTTLE_MANUAL_LINK
 } from '../../routes/paths';
 // components
 // import Label from '../../components/Label';
@@ -63,6 +64,12 @@ const sidebarConfig = [
   // ----------------------------------------------------------------------
   {
     isAdmin: false,
+    subheader: '빵셔틀 매뉴얼',
+    eLink: PATH_BREADSHUTTLE_MANUAL_LINK,
+    items: []
+  },
+  {
+    isAdmin: false,
     subheader: 'Trade',
     items: [
       {
@@ -71,8 +78,8 @@ const sidebarConfig = [
         icon: ICONS.bus,
         children: [
           { title: '실시간 현황', path: PATH_DASHBOARD.bigpie.realtime },
-          { title: '날짜별 조회', path: PATH_DASHBOARD.bigpie.list },
-          { title: '매뉴얼', eLink: PATH_BIGPIE_MANUAL_LINK }
+          { title: '날짜별 조회', path: PATH_DASHBOARD.bigpie.list }
+          // { title: '매뉴얼', eLink: PATH_BIGPIE_MANUAL_LINK }
         ]
       },
       {
