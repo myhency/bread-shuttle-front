@@ -108,7 +108,7 @@ export default function BigPieRealTime() {
                   />
                 </Grid>
                 {dayTradingBigPie.length === 0 ? (
-                  <CustomLoadingScreen message="종목 검색 중..." />
+                  <CustomLoadingScreen message="현금 유지하고 종목 포착을 기다려주세요" />
                 ) : (
                   dayTradingBigPie.map((item) => {
                     const {
@@ -154,7 +154,7 @@ export default function BigPieRealTime() {
                   />
                 </Grid>
                 {swingBigPie.length === 0 ? (
-                  <CustomLoadingScreen message="종목 검색 중..." />
+                  <CustomLoadingScreen message="현금 유지하고 종목 포착을 기다려주세요" />
                 ) : (
                   swingBigPie.map((item) => {
                     const {
