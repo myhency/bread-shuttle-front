@@ -64,7 +64,7 @@ const sidebarConfig = [
   // ----------------------------------------------------------------------
   {
     isAdmin: false,
-    subheader: '빵셔틀 매뉴얼',
+    subheader: '사용법',
     eLink: PATH_BREADSHUTTLE_MANUAL_LINK,
     items: []
   },

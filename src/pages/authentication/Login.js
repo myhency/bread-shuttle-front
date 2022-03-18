@@ -67,7 +67,7 @@ export default function Login() {
       <MHidden width="mdDown">
         <SectionStyle>
           <Typography variant="h4" sx={{ px: 5, mt: 10, mb: 5 }}>
-            빵셔틀에 오신것을 환영합니다
+            Cloud's Pick 에 오신것을 환영합니다
           </Typography>
           <Box sx={{ px: 3 }}>
             <img src="/static/illustrations/bread-stock-logo.png" alt="login" />
@@ -80,7 +80,7 @@ export default function Login() {
           <Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
             <Box sx={{ flexGrow: 1 }}>
               <Typography variant="h4" gutterBottom>
-                빵셔틀로 들어가기
+                Cloud's Pick 들어가기
               </Typography>
               <Typography sx={{ color: 'text.secondary' }}>사용자명과 비밀번호를 입력하세요.</Typography>
             </Box>
