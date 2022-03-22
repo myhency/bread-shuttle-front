@@ -1,30 +1,18 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import PropTypes from 'prop-types';
 // material
-import { useTheme, styled } from '@mui/material/styles';
-import { Card, Box, Typography, Stack, ListItemIcon, SvgIcon } from '@mui/material';
+import { useTheme, styled, alpha } from '@mui/material/styles';
+import { Card, Box, Typography, Stack } from '@mui/material';
 // utils
 import { fNumber, fPercent } from '../../../utils/formatNumber';
-import { fTimeShorten, fDateStringFormat } from '../../../utils/formatTime';
 //
-import { path, PATH_ALPHA_LINK, PATH_FN_LINK, PATH_NAVER_LINK, PATH_HANKYUNG_LINK } from '../../../routes/paths';
-import SvgIconStyle from '../../SvgIconStyle';
 import IconLinkBox from '../../_share/IconLinkBox';
 
-const getIcon = (name) => <SvgIconStyle src={`/static/icons/${name}.svg`} sx={{ width: '100%', height: '100%' }} />;
-
-const ICONS = {
-  building: getIcon('ic_building'),
-  person: getIcon('ic_person1')
-};
-
-const ListItemIconStyle = styled(ListItemIcon)({
-  width: 18,
-  height: 18,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
-});
+const TextIconStyle = styled(Typography)(({ theme }) => ({
+  padding: '4px',
+  borderRadius: '20%',
+  backgroundColor: alpha(theme.palette.primary.light, 0.16)
+}));
 
 SevenBreadGridItem1.propTypes = {
   itemCode: PropTypes.string,
@@ -51,7 +39,7 @@ export default function SevenBreadGridItem1({
 }) {
   const theme = useTheme();
   // eslint-disable-next-line no-nested-ternary
-  const icon = majorHandler === 'G' ? ICONS.building : majorHandler === 'W' ? ICONS.person : null;
+  const icon = majorHandler === 'G' ? '기' : majorHandler === 'W' ? '외' : null;
   return (
     <Card sx={{ display: 'flex', flexDirection: 'column', p: 3 }}>
       <Stack spacing={1}>
@@ -59,12 +47,11 @@ export default function SevenBreadGridItem1({
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             {icon ? (
               <Box>
-                <ListItemIconStyle sx={{ mr: 1 }}>{icon}</ListItemIconStyle>
+                <TextIconStyle variant="button">{icon}</TextIconStyle>
               </Box>
             ) : (
               <Box sx={{ display: 'flex' }}>
-                <ListItemIconStyle sx={{ mr: 1 }}>{ICONS.building}</ListItemIconStyle>
-                <ListItemIconStyle sx={{ mr: 1 }}>{ICONS.person}</ListItemIconStyle>
+                <TextIconStyle variant="button">기/외</TextIconStyle>
               </Box>
             )}
 
