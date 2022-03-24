@@ -7,7 +7,8 @@ import {
   PATH_ADMIN,
   PATH_TODAY_REPORT,
   PATH_BIGPIE_MANUAL_LINK,
-  PATH_BREADSHUTTLE_MANUAL_LINK
+  PATH_BREADSHUTTLE_MANUAL_LINK,
+  PATH_SEVENBREAD_CHANGES
 } from '../../routes/paths';
 // components
 // import Label from '../../components/Label';
@@ -88,6 +89,7 @@ const sidebarConfig = [
         icon: ICONS.filter7,
         children: [
           // { title: '007빵 공지', eLink: PATH_SEVENBREAD_NOTICE },
+          { title: '변경사항', eLink: PATH_SEVENBREAD_CHANGES },
           { title: '실시간 현황', path: PATH_DASHBOARD.sevenBread.realtime },
           { title: '리스트 조회', path: PATH_DASHBOARD.sevenBread.list }
           // { title: '007빵 통계', path: PATH_DASHBOARD.general.banking }
