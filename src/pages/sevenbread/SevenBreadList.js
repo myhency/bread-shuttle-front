@@ -1,12 +1,15 @@
+/* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable no-nested-ternary */
 import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
+import Download from '@mui/icons-material/Download';
 import { useMediaQuery } from 'react-responsive';
 import { sentenceCase } from 'change-case';
 import { useState, useEffect, useRef } from 'react';
 import searchFill from '@iconify/icons-eva/search-fill';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { CSVLink, CSVDownload } from 'react-csv';
 // material
 import { useTheme } from '@mui/material/styles';
 import * as styles from '@mui/material/styles';
@@ -265,10 +268,21 @@ export default function SevenBreadList() {
   const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('capturedDate');
   const [filterName, setFilterName] = useState('');
+  const [csvData, setCsvData] = useState([]);
+  const header = [
+    { label: '종목명', key: 'itemName' },
+    { label: '', key: 'blank' }
+  ];
 
   useEffect(() => {
     dispatch(fetchSevenBreadItems());
   }, [dispatch]);
+
+  useEffect(() => {
+    const data = [];
+    sevenBreadAdminItems.forEach((item) => data.push({ itemName: item.itemName, blank: '' }));
+    setCsvData(data);
+  }, [sevenBreadAdminItems]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -285,6 +299,13 @@ export default function SevenBreadList() {
     console.log(event);
     navigate(PATH_ADMIN.sevenBread.management);
   };
+
+  // const handleExcelDownloadOnClick = () => {
+  //   const csvData = [];
+  //   csvData.push(['종목명']);
+  //   sevenBreadAdminItems.forEach((item) => csvData.push([item.itemName]));
+  //   console.log(csvData);
+  // };
 
   const filteredItems = applySortFilter(sevenBreadAdminItems, getComparator(order, orderBy), filterName);
 
@@ -320,6 +341,26 @@ export default function SevenBreadList() {
                 </InputAdornment>
               }
             />
+          </Stack>
+          <Stack direction="row" spacing={1} sx={{ my: 1 }} flexWrap="wrap" alignContent="space-around">
+            {/* eslint-disable-next-line prettier/prettier */}
+            {/* eslint-disable-next-line react/jsx-curly-brace-presence */}
+            <CSVLink
+              data={csvData}
+              headers={header}
+              separator={','}
+              enclosingCharacter={''}
+              style={{ textDecoration: 'none' }}
+            >
+              <Button
+                variant="outlined"
+                startIcon={<Download />}
+                sx={{ mr: '10rem' }}
+                // onClick={() => <CSVDownload data={csvData} headers={header} />}
+              >
+                HTS입력용 엑셀다운받기
+              </Button>
+            </CSVLink>
           </Stack>
         </Stack>
 
