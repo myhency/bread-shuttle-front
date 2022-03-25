@@ -147,3 +147,5 @@ export const PATH_BIGPIE_MANUAL_LINK = 'https://far-pudding-e28.notion.site/43d0
 export const PATH_BREADSHUTTLE_MANUAL_LINK = 'https://lively-flamingo-301.notion.site/62a424fd3d1743518da41ace35288c14';
 
 export const PATH_SEVENBREAD_CHANGES = 'https://tidy-field-695.notion.site/15372f45a8444b1bb14f461cc9dbe0f7';
+export const PATH_NEW_USER_LINK =
+  'https://docs.google.com/forms/d/e/1FAIpQLScWGUGnPzVgwMkHk02BDKlptvOHDEsgHdfXMU84KnPBQZYIIg/viewform';

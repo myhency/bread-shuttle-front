@@ -57,12 +57,12 @@ export default function Login() {
 
   return (
     <RootStyle title="로그인 | Cloud's pick">
-      <AuthLayout>
+      {/* <AuthLayout>
         클라우드의 수급주 &nbsp;
         <Link underline="none" variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
           보러가기
         </Link>
-      </AuthLayout>
+      </AuthLayout> */}
 
       <MHidden width="mdDown">
         <SectionStyle>
@@ -99,19 +99,21 @@ export default function Login() {
           {method !== 'auth0' ? (
             <LoginForm />
           ) : (
-            <Button fullWidth size="large" type="submit" variant="contained" onClick={handleLoginAuth0}>
-              로그인
-            </Button>
+            <>
+              <Button fullWidth size="large" type="submit" variant="contained" onClick={handleLoginAuth0}>
+                로그인
+              </Button>
+            </>
           )}
 
-          <MHidden width="smUp">
+          {/* <MHidden width="smUp">
             <Typography variant="body2" align="center" sx={{ mt: 3 }}>
               클라우드의 수급주 &nbsp;
               <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
                 보러가기
               </Link>
             </Typography>
-          </MHidden>
+          </MHidden> */}
         </ContentStyle>
       </Container>
     </RootStyle>
