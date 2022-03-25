@@ -7,11 +7,13 @@ import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import closeFill from '@iconify/icons-eva/close-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
+
 // material
 import { Link, Stack, Alert, Checkbox, TextField, IconButton, InputAdornment, FormControlLabel } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
-import { PATH_AUTH } from '../../../routes/paths';
+import { useTheme } from '@mui/material/styles';
+import { PATH_AUTH, PATH_NEW_USER_LINK } from '../../../routes/paths';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
@@ -21,6 +23,7 @@ import { MIconButton } from '../../@material-extend';
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
+  const theme = useTheme();
   const { login } = useAuth();
   const isMountedRef = useIsMountedRef();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -113,13 +116,22 @@ export default function LoginForm() {
             label="나를 기억하기"
           /> */}
 
-          <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
+          {/* <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
             비밀번호를 잊어버리셨나요?
-          </Link>
+          </Link> */}
         </Stack>
 
         <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
           로그인
+        </LoadingButton>
+        <LoadingButton
+          fullWidth
+          size="large"
+          variant="contained"
+          onClick={() => window.open(PATH_NEW_USER_LINK, '_blank')}
+          sx={{ mt: '1rem', backgroundColor: theme.palette.primary.light }}
+        >
+          서비스 가입신청
         </LoadingButton>
       </Form>
     </FormikProvider>

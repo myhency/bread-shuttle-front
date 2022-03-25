@@ -71,6 +71,12 @@ const sidebarConfig = [
   },
   {
     isAdmin: false,
+    subheader: '사용법',
+    eLink: PATH_BREADSHUTTLE_MANUAL_LINK,
+    items: []
+  },
+  {
+    isAdmin: false,
     subheader: 'Trade',
     items: [
       {
