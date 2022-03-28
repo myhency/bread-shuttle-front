@@ -208,18 +208,18 @@ export default function NavSection({ navConfig, isShow = true, ...other }) {
     <Box {...other}>
       {filteredNavConfig.map((list, index) => {
         const { subheader, items, eLink } = list;
-        if (index === 0) {
-          return (
-            <List key={subheader} disablePadding>
-              <ListSubheaderStyle
-                sx={{ fontSize: '1rem', cursor: 'pointer' }}
-                onClick={() => window.open(eLink, '_blank')}
-              >
-                {subheader}
-              </ListSubheaderStyle>
-            </List>
-          );
-        }
+        // if (index === 0) {
+        //   return (
+        //     <List key={subheader} disablePadding>
+        //       <ListSubheaderStyle
+        //         sx={{ fontSize: '1rem', cursor: 'pointer' }}
+        //         onClick={() => window.open(eLink, '_blank')}
+        //       >
+        //         {subheader}
+        //       </ListSubheaderStyle>
+        //     </List>
+        //   );
+        // }
         return (
           <List key={subheader} disablePadding>
             {isShow && <ListSubheaderStyle>{subheader}</ListSubheaderStyle>}
