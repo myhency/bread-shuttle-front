@@ -8,7 +8,8 @@ import {
   PATH_TODAY_REPORT,
   PATH_BIGPIE_MANUAL_LINK,
   PATH_BREADSHUTTLE_MANUAL_LINK,
-  PATH_SEVENBREAD_CHANGES
+  PATH_SEVENBREAD_CHANGES,
+  PATH_NEW_USER_LINK
 } from '../../routes/paths';
 // components
 // import Label from '../../components/Label';
@@ -61,20 +62,39 @@ const sidebarConfig = [
   //   ]
   // },
 
-  // GENERAL
+  // 안내
   // ----------------------------------------------------------------------
   {
     isAdmin: false,
-    subheader: '사용법',
-    eLink: PATH_BREADSHUTTLE_MANUAL_LINK,
-    items: []
+    subheader: 'links',
+    items: [
+      {
+        title: '안내',
+        path: PATH_DASHBOARD.general.ecommerce,
+        icon: ICONS.trendingup,
+        children: [
+          { title: '사용법', eLink: PATH_BREADSHUTTLE_MANUAL_LINK },
+          // { title: '공지/강의', eLink: PATH_NOTICE_LECTURE },
+          { title: '가입안내', eLink: PATH_NEW_USER_LINK }
+          // { title: '이달의 텔레그램', eLink: PATH_TELEGRAM_THIS_MONTH }
+        ]
+      }
+    ]
   },
-  {
-    isAdmin: false,
-    subheader: '사용법',
-    eLink: PATH_BREADSHUTTLE_MANUAL_LINK,
-    items: []
-  },
+  // GENERAL
+  // ----------------------------------------------------------------------
+  // {
+  //   isAdmin: false,
+  //   subheader: '사용법',
+  //   eLink: PATH_BREADSHUTTLE_MANUAL_LINK,
+  //   items: []
+  // },
+  // {
+  //   isAdmin: false,
+  //   subheader: '사용법',
+  //   eLink: PATH_BREADSHUTTLE_MANUAL_LINK,
+  //   items: []
+  // },
   {
     isAdmin: false,
     subheader: 'Trade',
