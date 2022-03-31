@@ -125,7 +125,7 @@ export const PATH_STOCK_CALENDAR = 'http://www.paxnet.co.kr/stock/infoStock/issu
 export const PATH_NAVER_ECONOMIC_NEWS = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=101';
 export const PATH_COMPANY_GUIDE =
   'http://comp.fnguide.com/SVO2/asp/SVD_comp_calendar.asp?pGB=1&gicode=A005930&gcd=&gnm=&curdt=&ctp=&cID=&MenuYn=Y&ReportGB=&NewMenuID=701&stkGb=701';
-export const PATH_TELEGRAM_THIS_MONTH = 'https://t.me/+fotErv5hlb05ZWY1';
+export const PATH_TELEGRAM_THIS_MONTH = 'https://t.me/+oD9qAbbU2BVhZWE1';
 
 export const PATH_ALPHA_LINK = 'https://alphasquare.co.kr/home/stock/stock-summary?code=';
 export const PATH_M_ALPHA_LINK = 'https://m.alphasquare.co.kr/service/chart?code=';
