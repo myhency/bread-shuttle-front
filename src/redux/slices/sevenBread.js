@@ -103,7 +103,6 @@ export function fetchSevenBreadItems() {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.get('/api/v1/platform/v2/sevenbread/item');
-      console.log('seven');
       dispatch(slice.actions.getSevenBreadAdminItemsSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
