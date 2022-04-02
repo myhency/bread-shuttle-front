@@ -60,7 +60,8 @@ const TABLE_HEAD = [
   { id: 'capturedDate', label: '기준일', align: 'left' },
   { id: 'capturedPrice', label: '기준일 종가(원)', align: 'right' },
   { id: 'capturedLowestPrice', label: '기준일 저가(원)', align: 'right' },
-  { id: 'majorHandler', label: '수급주체', align: 'center' }
+  { id: 'majorHandler', label: '수급주체', align: 'center' },
+  { id: 'alarmStatus', label: '거래상태', align: 'center' }
 ];
 
 // ----------------------------------------------------------------------
@@ -139,7 +140,7 @@ const SMTable = ({ data }) => (
       </Paper>
     </Box>
     {data.map((row) => {
-      const { capturedDate, capturedPrice, itemCode, itemName, lowestPrice, majorHandler } = row;
+      const { capturedDate, capturedPrice, itemCode, itemName, lowestPrice, majorHandler, alarmStatus } = row;
 
       return (
         <Box
@@ -380,7 +381,15 @@ export default function SevenBreadList() {
                   />
                   <TableBody>
                     {filteredItems.map((row) => {
-                      const { capturedDate, capturedPrice, itemCode, itemName, lowestPrice, majorHandler } = row;
+                      const {
+                        capturedDate,
+                        capturedPrice,
+                        itemCode,
+                        itemName,
+                        lowestPrice,
+                        majorHandler,
+                        alarmStatus
+                      } = row;
 
                       return (
                         <TableRow hover key={itemCode}>
@@ -406,6 +415,10 @@ export default function SevenBreadList() {
                           <TableCell align="center" onClick={(event) => handleRowOnClick(event, itemCode)}>
                             {/* eslint-disable-next-line no-nested-ternary */}
                             {majorHandler === 'G' ? '기관' : majorHandler === 'W' ? '외인' : '기관/외인'}
+                          </TableCell>
+                          <TableCell align="center" onClick={(event) => handleRowOnClick(event, itemCode)}>
+                            {/* eslint-disable-next-line no-nested-ternary */}
+                            {alarmStatus === 'ALARMED' ? '거래중' : '거래대기'}
                           </TableCell>
                         </TableRow>
                       );
