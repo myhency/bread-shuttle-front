@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable no-nested-ternary */
 import { filter } from 'lodash';
+import { useSnackbar } from 'notistack';
 import { Icon } from '@iconify/react';
 import Download from '@mui/icons-material/Download';
 import { useMediaQuery } from 'react-responsive';
@@ -12,6 +13,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { CSVLink, CSVDownload } from 'react-csv';
 // material
 import { useTheme } from '@mui/material/styles';
+import closeFill from '@iconify/icons-eva/close-fill';
 import * as styles from '@mui/material/styles';
 import {
   Card,
@@ -34,6 +36,7 @@ import {
   Paper
 } from '@mui/material';
 import { DesktopDatePicker } from '@mui/lab';
+import { MIconButton } from '../../components/@material-extend';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
 import { getUserList, deleteUser } from '../../redux/slices/user';
@@ -260,6 +263,7 @@ function applySortFilter(array, comparator, query) {
 
 export default function SevenBreadList() {
   const { themeStretch } = useSettings();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const isSM = useMediaQuery({
     query: '(max-width: 600px)'
   });
@@ -357,6 +361,19 @@ export default function SevenBreadList() {
                 variant="outlined"
                 startIcon={<Download />}
                 sx={{ mr: '10rem' }}
+                onClick={() => {
+                  enqueueSnackbar(
+                    '파일 우클릭, 연결프로그램에서 메모장으로 열고 ANSI로 변경해주셔야 HTS에서 입력됩니다',
+                    {
+                      variant: 'success',
+                      action: (key) => (
+                        <MIconButton size="small" onClick={() => closeSnackbar(key)}>
+                          <Icon icon={closeFill} />
+                        </MIconButton>
+                      )
+                    }
+                  );
+                }}
                 // onClick={() => <CSVDownload data={csvData} headers={header} />}
               >
                 HTS입력용 엑셀다운받기
