@@ -45,7 +45,9 @@ export const PATH_ADMIN = {
   },
   admin: {
     root: path(ROOTS_ADMIN, '/stockItems'),
-    stockItems: path(ROOTS_ADMIN, '/stockItems/list')
+    stockItems: path(ROOTS_ADMIN, '/stockItems/list'),
+    users: path(ROOTS_ADMIN, '/users/management'),
+    newUser: path(ROOTS_ADMIN, '/users/management/create')
   }
 };
 

@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
@@ -124,6 +127,22 @@ export default function LoginForm() {
         <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
           로그인
         </LoadingButton>
+        {/* <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
+          <LoadingButton
+            onClick={() => {
+              window.Kakao.Auth.login({
+                success(authObj) {
+                  alert(JSON.stringify(authObj));
+                },
+                fail(err) {
+                  alert(JSON.stringify(err));
+                }
+              });
+            }}
+          >
+            <img src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png" />
+          </LoadingButton>
+        </Stack> */}
         <LoadingButton
           fullWidth
           size="large"

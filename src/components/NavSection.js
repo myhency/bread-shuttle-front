@@ -208,6 +208,7 @@ export default function NavSection({ navConfig, isShow = true, ...other }) {
     <Box {...other}>
       {filteredNavConfig.map((list, index) => {
         const { subheader, items, eLink } = list;
+        console.log(items);
         // if (index === 0) {
         //   return (
         //     <List key={subheader} disablePadding>
@@ -224,7 +225,7 @@ export default function NavSection({ navConfig, isShow = true, ...other }) {
           <List key={subheader} disablePadding>
             {isShow && <ListSubheaderStyle>{subheader}</ListSubheaderStyle>}
             {items.map((item) => (
-              <NavItem key={item.title} item={item} isShow={isShow} />
+              <NavItem key={item.path} item={item} isShow={isShow} />
             ))}
           </List>
         );

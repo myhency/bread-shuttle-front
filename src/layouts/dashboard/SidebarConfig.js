@@ -66,7 +66,7 @@ const sidebarConfig = [
   // ----------------------------------------------------------------------
   {
     isAdmin: false,
-    subheader: 'links',
+    subheader: 'Get Started',
     items: [
       {
         title: '안내',
@@ -185,7 +185,10 @@ const sidebarConfig = [
         title: '관리자전용',
         path: PATH_ADMIN.admin.root,
         icon: ICONS.user,
-        children: [{ title: '종목테마관리', path: PATH_ADMIN.admin.stockItems }]
+        children: [
+          { title: '사용자관리', path: PATH_ADMIN.admin.users },
+          { title: '종목테마관리', path: PATH_ADMIN.admin.stockItems }
+        ]
       }
     ]
   }
