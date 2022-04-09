@@ -21,10 +21,14 @@ export default function UserCreate() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const { name } = useParams();
+  const { id } = useParams();
   const { userList } = useSelector((state) => state.user);
   const isEdit = pathname.includes('edit');
-  const currentUser = userList.find((user) => paramCase(user.name) === name);
+  console.log(id);
+  const currentUser = userList.find((user) => String(user.id) === id);
+
+  console.log(userList);
+  console.log(currentUser);
 
   useEffect(() => {
     dispatch(getUserList());
@@ -38,7 +42,7 @@ export default function UserCreate() {
           links={[
             { name: 'Admin', href: PATH_DASHBOARD.root },
             { name: '사용자관리', href: PATH_DASHBOARD.user.root },
-            { name: !isEdit ? '사용자추가' : name }
+            { name: !isEdit ? '사용자추가' : id }
           ]}
         />
 

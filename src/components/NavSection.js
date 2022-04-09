@@ -208,7 +208,6 @@ export default function NavSection({ navConfig, isShow = true, ...other }) {
     <Box {...other}>
       {filteredNavConfig.map((list, index) => {
         const { subheader, items, eLink } = list;
-        console.log(items);
         // if (index === 0) {
         //   return (
         //     <List key={subheader} disablePadding>

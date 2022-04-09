@@ -197,7 +197,8 @@ export default function Router() {
           path: 'users',
           children: [
             { path: 'management', element: <UserManage /> },
-            { path: 'management/create', element: <UserCreate /> }
+            { path: 'management/create', element: <UserCreate /> },
+            { path: 'management/:id/edit', element: <UserCreate /> }
           ]
         }
       ]
