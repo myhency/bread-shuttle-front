@@ -75,11 +75,17 @@ function AuthProvider({ children }) {
           const response = await axios.get('/api/v1/platform/auth/user/my-info');
           const user = response.data.data;
 
+          console.log(user);
+
           dispatch({
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
-              user: { ...user, displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '주식훈련소 회원님' }
+              user: {
+                ...user,
+                displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '회원님',
+                paymentEndDate: user.paymentEndDate
+              }
             }
           });
         } else {
@@ -118,7 +124,7 @@ function AuthProvider({ children }) {
     dispatch({
       type: 'LOGIN',
       payload: {
-        user: { ...user, displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '주식훈련소 회원님' }
+        user: { ...user, displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '회원님' }
       }
     });
   };
