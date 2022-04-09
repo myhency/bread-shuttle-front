@@ -116,20 +116,6 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         }
       }}
     >
-      {!isCollapse && (
-        <Stack spacing={3} alignItems="center" sx={{ px: 5, pb: 5, mt: 10, width: 1, textAlign: 'center' }}>
-          <DocIllustration sx={{ width: 1 }} />
-
-          <div>
-            <Typography gutterBottom variant="subtitle1">
-              안녕하세요, {user?.displayName}
-            </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {`사용종료일은 ${user.paymentEndDate} 입니다`}
-            </Typography>
-          </div>
-        </Stack>
-      )}
       <Stack
         spacing={3}
         sx={{
@@ -150,6 +136,21 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             {!isCollapse && <IconCollapse onToggleCollapse={onToggleCollapse} collapseClick={collapseClick} />}
           </MHidden>
         </Stack>
+
+        {!isCollapse && (
+          <Stack spacing={3} alignItems="center" sx={{ px: 5, pb: 5, mt: 10, width: 1, textAlign: 'center' }}>
+            <DocIllustration sx={{ width: 1 }} />
+
+            <div>
+              <Typography gutterBottom variant="subtitle1">
+                안녕하세요, {user?.displayName}
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                {`사용종료일은 ${user.paymentEndDate} 입니다`}
+              </Typography>
+            </div>
+          </Stack>
+        )}
 
         {/* {isCollapse ? (
           <MyAvatar sx={{ mx: 'auto', mb: 2 }} />
@@ -183,7 +184,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
               안녕하세요, {user?.displayName}
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {`사용종료일은 ${user.paymentEndDate} 입니다`}
+              {`회원님의 사용종료일은 ${user.paymentEndDate} 입니다`}
             </Typography>
           </div>
         </Stack>
