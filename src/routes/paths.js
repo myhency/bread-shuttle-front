@@ -149,3 +149,4 @@ export const PATH_BREADSHUTTLE_MANUAL_LINK = 'https://lively-flamingo-301.notion
 export const PATH_SEVENBREAD_CHANGES = 'https://tidy-field-695.notion.site/15372f45a8444b1bb14f461cc9dbe0f7';
 export const PATH_NEW_USER_LINK =
   'https://docs.google.com/forms/d/e/1FAIpQLScWGUGnPzVgwMkHk02BDKlptvOHDEsgHdfXMU84KnPBQZYIIg/viewform';
+export const PATH_BIGPIE_CHANGES = 'https://lively-flamingo-301.notion.site/0f54e58483484ea195aeabab0cf4f028';
