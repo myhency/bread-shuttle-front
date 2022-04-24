@@ -36,6 +36,16 @@ const MENU_OPTIONS = [
     icon: settings2Fill,
     linkTo: (id) => `/dashboard/user/${id}/edit`
   }
+  // {
+  //   label: 'Profile',
+  //   icon: personFill,
+  //   linkTo: PATH_DASHBOARD.user.profile
+  // },
+  // {
+  //   label: 'Settings',
+  //   icon: settings2Fill,
+  //   linkTo: PATH_DASHBOARD.user.account
+  // }
 ];
 
 // ----------------------------------------------------------------------

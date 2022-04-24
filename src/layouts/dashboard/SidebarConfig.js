@@ -71,7 +71,7 @@ const sidebarConfig = [
     items: [
       {
         title: '안내',
-        path: PATH_DASHBOARD.general.app,
+        path: PATH_DASHBOARD.general.ecommerce,
         icon: ICONS.trendingup,
         children: [
           { title: '사용법', eLink: PATH_BREADSHUTTLE_MANUAL_LINK },

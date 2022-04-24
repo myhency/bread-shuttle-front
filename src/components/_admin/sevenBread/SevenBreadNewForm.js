@@ -101,10 +101,8 @@ export default function SevenBreadNewForm({ isEdit, stockItemList, itemCode }) {
             majorHandler: values.majorHandler,
             reoccurDateList
           };
-      console.log(params);
       createSevenBreadItem(params)
         .then((res) => {
-          console.log(res);
           if (res) {
             resetForm();
             setSubmitting(false);

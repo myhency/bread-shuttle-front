@@ -51,9 +51,7 @@ export default function AppThemeCategoryTreemap() {
       const chartDataArr = [];
       volumeRealTimeSnapshots.forEach((v) => {
         chartDataArr.push(v.val().code);
-        console.log(v.itemCodes);
       });
-      console.log(chartDataArr);
       dispatch(fetchThemeCategoryByItemCodes(chartDataArr));
     } catch (error) {
       console.log(error);
