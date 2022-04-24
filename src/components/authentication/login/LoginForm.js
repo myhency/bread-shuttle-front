@@ -59,12 +59,18 @@ export default function LoginForm() {
           setSubmitting(false);
         }
       } catch (error) {
+        console.log(error);
         resetForm();
         if (isMountedRef.current) {
           setSubmitting(false);
           setErrors({
             afterSubmit:
-              error.data === 'LoginFailException' ? '사용자명과 패스워드를 정확히 입력하셨습니까?' : '로그인 오류'
+              // eslint-disable-next-line no-nested-ternary
+              error.data === 'LoginFailException'
+                ? '사용자명과 패스워드를 정확히 입력하셨습니까?'
+                : error.message === 'Expired'
+                ? '사용기간이 만료되었습니다.'
+                : '로그인 오류'
           });
         }
       }

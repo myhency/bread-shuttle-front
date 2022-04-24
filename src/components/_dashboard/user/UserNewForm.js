@@ -1,21 +1,22 @@
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { useCallback } from 'react';
+import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import { Form, FormikProvider, useFormik } from 'formik';
 // material
-import { LoadingButton } from '@mui/lab';
-import { Box, Card, Grid, Stack, Switch, TextField, Typography, FormHelperText, FormControlLabel } from '@mui/material';
+import { LoadingButton, DesktopDatePicker } from '@mui/lab';
+import { Box, Card, Grid, Stack, TextField, IconButton, InputAdornment, Autocomplete } from '@mui/material';
 // utils
-import { fData } from '../../../utils/formatNumber';
-import fakeRequest from '../../../utils/fakeRequest';
+import { Icon } from '@iconify/react';
+import eyeFill from '@iconify/icons-eva/eye-fill';
+import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
+import { fDateStringFormat } from '../../../utils/formatTime';
+import { useDispatch } from '../../../redux/store';
 // routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
-//
-import Label from '../../Label';
-import { UploadAvatar } from '../../upload';
-import countries from './countries';
+import { PATH_ADMIN, PATH_DASHBOARD } from '../../../routes/paths';
+
+import { updateUser, createUser, getUserList, updateUserSettings } from '../../../redux/slices/user';
 
 // ----------------------------------------------------------------------
 
@@ -24,48 +25,51 @@ UserNewForm.propTypes = {
   currentUser: PropTypes.object
 };
 
+const handlers = [
+  { title: '관리자', value: 'ROLE_ADMIN' },
+  { title: '정회원', value: 'ROLE_USER' }
+];
+
 export default function UserNewForm({ isEdit, currentUser }) {
+  const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(true);
+  const [paymentStartDate, setPaymentStartDate] = useState('');
+  const [paymentEndDate, setPaymentEndDate] = useState('');
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    email: Yup.string().required('Email is required').email(),
-    phoneNumber: Yup.string().required('Phone number is required'),
-    address: Yup.string().required('Address is required'),
-    country: Yup.string().required('country is required'),
-    company: Yup.string().required('Company is required'),
-    state: Yup.string().required('State is required'),
-    city: Yup.string().required('City is required'),
-    role: Yup.string().required('Role Number is required'),
-    avatarUrl: Yup.mixed().required('Avatar is required')
+    userName: Yup.string().required('ID를 입력해야 합니다.'),
+    role: Yup.string().required('권한을 선택해야 합니다.')
+    // password: Yup.string().required('패스워드를 입력하세요'),
+    // paymentStartDate: Yup.string().required('권한을 선택해야 합니다.'),
+    // paymentEndDate: Yup.string().required('권한을 선택해야 합니다.')
   });
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: currentUser?.name || '',
-      email: currentUser?.email || '',
-      phoneNumber: currentUser?.phoneNumber || '',
-      address: currentUser?.address || '',
-      country: currentUser?.country || '',
-      state: currentUser?.state || '',
-      city: currentUser?.city || '',
-      zipCode: currentUser?.zipCode || '',
-      avatarUrl: currentUser?.avatarUrl || null,
-      isVerified: currentUser?.isVerified || true,
-      status: currentUser?.status,
-      company: currentUser?.company || '',
-      role: currentUser?.role || ''
+      userName: currentUser?.userName || '',
+      role: currentUser?.role || '',
+      paymentStartDate: currentUser?.paymentStartDate || '',
+      paymentEndDate: currentUser?.paymentEndDate || ''
     },
     validationSchema: NewUserSchema,
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
       try {
-        await fakeRequest(500);
+        console.log(values);
+        if (isEdit) {
+          dispatch(
+            updateUserSettings({
+              ...values
+            })
+          );
+        }
+
         resetForm();
         setSubmitting(false);
         enqueueSnackbar(!isEdit ? 'Create success' : 'Update success', { variant: 'success' });
-        navigate(PATH_DASHBOARD.user.list);
+        navigate(PATH_DASHBOARD.bigpie.realtime);
       } catch (error) {
         console.error(error);
         setSubmitting(false);
@@ -76,198 +80,118 @@ export default function UserNewForm({ isEdit, currentUser }) {
 
   const { errors, values, touched, handleSubmit, isSubmitting, setFieldValue, getFieldProps } = formik;
 
-  const handleDrop = useCallback(
-    (acceptedFiles) => {
-      const file = acceptedFiles[0];
-      if (file) {
-        setFieldValue('avatarUrl', {
-          ...file,
-          preview: URL.createObjectURL(file)
-        });
-      }
-    },
-    [setFieldValue]
-  );
+  const defaultHandlers = handlers.filter((handler) => handler.value === values.role);
+
+  const handleShowPassword = () => {
+    setShowPassword((show) => !show);
+  };
 
   return (
     <FormikProvider value={formik}>
       <Form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
-            <Card sx={{ py: 10, px: 3 }}>
-              {isEdit && (
-                <Label
-                  color={values.status !== 'active' ? 'error' : 'success'}
-                  sx={{ textTransform: 'uppercase', position: 'absolute', top: 24, right: 24 }}
-                >
-                  {values.status}
-                </Label>
-              )}
-
-              <Box sx={{ mb: 5 }}>
-                <UploadAvatar
-                  accept="image/*"
-                  file={values.avatarUrl}
-                  maxSize={3145728}
-                  onDrop={handleDrop}
-                  error={Boolean(touched.avatarUrl && errors.avatarUrl)}
-                  caption={
-                    <Typography
-                      variant="caption"
-                      sx={{
-                        mt: 2,
-                        mx: 'auto',
-                        display: 'block',
-                        textAlign: 'center',
-                        color: 'text.secondary'
-                      }}
-                    >
-                      Allowed *.jpeg, *.jpg, *.png, *.gif
-                      <br /> max size of {fData(3145728)}
-                    </Typography>
-                  }
-                />
-                <FormHelperText error sx={{ px: 2, textAlign: 'center' }}>
-                  {touched.avatarUrl && errors.avatarUrl}
-                </FormHelperText>
-              </Box>
-
-              {isEdit && (
-                <FormControlLabel
-                  labelPlacement="start"
-                  control={
-                    <Switch
-                      onChange={(event) => setFieldValue('status', event.target.checked ? 'banned' : 'active')}
-                      checked={values.status !== 'active'}
-                    />
-                  }
-                  label={
-                    <>
-                      <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                        Banned
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        Apply disable account
-                      </Typography>
-                    </>
-                  }
-                  sx={{ mx: 0, mb: 3, width: 1, justifyContent: 'space-between' }}
-                />
-              )}
-
-              <FormControlLabel
-                labelPlacement="start"
-                control={<Switch {...getFieldProps('isVerified')} checked={values.isVerified} />}
-                label={
-                  <>
-                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                      Email Verified
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                      Disabling this will automatically send the user a verification email
-                    </Typography>
-                  </>
-                }
-                sx={{ mx: 0, width: 1, justifyContent: 'space-between' }}
-              />
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={6}>
             <Card sx={{ p: 3 }}>
               <Stack spacing={3}>
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
+                <Stack direction={{ xs: 'column', sm: 'column' }} spacing={{ xs: 3, sm: 2 }}>
                   <TextField
                     fullWidth
-                    label="Full Name"
-                    {...getFieldProps('name')}
-                    error={Boolean(touched.name && errors.name)}
-                    helperText={touched.name && errors.name}
+                    disabled={isEdit}
+                    label="ID"
+                    {...getFieldProps('userName')}
+                    error={Boolean(touched.userName && errors.userName)}
+                    helperText={touched.userName && errors.userName}
+                  />
+                  <Autocomplete
+                    fullWidth
+                    options={handlers}
+                    value={defaultHandlers[0] || null}
+                    getOptionLabel={(handler) => handler.title}
+                    onChange={(e, value) => {
+                      setFieldValue('role', value?.value || '');
+                    }}
+                    includeInputInList
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        disabled
+                        name="role"
+                        label="권한"
+                        placeholder="권한"
+                        {...getFieldProps('role')}
+                        error={Boolean(touched.role && errors.role)}
+                        helperText={touched.role && errors.role}
+                      />
+                    )}
                   />
                   <TextField
                     fullWidth
-                    label="Email Address"
-                    {...getFieldProps('email')}
-                    error={Boolean(touched.email && errors.email)}
-                    helperText={touched.email && errors.email}
+                    autoComplete="current-password"
+                    type={showPassword ? 'text' : 'password'}
+                    label="패스워드를 입력하세요"
+                    {...getFieldProps('password')}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={handleShowPassword} edge="end">
+                            <Icon icon={showPassword ? eyeFill : eyeOffFill} />
+                          </IconButton>
+                        </InputAdornment>
+                      )
+                    }}
+                    error={Boolean(touched.password && errors.password)}
+                    helperText={touched.password && errors.password}
+                  />
+                  <DesktopDatePicker
+                    disabled
+                    value={isEdit ? values.paymentStartDate : paymentStartDate}
+                    inputFormat="yyyy-MM-dd"
+                    mask="____-__-__"
+                    minDate={new Date('2017-01-01')}
+                    onChange={(newValue) => {
+                      setPaymentStartDate(newValue);
+                      setFieldValue('paymentStartDate', newValue);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        fullWidth
+                        label="입금일을 선택하세요"
+                        margin="normal"
+                        sx={{ my: 0 }}
+                        {...getFieldProps('paymentStartDate')}
+                        error={Boolean(touched.paymentStartDate && errors.paymentStartDate)}
+                        helperText={touched.paymentStartDate && errors.paymentStartDate}
+                      />
+                    )}
+                  />
+                  <DesktopDatePicker
+                    disabled
+                    value={isEdit ? values.paymentEndDate : paymentEndDate}
+                    inputFormat="yyyy-MM-dd"
+                    mask="____-__-__"
+                    minDate={new Date('2017-01-01')}
+                    onChange={(newValue) => {
+                      setPaymentEndDate(newValue);
+                      setFieldValue('paymentEndDate', newValue);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        fullWidth
+                        label="사용종료일을 선택하세요"
+                        margin="normal"
+                        sx={{ my: 0 }}
+                        {...getFieldProps('paymentEndDate')}
+                        error={Boolean(touched.paymentEndDate && errors.paymentEndDate)}
+                        helperText={touched.paymentEndDate && errors.paymentEndDate}
+                      />
+                    )}
                   />
                 </Stack>
-
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
-                  <TextField
-                    fullWidth
-                    label="Phone Number"
-                    {...getFieldProps('phoneNumber')}
-                    error={Boolean(touched.phoneNumber && errors.phoneNumber)}
-                    helperText={touched.phoneNumber && errors.phoneNumber}
-                  />
-                  <TextField
-                    select
-                    fullWidth
-                    label="Country"
-                    placeholder="Country"
-                    {...getFieldProps('country')}
-                    SelectProps={{ native: true }}
-                    error={Boolean(touched.country && errors.country)}
-                    helperText={touched.country && errors.country}
-                  >
-                    <option value="" />
-                    {countries.map((option) => (
-                      <option key={option.code} value={option.label}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </TextField>
-                </Stack>
-
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
-                  <TextField
-                    fullWidth
-                    label="State/Region"
-                    {...getFieldProps('state')}
-                    error={Boolean(touched.state && errors.state)}
-                    helperText={touched.state && errors.state}
-                  />
-                  <TextField
-                    fullWidth
-                    label="City"
-                    {...getFieldProps('city')}
-                    error={Boolean(touched.city && errors.city)}
-                    helperText={touched.city && errors.city}
-                  />
-                </Stack>
-
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
-                  <TextField
-                    fullWidth
-                    label="Address"
-                    {...getFieldProps('address')}
-                    error={Boolean(touched.address && errors.address)}
-                    helperText={touched.address && errors.address}
-                  />
-                  <TextField fullWidth label="Zip/Code" {...getFieldProps('zipCode')} />
-                </Stack>
-
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
-                  <TextField
-                    fullWidth
-                    label="Company"
-                    {...getFieldProps('company')}
-                    error={Boolean(touched.company && errors.company)}
-                    helperText={touched.company && errors.company}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Role"
-                    {...getFieldProps('role')}
-                    error={Boolean(touched.role && errors.role)}
-                    helperText={touched.role && errors.role}
-                  />
-                </Stack>
-
                 <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
                   <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                    {!isEdit ? 'Create User' : 'Save Changes'}
+                    {!isEdit ? '사용자추가' : '사용자수정'}
                   </LoadingButton>
                 </Box>
               </Stack>

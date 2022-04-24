@@ -75,8 +75,6 @@ function AuthProvider({ children }) {
           const response = await axios.get('/api/v1/platform/auth/user/my-info');
           const user = response.data.data;
 
-          console.log(user);
-
           dispatch({
             type: 'INITIALIZE',
             payload: {
@@ -119,14 +117,23 @@ function AuthProvider({ children }) {
     });
 
     const user = response.data.data;
+    const today = new Date();
 
-    setSession(user.token);
-    dispatch({
-      type: 'LOGIN',
-      payload: {
-        user: { ...user, displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '회원님' }
-      }
-    });
+    const paymentEndDate = new Date(user.paymentEndDate);
+
+    if (!user.paymentEndDate || paymentEndDate < today) {
+      setSession(null);
+      dispatch({ type: 'LOGOUT' });
+      throw new Error('Expired');
+    } else {
+      setSession(user.token);
+      dispatch({
+        type: 'LOGIN',
+        payload: {
+          user: { ...user, displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '회원님' }
+        }
+      });
+    }
   };
 
   const register = async (email, password, firstName, lastName) => {

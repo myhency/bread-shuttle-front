@@ -93,7 +93,10 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
+
+  console.log(user);
+  console.log(isAuthenticated);
 
   const { isCollapse, collapseClick, collapseHover, onToggleCollapse, onHoverEnter, onHoverLeave } =
     useCollapseDrawer();
@@ -137,21 +140,6 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           </MHidden>
         </Stack>
 
-        {!isCollapse && (
-          <Stack spacing={3} alignItems="center" sx={{ px: 5, pb: 5, mt: 10, width: 1, textAlign: 'center' }}>
-            <DocIllustration sx={{ width: 1 }} />
-
-            <div>
-              <Typography gutterBottom variant="subtitle1">
-                안녕하세요, {user?.displayName}
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {`사용종료일은 ${user.paymentEndDate} 입니다`}
-              </Typography>
-            </div>
-          </Stack>
-        )}
-
         {/* {isCollapse ? (
           <MyAvatar sx={{ mx: 'auto', mb: 2 }} />
         ) : (
@@ -173,20 +161,19 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
       <NavSection navConfig={sidebarConfig} isShow={!isCollapse} />
 
-      <Box sx={{ flexGrow: 1 }} />
+      {/* <Box sx={{ flexGrow: 1 }} /> */}
 
       {!isCollapse && (
-        <Stack spacing={3} alignItems="center" sx={{ px: 5, pb: 5, mt: 10, width: 1, textAlign: 'center' }}>
-          <DocIllustration sx={{ width: 1 }} />
-
+        <Stack spacing={3} alignItems="center" sx={{ px: 5, pb: 5, mt: 5, width: 1, textAlign: 'center' }}>
           <div>
             <Typography gutterBottom variant="subtitle1">
-              안녕하세요, {user?.displayName}
+              안녕하세요, {user.displayName}
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               {`회원님의 사용종료일은 ${user.paymentEndDate} 입니다`}
             </Typography>
           </div>
+          {/* <DocIllustration sx={{ width: 1 }} /> */}
         </Stack>
       )}
     </Scrollbar>

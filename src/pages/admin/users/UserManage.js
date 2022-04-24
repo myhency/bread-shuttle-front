@@ -85,6 +85,7 @@ export default function UserList() {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { userList, isLoading, error } = useSelector((state) => state.user);
+  const [userTableItems, setUserTableItems] = useState([]);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('desc');
   const [selected, setSelected] = useState([]);
@@ -97,6 +98,10 @@ export default function UserList() {
     dispatch(getUserList());
   }, [dispatch]);
 
+  useEffect(() => {
+    setUserTableItems(userList);
+  }, [userList]);
+
   console.log(userList);
 
   const handleRequestSort = (event, property) => {
@@ -107,7 +112,7 @@ export default function UserList() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = userList.map((n) => n.name);
+      const newSelecteds = userTableItems.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -146,9 +151,9 @@ export default function UserList() {
     dispatch(deleteUser(userId));
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userList.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userTableItems.length) : 0;
 
-  const filteredUsers = applySortFilter(userList, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(userTableItems, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
 
@@ -186,7 +191,7 @@ export default function UserList() {
                     order={order}
                     orderBy={orderBy}
                     headLabel={TABLE_HEAD}
-                    rowCount={userList.length}
+                    rowCount={userTableItems.length}
                     numSelected={selected.length}
                     onRequestSort={handleRequestSort}
                     onSelectAllClick={handleSelectAllClick}
@@ -220,7 +225,7 @@ export default function UserList() {
                           <TableCell align="left">{paymentStartDate}</TableCell>
                           <TableCell align="left">{paymentEndDate}</TableCell>
                           <TableCell align="right">
-                            <UserMoreMenu onDelete={() => handleDeleteUser(id)} id={id} />
+                            <UserMoreMenu id={id} />
                           </TableCell>
                         </TableRow>
                       );
@@ -247,7 +252,7 @@ export default function UserList() {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component="div"
-              count={userList.length}
+              count={userTableItems.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}

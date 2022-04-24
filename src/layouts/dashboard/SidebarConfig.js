@@ -9,7 +9,8 @@ import {
   PATH_BIGPIE_MANUAL_LINK,
   PATH_BREADSHUTTLE_MANUAL_LINK,
   PATH_SEVENBREAD_CHANGES,
-  PATH_NEW_USER_LINK
+  PATH_NEW_USER_LINK,
+  PATH_BIGPIE_CHANGES
 } from '../../routes/paths';
 // components
 // import Label from '../../components/Label';
@@ -66,11 +67,11 @@ const sidebarConfig = [
   // ----------------------------------------------------------------------
   {
     isAdmin: false,
-    subheader: 'Get Started',
+    subheader: 'links',
     items: [
       {
         title: '안내',
-        path: PATH_DASHBOARD.general.ecommerce,
+        path: PATH_DASHBOARD.general.app,
         icon: ICONS.trendingup,
         children: [
           { title: '사용법', eLink: PATH_BREADSHUTTLE_MANUAL_LINK },
@@ -104,6 +105,7 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.bigpie.root,
         icon: ICONS.bus,
         children: [
+          { title: '변경사항', eLink: PATH_BIGPIE_CHANGES },
           { title: '실시간 현황', path: PATH_DASHBOARD.bigpie.realtime },
           { title: '날짜별 조회', path: PATH_DASHBOARD.bigpie.list }
           // { title: '매뉴얼', eLink: PATH_BIGPIE_MANUAL_LINK }

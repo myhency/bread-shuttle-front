@@ -1,37 +1,20 @@
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import { Form, FormikProvider, useFormik } from 'formik';
 // material
 import { LoadingButton, DesktopDatePicker } from '@mui/lab';
-import {
-  Box,
-  Card,
-  Grid,
-  Stack,
-  Switch,
-  TextField,
-  Typography,
-  FormHelperText,
-  FormControlLabel,
-  IconButton,
-  InputAdornment,
-  Autocomplete
-} from '@mui/material';
+import { Box, Card, Grid, Stack, TextField, IconButton, InputAdornment, Autocomplete } from '@mui/material';
 // utils
 import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
-import closeFill from '@iconify/icons-eva/close-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
-import { fData } from '../../../utils/formatNumber';
-import fakeRequest from '../../../utils/fakeRequest';
-import { useDispatch, useSelector } from '../../../redux/store';
+import { fDateStringFormat } from '../../../utils/formatTime';
+import { useDispatch } from '../../../redux/store';
 // routes
-import { PATH_ADMIN, PATH_DASHBOARD } from '../../../routes/paths';
-
-import roles from './roles';
+import { PATH_ADMIN } from '../../../routes/paths';
 
 import { updateUser, createUser, getUserList } from '../../../redux/slices/user';
 
@@ -74,11 +57,27 @@ export default function UserNewForm({ isEdit, currentUser }) {
     validationSchema: NewUserSchema,
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
       try {
+        const { paymentEndDate, paymentStartDate } = values;
+
+        console.log(values);
         if (isEdit) {
-          dispatch(updateUser({ id: currentUser.id, ...values }));
+          dispatch(
+            updateUser({
+              id: currentUser.id,
+              ...values,
+              paymentEndDate: fDateStringFormat(paymentEndDate),
+              paymentStartDate: fDateStringFormat(paymentStartDate)
+            })
+          );
           dispatch(getUserList());
         } else {
-          dispatch(createUser(values));
+          dispatch(
+            createUser({
+              ...values,
+              paymentEndDate: fDateStringFormat(paymentEndDate),
+              paymentStartDate: fDateStringFormat(paymentStartDate)
+            })
+          );
           dispatch(getUserList());
         }
 
@@ -114,6 +113,7 @@ export default function UserNewForm({ isEdit, currentUser }) {
                 <Stack direction={{ xs: 'column', sm: 'column' }} spacing={{ xs: 3, sm: 2 }}>
                   <TextField
                     fullWidth
+                    disabled={isEdit}
                     label="ID"
                     {...getFieldProps('userName')}
                     error={Boolean(touched.userName && errors.userName)}

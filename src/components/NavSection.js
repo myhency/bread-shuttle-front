@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import hash from 'object-hash';
 import { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import { NavLink as RouterLink, matchPath, useLocation } from 'react-router-dom';
@@ -139,7 +140,7 @@ function NavItem({ item, isShow }) {
 
                 return (
                   <ListItemStyle
-                    key={title}
+                    key={hash(item)}
                     {...optionalProps}
                     sx={{
                       ...(isActiveSub && activeSubStyle)
@@ -221,7 +222,7 @@ export default function NavSection({ navConfig, isShow = true, ...other }) {
         //   );
         // }
         return (
-          <List key={subheader} disablePadding>
+          <List key={hash(list)} disablePadding>
             {isShow && <ListSubheaderStyle>{subheader}</ListSubheaderStyle>}
             {items.map((item) => (
               <NavItem key={item.path} item={item} isShow={isShow} />
