@@ -84,7 +84,6 @@ export default function BigPieRealTime() {
     );
     const unixTimestampForToday = Math.floor(formattedToday / 1000);
     const unixTimestampForPaymentEndDate = Math.floor(formattedPaymentEndDate / 1000);
-    console.log(unixTimestampForToday, unixTimestampForPaymentEndDate);
     if ((unixTimestampForPaymentEndDate - unixTimestampForToday) / 3600 / 24 < 3) {
       enqueueSnackbar(
         `사용기간이 ${
