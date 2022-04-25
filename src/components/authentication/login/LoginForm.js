@@ -69,7 +69,7 @@ export default function LoginForm() {
               error.data === 'LoginFailException'
                 ? '사용자명과 패스워드를 확인해주세요.'
                 : error.message === 'Expired'
-                ? '기간이 만료되었습니다. 농협 352-1625-3653-73 신승주(브레드스톡)으로 입금해주시면 자동 연장 처리됩니다.'
+                ? '기간이 만료되었습니다. 농협 352-1625-3653-73 (브레드스톡)으로 입금해주시면 자동 연장 처리됩니다.'
                 : error.message === 'NotStarted'
                 ? '사용시작 시간이 되지 않았습니다. 관리자에게 문의하세요.'
                 : '로그인 오류'

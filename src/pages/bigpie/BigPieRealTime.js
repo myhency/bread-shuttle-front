@@ -89,7 +89,7 @@ export default function BigPieRealTime() {
       enqueueSnackbar(
         `사용기간이 ${
           (unixTimestampForPaymentEndDate - unixTimestampForToday) / 3600 / 24
-        }일 이내로 남았습니다. 농협 352-1625-3653-73 신승주(브레드스톡)으로 입금해주시면 자동 연장처리됩니다.`,
+        }일 이내로 남았습니다. 농협 352-1625-3653-73 (브레드스톡)으로 입금해주시면 자동 연장처리됩니다.`,
         {
           variant: 'error',
           action: (key) => (
