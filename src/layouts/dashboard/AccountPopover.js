@@ -32,7 +32,7 @@ const MENU_OPTIONS = [
   //   linkTo: PATH_DASHBOARD.user.profile
   // },
   {
-    label: 'Settings',
+    label: '비밀번호변경',
     icon: settings2Fill,
     linkTo: (id) => `/dashboard/user/${id}/edit`
   }
