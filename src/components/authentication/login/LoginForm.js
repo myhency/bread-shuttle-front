@@ -69,7 +69,7 @@ export default function LoginForm() {
               error.data === 'LoginFailException'
                 ? '사용자명과 패스워드를 정확히 입력하셨습니까?'
                 : error.message === 'Expired'
-                ? '사용기간이 만료되었습니다.'
+                ? '사용기간이 아닙니다. 관리자에게 문의하세요.'
                 : '로그인 오류'
           });
         }

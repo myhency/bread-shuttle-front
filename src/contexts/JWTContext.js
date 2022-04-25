@@ -120,8 +120,9 @@ function AuthProvider({ children }) {
     const today = new Date();
 
     const paymentEndDate = new Date(user.paymentEndDate);
+    const paymentStartDate = new Date(user.paymentStartDate);
 
-    if (!user.paymentEndDate || paymentEndDate < today) {
+    if (!user.paymentEndDate || paymentEndDate < today || paymentStartDate > today) {
       setSession(null);
       dispatch({ type: 'LOGOUT' });
       throw new Error('Expired');
