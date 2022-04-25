@@ -59,7 +59,6 @@ export default function UserNewForm({ isEdit, currentUser }) {
       try {
         const { paymentEndDate, paymentStartDate } = values;
 
-        console.log(values);
         if (isEdit) {
           dispatch(
             updateUser({
@@ -69,7 +68,6 @@ export default function UserNewForm({ isEdit, currentUser }) {
               paymentStartDate: fDateStringFormat(paymentStartDate)
             })
           );
-          dispatch(getUserList());
         } else {
           dispatch(
             createUser({
@@ -78,12 +76,12 @@ export default function UserNewForm({ isEdit, currentUser }) {
               paymentStartDate: fDateStringFormat(paymentStartDate)
             })
           );
-          dispatch(getUserList());
         }
 
         resetForm();
         setSubmitting(false);
         enqueueSnackbar(!isEdit ? 'Create success' : 'Update success', { variant: 'success' });
+        await dispatch(getUserList());
         navigate(PATH_ADMIN.admin.users);
       } catch (error) {
         console.error(error);
@@ -100,8 +98,6 @@ export default function UserNewForm({ isEdit, currentUser }) {
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
   };
-
-  console.log(values);
 
   return (
     <FormikProvider value={formik}>

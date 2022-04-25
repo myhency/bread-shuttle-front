@@ -94,15 +94,12 @@ export default function UserList() {
   const [rowsPerPage, setRowsPerPage] = useState(25);
 
   useEffect(() => {
-    console.log('dispatch(getUserList());');
     dispatch(getUserList());
   }, [dispatch]);
 
   useEffect(() => {
     setUserTableItems(userList);
   }, [userList]);
-
-  console.log(userList);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -191,7 +188,7 @@ export default function UserList() {
                     order={order}
                     orderBy={orderBy}
                     headLabel={TABLE_HEAD}
-                    rowCount={userTableItems.length}
+                    rowCount={filteredUsers.length}
                     numSelected={selected.length}
                     onRequestSort={handleRequestSort}
                     onSelectAllClick={handleSelectAllClick}
@@ -252,7 +249,7 @@ export default function UserList() {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component="div"
-              count={userTableItems.length}
+              count={filteredUsers.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}

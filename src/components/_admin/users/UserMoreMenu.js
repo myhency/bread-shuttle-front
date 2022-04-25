@@ -19,7 +19,6 @@ UserMoreMenu.propTypes = {
 };
 
 export default function UserMoreMenu({ onDelete, id }) {
-  console.log(id);
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 

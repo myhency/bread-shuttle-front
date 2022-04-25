@@ -95,9 +95,6 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
   const { user, isAuthenticated } = useAuth();
 
-  console.log(user);
-  console.log(isAuthenticated);
-
   const { isCollapse, collapseClick, collapseHover, onToggleCollapse, onHoverEnter, onHoverLeave } =
     useCollapseDrawer();
 
