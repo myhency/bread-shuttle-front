@@ -1,11 +1,14 @@
 // material
-import { Container, Grid, Typography, Box } from '@mui/material';
+import { Container, Grid, Typography, Box, Button } from '@mui/material';
 import {
   styled
   // useTheme
 } from '@mui/material/styles';
 // hooks
 import { useEffect, useState } from 'react';
+import { useSnackbar } from 'notistack';
+import { Icon } from '@iconify/react';
+import closeFill from '@iconify/icons-eva/close-fill';
 import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
@@ -16,6 +19,8 @@ import {
 } from '../../components/_bigpie';
 import useFirebaseRealtime from '../../hooks/useFirebase';
 import LoadingScreen from '../../components/LoadingScreen';
+import useAuth from '../../hooks/useAuth';
+import { MIconButton } from '../../components/@material-extend';
 
 // ----------------------------------------------------------------------
 
@@ -50,17 +55,58 @@ const CustomLoadingScreen = ({ message }) => (
   </Grid>
 );
 
+const action = (key) => (
+  <>
+    <Button
+      onClick={() => {
+        this.props.closeSnackbar(key);
+      }}
+    >
+      'Ok'
+    </Button>
+  </>
+);
+
 export default function BigPieRealTime() {
   const { themeStretch } = useSettings();
+  const { user } = useAuth();
   const { todaySnapshots, tLoading, tError, macaronSnapshots, mLoading, mError } = useFirebaseRealtime();
   const [swingBigPie, setSwingBigPie] = useState([]);
   const [dayTradingBigPie, setDayTradingBigPie] = useState([]);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
+  useEffect(() => {
+    const today = new Date();
+    const paymentEndDate = new Date(user.paymentEndDate);
+    const formattedToday = new Date(`${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`);
+    const formattedPaymentEndDate = new Date(
+      `${paymentEndDate.getFullYear()}-${paymentEndDate.getMonth()}-${paymentEndDate.getDate()}`
+    );
+    const unixTimestampForToday = Math.floor(formattedToday / 1000);
+    const unixTimestampForPaymentEndDate = Math.floor(formattedPaymentEndDate / 1000);
+    console.log(unixTimestampForToday, unixTimestampForPaymentEndDate);
+    if ((unixTimestampForPaymentEndDate - unixTimestampForToday) / 3600 / 24 < 3) {
+      enqueueSnackbar(
+        `사용기간이 ${
+          (unixTimestampForPaymentEndDate - unixTimestampForToday) / 3600 / 24
+        }일 이내로 남았습니다. 농협 352-1625-3653-73 신승주(브레드스톡)으로 입금해주시면 자동 연장처리됩니다.`,
+        {
+          variant: 'error',
+          action: (key) => (
+            <MIconButton size="small" onClick={() => closeSnackbar(key)}>
+              <Icon icon={closeFill} />
+            </MIconButton>
+          ),
+          persist: true,
+          anchorOrigin: { vertical: 'top', horizontal: 'left' }
+        }
+      );
+    }
+  }, []);
   useEffect(() => {
     try {
       todaySnapshots.forEach((v) => console.log(v.val()));
       setSwingBigPie(todaySnapshots);
-      console.log(tLoading);
     } catch (error) {
       console.log(error);
     }

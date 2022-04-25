@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -65,11 +66,12 @@ export default function LoginForm() {
           setSubmitting(false);
           setErrors({
             afterSubmit:
-              // eslint-disable-next-line no-nested-ternary
               error.data === 'LoginFailException'
                 ? '사용자명과 패스워드를 정확히 입력하셨습니까?'
                 : error.message === 'Expired'
-                ? '사용기간이 아닙니다. 관리자에게 문의하세요.'
+                ? '기간이 만료되었습니다. 농협 352-1625-3653-73 신승주(브레드스톡)으로 입금해주시면 자동 연장 처리됩니다.'
+                : error.message === 'NotStarted'
+                ? '사용시작 시간이 되지 않았습니다. 관리자에게 문의하세요.'
                 : '로그인 오류'
           });
         }

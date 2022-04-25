@@ -122,10 +122,18 @@ function AuthProvider({ children }) {
     const paymentEndDate = new Date(user.paymentEndDate);
     const paymentStartDate = new Date(user.paymentStartDate);
 
-    if (!user.paymentEndDate || paymentEndDate < today || paymentStartDate > today) {
+    if (!user.paymentEndDate) {
+      setSession(null);
+      dispatch({ type: 'LOGOUT' });
+      throw new Error('NoPayment');
+    } else if (paymentEndDate < today) {
       setSession(null);
       dispatch({ type: 'LOGOUT' });
       throw new Error('Expired');
+    } else if (paymentStartDate > today) {
+      setSession(null);
+      dispatch({ type: 'LOGOUT' });
+      throw new Error('NotStarted');
     } else {
       setSession(user.token);
       dispatch({
