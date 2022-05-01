@@ -10,7 +10,8 @@ import {
   PATH_BREADSHUTTLE_MANUAL_LINK,
   PATH_SEVENBREAD_CHANGES,
   PATH_NEW_USER_LINK,
-  PATH_BIGPIE_CHANGES
+  PATH_BIGPIE_CHANGES,
+  PATH_TELEGRAM_THIS_MONTH
 } from '../../routes/paths';
 // components
 // import Label from '../../components/Label';
@@ -161,8 +162,8 @@ const sidebarConfig = [
           // { title: '공지/강의', eLink: PATH_NOTICE_LECTURE },
           { title: '증시스케줄', eLink: PATH_STOCK_CALENDAR },
           { title: '네이버 경제뉴스', eLink: PATH_NAVER_ECONOMIC_NEWS },
-          { title: '증자분할 달력', eLink: PATH_COMPANY_GUIDE }
-          // { title: '이달의 텔레그램', eLink: PATH_TELEGRAM_THIS_MONTH }
+          { title: '증자분할 달력', eLink: PATH_COMPANY_GUIDE },
+          { title: '이달의 텔레그램', eLink: PATH_TELEGRAM_THIS_MONTH }
         ]
       }
     ]

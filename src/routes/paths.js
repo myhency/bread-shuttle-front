@@ -128,7 +128,7 @@ export const PATH_STOCK_CALENDAR = 'http://www.paxnet.co.kr/stock/infoStock/issu
 export const PATH_NAVER_ECONOMIC_NEWS = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=101';
 export const PATH_COMPANY_GUIDE =
   'http://comp.fnguide.com/SVO2/asp/SVD_comp_calendar.asp?pGB=1&gicode=A005930&gcd=&gnm=&curdt=&ctp=&cID=&MenuYn=Y&ReportGB=&NewMenuID=701&stkGb=701';
-export const PATH_TELEGRAM_THIS_MONTH = 'https://t.me/+oD9qAbbU2BVhZWE1';
+export const PATH_TELEGRAM_THIS_MONTH = 'https://t.me/+H2DPK1pP32BhYjA1';
 
 export const PATH_ALPHA_LINK = 'https://alphasquare.co.kr/home/stock/stock-summary?code=';
 export const PATH_M_ALPHA_LINK = 'https://m.alphasquare.co.kr/service/chart?code=';
@@ -152,4 +152,4 @@ export const PATH_BREADSHUTTLE_MANUAL_LINK = 'https://lively-flamingo-301.notion
 export const PATH_SEVENBREAD_CHANGES = 'https://tidy-field-695.notion.site/15372f45a8444b1bb14f461cc9dbe0f7';
 export const PATH_NEW_USER_LINK =
   'https://docs.google.com/forms/d/e/1FAIpQLScWGUGnPzVgwMkHk02BDKlptvOHDEsgHdfXMU84KnPBQZYIIg/viewform';
-export const PATH_BIGPIE_CHANGES = 'https://lively-flamingo-301.notion.site/0f54e58483484ea195aeabab0cf4f028';
+export const PATH_BIGPIE_CHANGES = 'https://lively-flamingo-301.notion.site/v22-05-d8c81bf3473a4f50a0453d492709a2b0';

@@ -25,10 +25,7 @@ UserNewForm.propTypes = {
   currentUser: PropTypes.object
 };
 
-const handlers = [
-  { title: '관리자', value: 'ROLE_ADMIN' },
-  { title: '정회원', value: 'ROLE_USER' }
-];
+const handlers = [{ title: '정회원', value: 'ROLE_USER' }];
 
 export default function UserNewForm({ isEdit, currentUser }) {
   const dispatch = useDispatch();
@@ -39,8 +36,8 @@ export default function UserNewForm({ isEdit, currentUser }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
-    userName: Yup.string().required('ID를 입력해야 합니다.'),
-    role: Yup.string().required('권한을 선택해야 합니다.')
+    userName: Yup.string().required('ID를 입력해야 합니다.')
+    // role: Yup.string().required('권한을 선택해야 합니다.')
     // password: Yup.string().required('패스워드를 입력하세요'),
     // paymentStartDate: Yup.string().required('권한을 선택해야 합니다.'),
     // paymentEndDate: Yup.string().required('권한을 선택해야 합니다.')
@@ -93,7 +90,7 @@ export default function UserNewForm({ isEdit, currentUser }) {
 
   const { errors, values, touched, handleSubmit, isSubmitting, setFieldValue, getFieldProps } = formik;
 
-  const defaultHandlers = handlers.filter((handler) => handler.value === values.role);
+  const defaultHandlers = handlers.filter((handler) => handler.value === 'ROLE_USER');
 
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
@@ -117,8 +114,9 @@ export default function UserNewForm({ isEdit, currentUser }) {
                   />
                   <Autocomplete
                     fullWidth
+                    disabled
                     options={handlers}
-                    value={defaultHandlers[0] || null}
+                    value={handlers[0]}
                     getOptionLabel={(handler) => handler.title}
                     onChange={(e, value) => {
                       setFieldValue('role', value?.value || '');

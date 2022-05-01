@@ -21,6 +21,7 @@ import {
   TableContainer,
   TablePagination
 } from '@mui/material';
+import { fDateStringFormat } from '../../../utils/formatTime';
 // redux
 import { useDispatch, useSelector } from '../../../redux/store';
 import { getUserList, deleteUser } from '../../../redux/slices/user';
@@ -218,7 +219,7 @@ export default function UserList() {
                             </Stack>
                           </TableCell>
                           <TableCell align="left">{role === 'ROLE_ADMIN' ? '관리자' : '정회원'}</TableCell>
-                          <TableCell align="left">{createdAt}</TableCell>
+                          <TableCell align="left">{fDateStringFormat(createdAt)}</TableCell>
                           <TableCell align="left">{paymentStartDate}</TableCell>
                           <TableCell align="left">{paymentEndDate}</TableCell>
                           <TableCell align="right">
