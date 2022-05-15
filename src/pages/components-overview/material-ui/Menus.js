@@ -117,7 +117,9 @@ export default function MenusComponent() {
               Open Menu
             </Button>
             <Menu keepMounted id="simple-menu" anchorEl={isOpen} onClose={handleClose} open={Boolean(isOpen)}>
-              {['Profile', 'My account', 'Logout'].map((option) => (
+              {/* TODO. This line should be uncommented when renewal work done */}
+              {/* {['Profile', 'My account', 'Logout'].map((option) => ( */}
+              {['Logout'].map((option) => (
                 <MenuItem key={option} onClick={handleClose}>
                   {option}
                 </MenuItem>

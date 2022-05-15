@@ -14,9 +14,9 @@ import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 import { fDateStringFormat } from '../../../utils/formatTime';
 import { useDispatch } from '../../../redux/store';
 // routes
-import { PATH_ADMIN, PATH_DASHBOARD } from '../../../routes/paths';
+import { PATH_ADMIN } from '../../../routes/paths';
 
-import { updateUser, createUser, getUserList, updateUserSettings } from '../../../redux/slices/user';
+import { updateUser, createUser, getUserList } from '../../../redux/slices/user';
 
 // ----------------------------------------------------------------------
 
@@ -25,22 +25,20 @@ UserNewForm.propTypes = {
   currentUser: PropTypes.object
 };
 
-const handlers = [
-  { title: '관리자', value: 'ROLE_ADMIN' },
-  { title: '정회원', value: 'ROLE_USER' }
-];
+const handlers = [{ title: '정회원', value: 'ROLE_USER' }];
 
 export default function UserNewForm({ isEdit, currentUser }) {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(true);
   const [paymentStartDate, setPaymentStartDate] = useState('');
   const [paymentEndDate, setPaymentEndDate] = useState('');
+  const [memo, setMemo] = useState('');
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
-    userName: Yup.string().required('ID를 입력해야 합니다.'),
-    role: Yup.string().required('권한을 선택해야 합니다.')
+    userName: Yup.string().required('ID를 입력해야 합니다.')
+    // role: Yup.string().required('권한을 선택해야 합니다.')
     // password: Yup.string().required('패스워드를 입력하세요'),
     // paymentStartDate: Yup.string().required('권한을 선택해야 합니다.'),
     // paymentEndDate: Yup.string().required('권한을 선택해야 합니다.')
@@ -52,16 +50,30 @@ export default function UserNewForm({ isEdit, currentUser }) {
       userName: currentUser?.userName || '',
       role: currentUser?.role || '',
       paymentStartDate: currentUser?.paymentStartDate || '',
-      paymentEndDate: currentUser?.paymentEndDate || ''
+      paymentEndDate: currentUser?.paymentEndDate || '',
+      memo: currentUser?.memo || ''
     },
     validationSchema: NewUserSchema,
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
+      console.log(values);
       try {
-        console.log(values);
+        const { paymentEndDate, paymentStartDate } = values;
+
         if (isEdit) {
           dispatch(
-            updateUserSettings({
-              ...values
+            updateUser({
+              id: currentUser.id,
+              ...values,
+              paymentEndDate: fDateStringFormat(paymentEndDate),
+              paymentStartDate: fDateStringFormat(paymentStartDate)
+            })
+          );
+        } else {
+          dispatch(
+            createUser({
+              ...values,
+              paymentEndDate: fDateStringFormat(paymentEndDate),
+              paymentStartDate: fDateStringFormat(paymentStartDate)
             })
           );
         }
@@ -69,7 +81,8 @@ export default function UserNewForm({ isEdit, currentUser }) {
         resetForm();
         setSubmitting(false);
         enqueueSnackbar(!isEdit ? 'Create success' : 'Update success', { variant: 'success' });
-        navigate(PATH_DASHBOARD.bigpie.realtime);
+        await dispatch(getUserList());
+        navigate(PATH_ADMIN.admin.users);
       } catch (error) {
         console.error(error);
         setSubmitting(false);
@@ -80,7 +93,7 @@ export default function UserNewForm({ isEdit, currentUser }) {
 
   const { errors, values, touched, handleSubmit, isSubmitting, setFieldValue, getFieldProps } = formik;
 
-  const defaultHandlers = handlers.filter((handler) => handler.value === values.role);
+  const defaultHandlers = handlers.filter((handler) => handler.value === 'ROLE_USER');
 
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
@@ -104,8 +117,9 @@ export default function UserNewForm({ isEdit, currentUser }) {
                   />
                   <Autocomplete
                     fullWidth
+                    disabled
                     options={handlers}
-                    value={defaultHandlers[0] || null}
+                    value={handlers[0]}
                     getOptionLabel={(handler) => handler.title}
                     onChange={(e, value) => {
                       setFieldValue('role', value?.value || '');
@@ -114,7 +128,6 @@ export default function UserNewForm({ isEdit, currentUser }) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        disabled
                         name="role"
                         label="권한"
                         placeholder="권한"
@@ -143,7 +156,6 @@ export default function UserNewForm({ isEdit, currentUser }) {
                     helperText={touched.password && errors.password}
                   />
                   <DesktopDatePicker
-                    disabled
                     value={isEdit ? values.paymentStartDate : paymentStartDate}
                     inputFormat="yyyy-MM-dd"
                     mask="____-__-__"
@@ -166,7 +178,7 @@ export default function UserNewForm({ isEdit, currentUser }) {
                     )}
                   />
                   <DesktopDatePicker
-                    disabled
+                    // value={isEdit ? values.paymentEndDate : paymentEndDate}
                     value={isEdit ? values.paymentEndDate : paymentEndDate}
                     inputFormat="yyyy-MM-dd"
                     mask="____-__-__"
@@ -187,6 +199,13 @@ export default function UserNewForm({ isEdit, currentUser }) {
                         helperText={touched.paymentEndDate && errors.paymentEndDate}
                       />
                     )}
+                  />
+                  <TextField
+                    fullWidth
+                    label="메모"
+                    {...getFieldProps('memo')}
+                    error={Boolean(touched.memo && errors.memo)}
+                    helperText={touched.memo && errors.memo}
                   />
                 </Stack>
                 <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>

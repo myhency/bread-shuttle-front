@@ -3,21 +3,11 @@ import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
 import { alpha, styled } from '@mui/material/styles';
-import {
-  Box,
-  // Link,
-  Stack,
-  // Button,
-  Drawer,
-  Tooltip,
-  // Typography,
-  CardActionArea
-} from '@mui/material';
+import { Box, Link, Stack, Button, Drawer, Tooltip, Typography, CardActionArea } from '@mui/material';
 // hooks
-// import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 import useCollapseDrawer from '../../hooks/useCollapseDrawer';
 // routes
-// import { PATH_DASHBOARD, PATH_DOCS } from '../../routes/paths';
 // components
 import Logo from '../../components/Logo';
 // import MyAvatar from '../../components/MyAvatar';
@@ -26,7 +16,7 @@ import NavSection from '../../components/NavSection';
 import { MHidden } from '../../components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
-// import { DocIllustration } from '../../assets';
+import { DocIllustration } from '../../assets';
 
 // ----------------------------------------------------------------------
 
@@ -102,7 +92,7 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
-  // const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
   const { isCollapse, collapseClick, collapseHover, onToggleCollapse, onHoverEnter, onHoverLeave } =
     useCollapseDrawer();
@@ -167,26 +157,21 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
       <NavSection navConfig={sidebarConfig} isShow={!isCollapse} />
 
-      <Box sx={{ flexGrow: 1 }} />
+      {/* <Box sx={{ flexGrow: 1 }} /> */}
 
-      {/* {!isCollapse && (
-        <Stack spacing={3} alignItems="center" sx={{ px: 5, pb: 5, mt: 10, width: 1, textAlign: 'center' }}>
-          <DocIllustration sx={{ width: 1 }} />
-
+      {!isCollapse && (
+        <Stack spacing={3} alignItems="center" sx={{ px: 5, pb: 5, mt: 5, width: 1, textAlign: 'center' }}>
           <div>
             <Typography gutterBottom variant="subtitle1">
-              Hi, {user?.displayName}
+              안녕하세요, {user.displayName}
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              Need help?
-              <br /> Please check our docs
+              {`회원님의 사용종료일은 ${user.paymentEndDate} 입니다`}
             </Typography>
           </div>
-          <Button href={PATH_DOCS} target="_blank" variant="contained">
-            Documentation
-          </Button>
+          {/* <DocIllustration sx={{ width: 1 }} /> */}
         </Stack>
-      )} */}
+      )}
     </Scrollbar>
   );
 

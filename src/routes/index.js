@@ -126,15 +126,7 @@ export default function Router() {
         },
         {
           path: 'user',
-          children: [
-            { element: <Navigate to="/dashboard/user/profile" replace /> },
-            { path: 'profile', element: <UserProfile /> },
-            { path: 'cards', element: <UserCards /> },
-            { path: 'list', element: <UserList /> },
-            { path: 'new', element: <UserCreate /> },
-            { path: ':name/edit', element: <UserCreate /> },
-            { path: 'account', element: <UserAccount /> }
-          ]
+          children: [{ path: ':id/edit', element: <UserSettings /> }]
         },
         {
           path: 'blog',
@@ -192,6 +184,14 @@ export default function Router() {
             { element: <Navigate to="/admin/stockItems/list" replace /> },
             { path: 'stockItems/list', element: <StockItems /> }
           ]
+        },
+        {
+          path: 'users',
+          children: [
+            { path: 'management', element: <UserManage /> },
+            { path: 'management/create', element: <UserCreate /> },
+            { path: 'management/:id/edit', element: <UserCreate /> }
+          ]
         }
       ]
     },
@@ -229,6 +229,8 @@ const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCod
 const StockItems = Loadable(lazy(() => import('../pages/admin/StockItems')));
 const SevenBreadManage = Loadable(lazy(() => import('../pages/admin/sevenBread/SevenBreadManage')));
 const SevenBreadNewItem = Loadable(lazy(() => import('../pages/admin/sevenBread/SevenBreadNewItem')));
+const UserManage = Loadable(lazy(() => import('../pages/admin/users/UserManage')));
+const UserCreate = Loadable(lazy(() => import('../pages/admin/users/UserCreate')));
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
 // const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
@@ -255,7 +257,7 @@ const UserProfile = Loadable(lazy(() => import('../pages/dashboard/UserProfile')
 const UserCards = Loadable(lazy(() => import('../pages/dashboard/UserCards')));
 const UserList = Loadable(lazy(() => import('../pages/dashboard/UserList')));
 const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')));
-const UserCreate = Loadable(lazy(() => import('../pages/dashboard/UserCreate')));
+const UserSettings = Loadable(lazy(() => import('../pages/dashboard/UserSettings')));
 const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
 const Mail = Loadable(lazy(() => import('../pages/dashboard/Mail')));
 const Calendar = Loadable(lazy(() => import('../pages/dashboard/Calendar')));

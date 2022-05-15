@@ -4,7 +4,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Box, Card, Stack, Link, Alert, Tooltip, Container, Typography, Button } from '@mui/material';
 // routes
-import { PATH_AUTH } from '../../routes/paths';
 // hooks
 import useAuth from '../../hooks/useAuth';
 // layouts
@@ -82,7 +81,14 @@ export default function Login() {
               <Typography variant="h4" gutterBottom>
                 Cloud's Pick 들어가기
               </Typography>
-              <Typography sx={{ color: 'text.secondary' }}>사용자명과 비밀번호를 입력하세요.</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>
+                사용자명과 비밀번호를 입력하세요.
+                <p style={{ fontSize: '0.7rem', paddingTop: '3px' }}>
+                  아이디 : 이메일, 비밀번호 : 최초 가입시 이메일과 동일합니다
+                  <br />
+                  예) 아이디 : test@test.com 비밀번호 : test@test.com
+                </p>
+              </Typography>
             </Box>
 
             <Tooltip title={capitalCase(method)}>

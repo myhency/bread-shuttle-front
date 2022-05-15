@@ -1,3 +1,7 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
@@ -56,12 +60,19 @@ export default function LoginForm() {
           setSubmitting(false);
         }
       } catch (error) {
+        console.log(error);
         resetForm();
         if (isMountedRef.current) {
           setSubmitting(false);
           setErrors({
             afterSubmit:
-              error.data === 'LoginFailException' ? '사용자명과 패스워드를 정확히 입력하셨습니까?' : '로그인 오류'
+              error.data === 'LoginFailException'
+                ? '사용자명과 패스워드를 확인해주세요.'
+                : error.message === 'Expired'
+                ? '기간이 만료되었습니다. 농협 352-1625-3653-73 (브레드스톡)으로 입금해주시면 자동 연장 처리됩니다.'
+                : error.message === 'NotStarted'
+                ? '사용시작 시간이 되지 않았습니다. 관리자에게 문의하세요.'
+                : '로그인 오류'
           });
         }
       }
@@ -124,6 +135,22 @@ export default function LoginForm() {
         <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
           로그인
         </LoadingButton>
+        {/* <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
+          <LoadingButton
+            onClick={() => {
+              window.Kakao.Auth.login({
+                success(authObj) {
+                  alert(JSON.stringify(authObj));
+                },
+                fail(err) {
+                  alert(JSON.stringify(err));
+                }
+              });
+            }}
+          >
+            <img src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png" />
+          </LoadingButton>
+        </Stack> */}
         <LoadingButton
           fullWidth
           size="large"

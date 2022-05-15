@@ -9,7 +9,6 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { alpha } from '@mui/material/styles';
 import { Button, Box, Divider, MenuItem, Typography } from '@mui/material';
 // routes
-import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useAuth from '../../hooks/useAuth';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
@@ -24,18 +23,28 @@ const MENU_OPTIONS = [
   {
     label: 'Home',
     icon: homeFill,
-    linkTo: '/'
+    linkTo: () => '/'
   },
+  // {
+  //   label: 'Profile',
+  //   icon: personFill,
+  //   linkTo: PATH_DASHBOARD.user.profile
+  // },
   {
-    label: 'Profile',
-    icon: personFill,
-    linkTo: PATH_DASHBOARD.user.profile
-  },
-  {
-    label: 'Settings',
+    label: '비밀번호변경',
     icon: settings2Fill,
-    linkTo: PATH_DASHBOARD.user.account
+    linkTo: (id) => `/dashboard/user/${id}/edit`
   }
+  // {
+  //   label: 'Profile',
+  //   icon: personFill,
+  //   linkTo: PATH_DASHBOARD.user.profile
+  // },
+  // {
+  //   label: 'Settings',
+  //   icon: settings2Fill,
+  //   linkTo: PATH_DASHBOARD.user.account
+  // }
 ];
 
 // ----------------------------------------------------------------------
@@ -108,7 +117,7 @@ export default function AccountPopover() {
         {MENU_OPTIONS.map((option) => (
           <MenuItem
             key={option.label}
-            to={option.linkTo}
+            to={option.linkTo(user.id)}
             component={RouterLink}
             onClick={handleClose}
             sx={{ typography: 'body2', py: 1, px: 2.5 }}

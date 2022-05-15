@@ -79,7 +79,11 @@ function AuthProvider({ children }) {
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
-              user: { ...user, displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '주식훈련소 회원님' }
+              user: {
+                ...user,
+                displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '회원님',
+                paymentEndDate: user.paymentEndDate
+              }
             }
           });
         } else {
@@ -113,14 +117,41 @@ function AuthProvider({ children }) {
     });
 
     const user = response.data.data;
-
-    setSession(user.token);
-    dispatch({
-      type: 'LOGIN',
-      payload: {
-        user: { ...user, displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '주식훈련소 회원님' }
-      }
-    });
+    const today = new Date();
+    const paymentEndDate = new Date(user.paymentEndDate);
+    const paymentStartDate = new Date(user.paymentStartDate);
+    const formattedToday = new Date(`${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`);
+    const formattedPaymentEndDate = new Date(
+      `${paymentEndDate.getFullYear()}-${paymentEndDate.getMonth()}-${paymentEndDate.getDate()}`
+    );
+    const formattedPaymentStartDate = new Date(
+      `${paymentStartDate.getFullYear()}-${paymentStartDate.getMonth()}-${paymentStartDate.getDate()}`
+    );
+    const unixTimestampForToday = Math.floor(formattedToday / 1000);
+    const unixTimestampForPaymentEndDate = Math.floor(formattedPaymentEndDate / 1000);
+    const unixTimestampForPaymentStartDate = Math.floor(formattedPaymentStartDate / 1000);
+    console.log((formattedPaymentStartDate - unixTimestampForToday) / 3600 / 24);
+    if (!user.paymentEndDate) {
+      setSession(null);
+      dispatch({ type: 'LOGOUT' });
+      throw new Error('NoPayment');
+    } else if ((unixTimestampForPaymentEndDate - unixTimestampForToday) / 3600 / 24 < 0) {
+      setSession(null);
+      dispatch({ type: 'LOGOUT' });
+      throw new Error('Expired');
+    } else if ((unixTimestampForPaymentStartDate - unixTimestampForToday) / 3600 / 24 > 0) {
+      setSession(null);
+      dispatch({ type: 'LOGOUT' });
+      throw new Error('NotStarted');
+    } else {
+      setSession(user.token);
+      dispatch({
+        type: 'LOGIN',
+        payload: {
+          user: { ...user, displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '회원님' }
+        }
+      });
+    }
   };
 
   const register = async (email, password, firstName, lastName) => {

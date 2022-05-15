@@ -169,7 +169,7 @@ const columns = [
       const selectedID = params.row.id;
 
       const handleClick = () => {
-        console.log('selectedID', selectedID);
+        // console.log('selectedID', selectedID);
       };
 
       return (

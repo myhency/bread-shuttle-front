@@ -9,6 +9,7 @@ const initialState = {
   isLoading: false,
   error: false,
   myProfile: null,
+  user: {},
   posts: [],
   users: [],
   userList: [],
@@ -28,6 +29,10 @@ const slice = createSlice({
     // START LOADING
     startLoading(state) {
       state.isLoading = true;
+    },
+
+    stopLoading(state) {
+      state.isLoading = false;
     },
 
     // HAS ERROR
@@ -99,6 +104,11 @@ const slice = createSlice({
     getUserListSuccess(state, action) {
       state.isLoading = false;
       state.userList = action.payload;
+    },
+
+    getMyInfoSuccess(state, action) {
+      state.isLoading = false;
+      state.user = action.payload;
     },
 
     // GET CARDS
@@ -209,8 +219,61 @@ export function getUserList() {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get('/api/user/manage-users');
-      dispatch(slice.actions.getUserListSuccess(response.data.users));
+      const response = await axios.get('/api/v1/platform/admin/users');
+      console.log(response);
+      dispatch(slice.actions.getUserListSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+// ----------------------------------------------------------------------
+
+export function updateUser(user) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      await axios.put('/api/v1/platform/admin/users/edit', user);
+      dispatch(slice.actions.stopLoading());
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function getMyInfo() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get('/api/v1/platform/auth/user/my-info');
+      dispatch(slice.actions.getMyInfoSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function updateUserSettings(user) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      await axios.put('/api/v1/platform/auth/changePassword', user);
+      dispatch(slice.actions.stopLoading());
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+// ----------------------------------------------------------------------
+
+export function createUser(user) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      await axios.post('/api/v1/platform/admin/auth/join', user);
+      dispatch(slice.actions.stopLoading());
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
