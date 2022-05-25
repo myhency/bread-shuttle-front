@@ -229,16 +229,19 @@ export function getUserList() {
 
 // ----------------------------------------------------------------------
 
+// export function updateUser(user) {
+//   return async (dispatch) => {
+//     dispatch(slice.actions.startLoading());
+//     try {
+//       await axios.put('/api/v1/platform/admin/users/edit', user);
+//       dispatch(slice.actions.stopLoading());
+//     } catch (error) {
+//       dispatch(slice.actions.hasError(error));
+//     }
+//   };
+// }
 export function updateUser(user) {
-  return async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-    try {
-      await axios.put('/api/v1/platform/admin/users/edit', user);
-      dispatch(slice.actions.stopLoading());
-    } catch (error) {
-      dispatch(slice.actions.hasError(error));
-    }
-  };
+  return axios.put('/api/v1/platform/admin/users/edit', user);
 }
 
 export function getMyInfo() {
@@ -267,16 +270,19 @@ export function updateUserSettings(user) {
 
 // ----------------------------------------------------------------------
 
+// export function createUser(user) {
+//   return async (dispatch) => {
+//     dispatch(slice.actions.startLoading());
+//     try {
+//       await axios.post('/api/v1/platform/admin/auth/join', user);
+//       dispatch(slice.actions.stopLoading());
+//     } catch (error) {
+//       dispatch(slice.actions.hasError(error));
+//     }
+//   };
+// }
 export function createUser(user) {
-  return async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-    try {
-      await axios.post('/api/v1/platform/admin/auth/join', user);
-      dispatch(slice.actions.stopLoading());
-    } catch (error) {
-      dispatch(slice.actions.hasError(error));
-    }
-  };
+  return axios.post('/api/v1/platform/admin/auth/join', user);
 }
 
 // ----------------------------------------------------------------------

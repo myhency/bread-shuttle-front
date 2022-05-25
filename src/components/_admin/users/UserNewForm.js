@@ -12,7 +12,7 @@ import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 import { fDateStringFormat } from '../../../utils/formatTime';
-import { useDispatch } from '../../../redux/store';
+import { useDispatch, useSelector } from '../../../redux/store';
 // routes
 import { PATH_ADMIN } from '../../../routes/paths';
 
@@ -33,6 +33,7 @@ export default function UserNewForm({ isEdit, currentUser }) {
   const [paymentStartDate, setPaymentStartDate] = useState('');
   const [paymentEndDate, setPaymentEndDate] = useState('');
   const [memo, setMemo] = useState('');
+  const { error, isLoading } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -55,38 +56,67 @@ export default function UserNewForm({ isEdit, currentUser }) {
     },
     validationSchema: NewUserSchema,
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
-      console.log(values);
       try {
         const { paymentEndDate, paymentStartDate } = values;
 
         if (isEdit) {
-          dispatch(
-            updateUser({
-              id: currentUser.id,
-              ...values,
-              paymentEndDate: fDateStringFormat(paymentEndDate),
-              paymentStartDate: fDateStringFormat(paymentStartDate)
+          // dispatch(
+          //   updateUser({
+          //     id: currentUser.id,
+          //     ...values,
+          //     paymentEndDate: fDateStringFormat(paymentEndDate),
+          //     paymentStartDate: fDateStringFormat(paymentStartDate)
+          //   })
+          // );
+          updateUser({
+            id: currentUser.id,
+            ...values,
+            paymentEndDate: fDateStringFormat(paymentEndDate),
+            paymentStartDate: fDateStringFormat(paymentStartDate)
+          })
+            .then((res) => {
+              resetForm();
+              setSubmitting(false);
+              enqueueSnackbar(!isEdit ? 'Create success' : 'Update success', { variant: 'success' });
+              dispatch(getUserList());
+              navigate(PATH_ADMIN.admin.users);
             })
-          );
+            .catch((error) => {
+              console.log(error);
+              setSubmitting(false);
+              setErrors(error);
+              enqueueSnackbar(!isEdit ? `Create fail (${error.data})` : 'Update fail', { variant: 'error' });
+            });
         } else {
-          dispatch(
-            createUser({
-              ...values,
-              paymentEndDate: fDateStringFormat(paymentEndDate),
-              paymentStartDate: fDateStringFormat(paymentStartDate)
+          // dispatch(
+          //   createUser({
+          //     ...values,
+          //     paymentEndDate: fDateStringFormat(paymentEndDate),
+          //     paymentStartDate: fDateStringFormat(paymentStartDate)
+          //   })
+          // );
+          createUser({
+            ...values,
+            paymentEndDate: fDateStringFormat(paymentEndDate),
+            paymentStartDate: fDateStringFormat(paymentStartDate)
+          })
+            .then((res) => {
+              resetForm();
+              setSubmitting(false);
+              enqueueSnackbar(!isEdit ? 'Create success' : 'Update success', { variant: 'success' });
+              dispatch(getUserList());
+              navigate(PATH_ADMIN.admin.users);
             })
-          );
+            .catch((error) => {
+              setSubmitting(false);
+              setErrors(error);
+              enqueueSnackbar(!isEdit ? `Create fail (${error.data})` : 'Update fail', { variant: 'error' });
+            });
         }
-
-        resetForm();
-        setSubmitting(false);
-        enqueueSnackbar(!isEdit ? 'Create success' : 'Update success', { variant: 'success' });
-        await dispatch(getUserList());
-        navigate(PATH_ADMIN.admin.users);
       } catch (error) {
-        console.error(error);
         setSubmitting(false);
         setErrors(error);
+        enqueueSnackbar(!isEdit ? 'Create fail' : 'Update fail', { variant: 'error' });
       }
     }
   });
