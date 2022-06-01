@@ -45,6 +45,7 @@ const TABLE_HEAD = [
   { id: 'name', label: 'ID', alignRight: false },
   { id: 'role', label: '권한', alignRight: false },
   { id: 'createdAt', label: '생성일', alignRight: false },
+  { id: 'updatedAt', label: '변경일', alignRight: false },
   { id: 'paymentStartDate', label: '사용시작일', alignRight: false },
   { id: 'paymentEndDate', label: '사용종료일', alignRight: false },
   { id: 'memo', label: '메모', alignRight: false },
@@ -197,7 +198,17 @@ export default function UserList() {
                   />
                   <TableBody>
                     {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                      const { id, userName, role, createdAt, isPaid, paymentStartDate, paymentEndDate, memo } = row;
+                      const {
+                        id,
+                        userName,
+                        role,
+                        createdAt,
+                        updatedAt,
+                        isPaid,
+                        paymentStartDate,
+                        paymentEndDate,
+                        memo
+                      } = row;
                       const isItemSelected = selected.indexOf(userName) !== -1;
 
                       return (
@@ -221,6 +232,7 @@ export default function UserList() {
                           </TableCell>
                           <TableCell align="left">{role === 'ROLE_ADMIN' ? '관리자' : '정회원'}</TableCell>
                           <TableCell align="left">{fDateStringFormat(createdAt)}</TableCell>
+                          <TableCell align="left">{fDateStringFormat(updatedAt)}</TableCell>
                           <TableCell align="left">{paymentStartDate}</TableCell>
                           <TableCell align="left">{paymentEndDate}</TableCell>
                           <TableCell align="left">{memo}</TableCell>
