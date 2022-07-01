@@ -69,7 +69,7 @@ NavItem.propTypes = {
   item: PropTypes.object
 };
 
-function NavItem({ item, isShow }) {
+function NavItem({ item, isShow, additionalLinks }) {
   const theme = useTheme();
   const { pathname } = useLocation();
   const { title, path, icon, info, children } = item;
@@ -78,7 +78,6 @@ function NavItem({ item, isShow }) {
   const [open, setOpen] = useState(isActiveRoot);
 
   const handleOpen = () => {
-    console.log('item:', item);
     setOpen(!open);
   };
 
@@ -200,32 +199,21 @@ NavSection.propTypes = {
   navConfig: PropTypes.array
 };
 
-export default function NavSection({ navConfig, isShow = true, ...other }) {
+export default function NavSection({ navConfig, additionalLinks, isShow = true, ...other }) {
   const { user } = useAuth();
 
   const filteredNavConfig = user.role === 'ROLE_ADMIN' ? navConfig : navConfig.filter((item) => !item.isAdmin);
 
   return (
     <Box {...other}>
-      {filteredNavConfig.map((list, index) => {
-        const { subheader, items, eLink } = list;
-        // if (index === 0) {
-        //   return (
-        //     <List key={subheader} disablePadding>
-        //       <ListSubheaderStyle
-        //         sx={{ fontSize: '1rem', cursor: 'pointer' }}
-        //         onClick={() => window.open(eLink, '_blank')}
-        //       >
-        //         {subheader}
-        //       </ListSubheaderStyle>
-        //     </List>
-        //   );
-        // }
+      {filteredNavConfig.map((list) => {
+        const { subheader, items } = list;
+
         return (
           <List key={hash(list)} disablePadding>
             {isShow && <ListSubheaderStyle>{subheader}</ListSubheaderStyle>}
             {items.map((item) => (
-              <NavItem key={item.path} item={item} isShow={isShow} />
+              <NavItem key={item.path} item={item} isShow={isShow} additionalLinks={additionalLinks} />
             ))}
           </List>
         );

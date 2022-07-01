@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import iconv from 'iconv-lite';
 import { fDateStringFormat } from '../utils/formatTime';
 // ----------------------------------------------------------------------
@@ -48,7 +49,9 @@ export const PATH_ADMIN = {
     stockItems: path(ROOTS_ADMIN, '/stockItems/list'),
     users: path(ROOTS_ADMIN, '/users/management'),
     newUser: path(ROOTS_ADMIN, '/users/management/create'),
-    editUser: path(ROOTS_ADMIN, '/users/management/:id/edit')
+    editUser: path(ROOTS_ADMIN, '/users/management/:id/edit'),
+    links: path(ROOTS_ADMIN, '/links/management'),
+    editLink: path(ROOTS_ADMIN, '/links/management/:id/edit')
   }
 };
 

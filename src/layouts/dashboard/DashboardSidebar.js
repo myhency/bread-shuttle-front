@@ -1,22 +1,23 @@
+/* eslint-disable prefer-const */
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Link, Stack, Button, Drawer, Tooltip, Typography, CardActionArea } from '@mui/material';
+import { Box, Stack, Drawer, Tooltip, Typography, CardActionArea } from '@mui/material';
 // hooks
 import useAuth from '../../hooks/useAuth';
 import useCollapseDrawer from '../../hooks/useCollapseDrawer';
 // routes
 // components
 import Logo from '../../components/Logo';
-// import MyAvatar from '../../components/MyAvatar';
 import Scrollbar from '../../components/Scrollbar';
 import NavSection from '../../components/NavSection';
 import { MHidden } from '../../components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
-import { DocIllustration } from '../../assets';
+import { useDispatch, useSelector } from '../../redux/store';
+import { fetchLinks } from '../../redux/slices/link';
 
 // ----------------------------------------------------------------------
 
@@ -93,6 +94,8 @@ DashboardSidebar.propTypes = {
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
   const { user, isAuthenticated } = useAuth();
+  const dispatch = useDispatch();
+  const { links, isLoading, error } = useSelector((state) => state.link);
 
   const { isCollapse, collapseClick, collapseHover, onToggleCollapse, onHoverEnter, onHoverLeave } =
     useCollapseDrawer();
@@ -103,6 +106,25 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
+
+  useEffect(() => {
+    dispatch(fetchLinks());
+  }, [dispatch]);
+
+  let _sidebarConfig = sidebarConfig;
+
+  if (links.length > 0) {
+    _sidebarConfig
+      .find((item) => item.subheader === 'Trade')
+      .items.find((v) => v.title === '거래량상위추적')
+      .children.find((v) => v.title === '변경사항').eLink = links.find((v) => v.linkName === 'bigpie').linkValue;
+    _sidebarConfig
+      .find((item) => item.subheader === 'links')
+      .items.find((v) => v.title === '즐겨찾기')
+      .children.find((v) => v.title === '이달의 텔레그램').eLink = links.find(
+      (v) => v.linkName === 'telegram'
+    ).linkValue;
+  }
 
   const renderContent = (
     <Scrollbar
@@ -135,29 +157,9 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             {!isCollapse && <IconCollapse onToggleCollapse={onToggleCollapse} collapseClick={collapseClick} />}
           </MHidden>
         </Stack>
-
-        {/* {isCollapse ? (
-          <MyAvatar sx={{ mx: 'auto', mb: 2 }} />
-        ) : (
-          <Link underline="none" component={RouterLink} to={PATH_DASHBOARD.user.account}>
-            <AccountStyle>
-              <MyAvatar />
-              <Box sx={{ ml: 2 }}>
-                <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                  {user?.displayName}
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  {user?.role}
-                </Typography>
-              </Box>
-            </AccountStyle>
-          </Link>
-        )} */}
       </Stack>
 
-      <NavSection navConfig={sidebarConfig} isShow={!isCollapse} />
-
-      {/* <Box sx={{ flexGrow: 1 }} /> */}
+      <NavSection navConfig={_sidebarConfig} additionalLinks={links} isShow={!isCollapse} />
 
       {!isCollapse && (
         <Stack spacing={3} alignItems="center" sx={{ px: 5, pb: 5, mt: 5, width: 1, textAlign: 'center' }}>
@@ -169,7 +171,6 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
               {`회원님의 사용종료일은 ${user.paymentEndDate} 입니다`}
             </Typography>
           </div>
-          {/* <DocIllustration sx={{ width: 1 }} /> */}
         </Stack>
       )}
     </Scrollbar>

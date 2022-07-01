@@ -32,8 +32,6 @@ export default function UserNewForm({ isEdit, currentUser }) {
   const [showPassword, setShowPassword] = useState(true);
   const [paymentStartDate, setPaymentStartDate] = useState('');
   const [paymentEndDate, setPaymentEndDate] = useState('');
-  const [memo, setMemo] = useState('');
-  const { error, isLoading } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 

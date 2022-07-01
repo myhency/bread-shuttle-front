@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
-import { paramCase } from 'change-case';
 import { useRef, useState } from 'react';
 import editFill from '@iconify/icons-eva/edit-fill';
 import { Link as RouterLink } from 'react-router-dom';
-import trash2Outline from '@iconify/icons-eva/trash-2-outline';
 import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
 // material
 import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/material';
@@ -13,12 +11,11 @@ import { PATH_ADMIN } from '../../../routes/paths';
 
 // ----------------------------------------------------------------------
 
-UserMoreMenu.propTypes = {
-  onDelete: PropTypes.func,
+LinkMoreMenu.propTypes = {
   id: PropTypes.number
 };
 
-export default function UserMoreMenu({ onDelete, id }) {
+export default function LinkMoreMenu({ id }) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,7 +35,7 @@ export default function UserMoreMenu({ onDelete, id }) {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <MenuItem component={RouterLink} to={`${PATH_ADMIN.admin.users}/${id}/edit`} sx={{ color: 'text.secondary' }}>
+        <MenuItem component={RouterLink} to={`${PATH_ADMIN.admin.links}/${id}/edit`} sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Icon icon={editFill} width={24} height={24} />
           </ListItemIcon>
