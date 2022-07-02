@@ -1,9 +1,9 @@
-name: Docker Image CI
+name: Docker Image CI for Dev
 
 on:
   push:
     branches:
-      - 'feature/v2-init'
+      - 'dev'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,6 +31,6 @@ jobs:
           NAME: hencyyeo
           REPO: bread-shuttle-front
         run: |
-          docker build --platform linux/amd64 -t $REPO:v0.0.6-rc15 .
-          docker tag $REPO:v0.0.6-rc15 $NAME/$REPO:v0.0.6-rc15
-          docker push $NAME/$REPO:v0.0.6-rc15
+          docker build --platform linux/amd64 -t $REPO:dev-v0.0.6-rc15 .
+          docker tag $REPO:dev-v0.0.6-rc15 $NAME/$REPO:dev-v0.0.6-rc15
+          docker push $NAME/$REPO:dev-v0.0.6-rc15
