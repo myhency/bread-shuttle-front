@@ -131,7 +131,7 @@ export const PATH_STOCK_CALENDAR = 'http://www.paxnet.co.kr/stock/infoStock/issu
 export const PATH_NAVER_ECONOMIC_NEWS = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=101';
 export const PATH_COMPANY_GUIDE =
   'http://comp.fnguide.com/SVO2/asp/SVD_comp_calendar.asp?pGB=1&gicode=A005930&gcd=&gnm=&curdt=&ctp=&cID=&MenuYn=Y&ReportGB=&NewMenuID=701&stkGb=701';
-export const PATH_TELEGRAM_THIS_MONTH = 'https://t.me/+RL1clhOVMEpmNTM1';
+export const PATH_TELEGRAM_THIS_MONTH = 'https://t.me/+5aCl1HcEiZwxZDA1';
 
 export const PATH_ALPHA_LINK = 'https://alphasquare.co.kr/home/stock/stock-summary?code=';
 export const PATH_M_ALPHA_LINK = 'https://m.alphasquare.co.kr/service/chart?code=';
@@ -156,5 +156,3 @@ export const PATH_SEVENBREAD_CHANGES = 'https://tidy-field-695.notion.site/15372
 export const PATH_NEW_USER_LINK =
   'https://docs.google.com/forms/d/e/1FAIpQLScWGUGnPzVgwMkHk02BDKlptvOHDEsgHdfXMU84KnPBQZYIIg/viewform';
 export const PATH_BIGPIE_CHANGES = 'https://lively-flamingo-301.notion.site/v22-07-b640868684a54b2382250e4c66f51a0e';
-export const PATH_HANKYUNG_NEWLINK = (searchText) =>
-  `http://consensus.hankyung.com/apps.analysis/analysis.list?skinType=&search_date=6m&search_text=${searchText}`;
