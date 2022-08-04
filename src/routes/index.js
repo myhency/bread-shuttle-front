@@ -104,6 +104,13 @@ export default function Router() {
             { path: 'search', element: <TradingVolumeSearch /> },
             { path: 'theme', element: <TradingVolumeTheme /> }
           ]
+        },
+        {
+          path: 'user',
+          children: [
+            { element: <Navigate to="/dashboard/tradingVolume/list" replace /> },
+            { path: ':id/edit', element: <UserSettings /> }
+          ]
         }
       ]
     },
@@ -186,6 +193,7 @@ const SevenBreadManage = Loadable(lazy(() => import('../pages/admin/sevenBread/S
 const SevenBreadNewItem = Loadable(lazy(() => import('../pages/admin/sevenBread/SevenBreadNewItem')));
 const UserManage = Loadable(lazy(() => import('../pages/admin/users/UserManage')));
 const UserCreate = Loadable(lazy(() => import('../pages/admin/users/UserCreate')));
+const UserSettings = Loadable(lazy(() => import('../pages/dashboard/UserSettings')));
 const LinkManage = Loadable(lazy(() => import('../pages/admin/links/LinkManage')));
 const LinkEdit = Loadable(lazy(() => import('../pages/admin/links/LinkEdit')));
 // Dashboard
