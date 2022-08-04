@@ -60,12 +60,12 @@ export default function SevenBreadGridItem1({
         </Box>
         <Box sx={{ flexGrow: 1 }}>
           <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
-            <Typography
+            {/* <Typography
               variant="subtitle2"
               sx={{ color: fluctuationRate < 0 ? theme.palette.info.dark : theme.palette.error.dark, ml: 0.5 }}
             >
               ({fPercent(fluctuationRate)})
-            </Typography>
+            </Typography> */}
             <Typography variant="subtitle2">{fNumber(presentPrice)}</Typography>
           </Box>
         </Box>
