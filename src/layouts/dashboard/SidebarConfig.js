@@ -66,8 +66,8 @@ const sidebarConfig = [
         icon: ICONS.bus,
         children: [
           { title: '변경사항', eLink: PATH_BIGPIE_CHANGES },
-          { title: '실시간 현황', path: PATH_DASHBOARD.bigpie.realtime },
-          { title: '날짜별 조회', path: PATH_DASHBOARD.bigpie.list }
+          { title: '실시간 현황', path: PATH_DASHBOARD.bigpie.realtime }
+          // { title: '날짜별 조회', path: PATH_DASHBOARD.bigpie.list }
         ]
       },
       {
