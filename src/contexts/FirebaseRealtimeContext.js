@@ -42,10 +42,10 @@ function DatabaseProvider({ children }) {
 
   const [bigpieSnapshots, bLoading, bError] = useList(firebase.database().ref('bigpie'));
 
-  const [bigpieRealtimeSnapshots, brLoading, brError] = useList(
+  const [bigpieRealtimeSnapshots, brLoading, brError] = useList(firebase.database().ref(`bigpie-realtime`));
+  const [bigpieRealtimeDatetimeSnapshots, brdtLoading, brdtError] = useList(
     firebase.database().ref(`bigpie-realtime-${fDateString(new Date())}`)
   );
-  const [bigpieRealtimeDatetimeSnapshots, brdtLoading, brdtError] = useList(firebase.database().ref(`bigpie-realtime`));
 
   const [sevenBreadSnapshots, sLoading, sError] = useList(
     firebase.database().ref(`sevenbread/alarm/${fDateString(new Date())}`)
