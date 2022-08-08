@@ -95,6 +95,8 @@ export default function UserNewForm({ isEdit, currentUser }) {
           // );
           createUser({
             ...values,
+            userName: String(values.userName).trim(),
+            password: String(values.password).trim(),
             paymentEndDate: fDateStringFormat(paymentEndDate),
             paymentStartDate: fDateStringFormat(paymentStartDate)
           })
