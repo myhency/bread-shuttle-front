@@ -70,7 +70,20 @@ const action = (key) => (
 export default function BigPieRealTime() {
   const { themeStretch } = useSettings();
   const { user } = useAuth();
-  const { todaySnapshots, tLoading, tError, macaronSnapshots, mLoading, mError } = useFirebaseRealtime();
+  const {
+    todaySnapshots,
+    tLoading,
+    tError,
+    macaronSnapshots,
+    mLoading,
+    mError,
+    bigpieRealtimeSnapshots, // 단타용
+    brLoading,
+    brError,
+    bigpieRealtimeDatetimeSnapshots, // 스윙용
+    brdtLoading,
+    brdtError
+  } = useFirebaseRealtime();
   const [swingBigPie, setSwingBigPie] = useState([]);
   const [dayTradingBigPie, setDayTradingBigPie] = useState([]);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -102,23 +115,39 @@ export default function BigPieRealTime() {
       );
     }
   }, []);
-  useEffect(() => {
-    try {
-      todaySnapshots.forEach((v) => console.log(v.val()));
-      setSwingBigPie(todaySnapshots);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [todaySnapshots]);
+  // useEffect(() => {
+  //   try {
+  //     todaySnapshots.forEach((v) => console.log(v.val()));
+  //     setSwingBigPie(todaySnapshots);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [todaySnapshots]);
 
+  // useEffect(() => {
+  //   try {
+  //     macaronSnapshots.forEach((v) => console.log(v.val()));
+  //     setDayTradingBigPie(macaronSnapshots);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [macaronSnapshots]);
   useEffect(() => {
     try {
-      macaronSnapshots.forEach((v) => console.log(v.val()));
-      setDayTradingBigPie(macaronSnapshots);
+      bigpieRealtimeSnapshots.forEach((v) => console.log(v.val()));
+      setDayTradingBigPie(bigpieRealtimeSnapshots);
     } catch (error) {
       console.log(error);
     }
-  }, [macaronSnapshots]);
+  }, [bigpieRealtimeSnapshots]);
+  useEffect(() => {
+    try {
+      bigpieRealtimeDatetimeSnapshots.forEach((v) => console.log(v.val()));
+      setSwingBigPie(bigpieRealtimeDatetimeSnapshots);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [bigpieRealtimeDatetimeSnapshots]);
 
   // useEffect(() => {
   //   const testItem = [
@@ -164,6 +193,7 @@ export default function BigPieRealTime() {
                       fluctuation_rate,
                       name,
                       party,
+                      stoploss,
                       updatetime
                     } = item.val();
 
@@ -171,7 +201,8 @@ export default function BigPieRealTime() {
                       <Grid item xs={12} md={12} key={code}>
                         <BigPieGridItem1
                           // eslint-disable-next-line radix
-                          movingAverage={parseInt(party.replace('일선', ''))}
+                          // movingAverage={parseInt(stoploss.replace('일선', ''))}
+                          stoploss={parseInt(stoploss.replace('일선', ''), 10)}
                           itemCode={code}
                           itemName={name}
                           // eslint-disable-next-line camelcase
@@ -210,6 +241,7 @@ export default function BigPieRealTime() {
                       fluctuation_rate,
                       name,
                       party,
+                      stoploss,
                       updatetime
                     } = item.val();
 
@@ -217,7 +249,8 @@ export default function BigPieRealTime() {
                       <Grid item xs={12} md={4} key={code}>
                         <BigPieGridItem1
                           // eslint-disable-next-line radix
-                          movingAverage={parseInt(party.replace('일선', ''))}
+                          // movingAverage={parseInt(stoploss.replace('일선', ''))}
+                          stoploss={parseInt(stoploss.replace('일선', ''), 10)}
                           itemCode={code}
                           itemName={name}
                           // eslint-disable-next-line camelcase
@@ -239,100 +272,3 @@ export default function BigPieRealTime() {
     </Page>
   );
 }
-
-// <Page title="빅파이 실시간 | Cloud's pick">
-//   <Container maxWidth={themeStretch ? false : 'xl'}>
-//     <Grid container spacing={3}>
-//       {/* <Grid item xs={12} md={8}>
-//           <EcommerceWelcome />
-//         </Grid>
-
-//         <Grid item xs={12} md={4}>
-//           <EcommerceNewProducts />
-//         </Grid> */}
-
-//       <Grid item xs={6} md={3}>
-//         <BigPieGridTitle
-//           title="단타용"
-//           subtitle="바로 매수 가능"
-//           message="(장중 단타가능, 스윙가능) 매도호가가 매수호가보다 많고 (호가창 강의 필수시청) 체결강도가 높은 종목이 실시간으로 노출됩니다."
-//         />
-//         <Grid container spacing={3}>
-//           <Grid item xs={12} md={12}>
-//             <BigPieGridItem1
-//               movingAverage={5}
-//               itemCode="005930"
-//               itemName="삼성전자"
-//               fluctuationRate={-1.27}
-//               closingPrice={69800}
-//             />
-//           </Grid>
-//         </Grid>
-//       </Grid>
-//       <Grid item xs={6} md={9}>
-//         <BigPieGridTitle
-//           title="스윙용"
-//           subtitle="15시부근 매수해서 3일 유지"
-//           message="(스윙가능) 유통주식 상위종목+빅파이+마카롱에 떴었으나 현재는 마카롱조건에 해당되지 않는 종목이 노출됩니다. 오늘의 검색 종목에 표시되어있고 5%가 넘지 않았다면 15:00부근 종가매수가 가능합니다."
-//         />
-//         <Grid container spacing={3}>
-//           <Grid item xs={12} md={3}>
-//             <BigPieGridItem1
-//               movingAverage={5}
-//               itemCode="005930"
-//               itemName="삼성전자"
-//               fluctuationRate={-1.27}
-//               closingPrice={69800}
-//             />
-//           </Grid>
-//         </Grid>
-//       </Grid>
-
-//       {/* <Grid item xs={6} md={3}>
-//           <BigPieGridItem1
-//             movingAverage={5}
-//             itemCode="005930"
-//             itemName="삼성전자"
-//             fluctuationRate={-1.27}
-//             closingPrice={69800}
-//           />
-//         </Grid>
-//         <Grid item xs={6} md={3}>
-//           <BigPieGridItem1
-//             movingAverage={5}
-//             itemCode="005930"
-//             itemName="삼성전자"
-//             fluctuationRate={-1.27}
-//             closingPrice={69800}
-//           />
-//         </Grid> */}
-//       {/* <Grid item xs={12} md={4}>
-//           <EcommerceSalesProfit />
-//         </Grid>
-
-//         <Grid item xs={12} md={6} lg={4}>
-//           <EcommerceSaleByGender />
-//         </Grid>
-
-//         <Grid item xs={12} md={6} lg={8}>
-//           <EcommerceYearlySales />
-//         </Grid>
-
-//         <Grid item xs={12} md={6} lg={8}>
-//           <EcommerceSalesOverview />
-//         </Grid>
-
-//         <Grid item xs={12} md={6} lg={4}>
-//           <EcommerceCurrentBalance />
-//         </Grid>
-
-//         <Grid item xs={12} md={6} lg={8}>
-//           <EcommerceBestSalesman />
-//         </Grid>
-
-//         <Grid item xs={12} md={6} lg={4}>
-//           <EcommerceLatestProducts />
-//         </Grid> */}
-//     </Grid>
-//   </Container>
-// </Page>;

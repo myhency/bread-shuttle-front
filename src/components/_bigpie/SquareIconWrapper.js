@@ -32,7 +32,7 @@ export default function SquareIconWrapper({ text }) {
         })
       }}
     >
-      <Typography variant="h6">{!text ? '?' : text}</Typography>
+      <Typography variant="caption">{!text ? '?' : text}</Typography>
     </IconWrapperStyle>
   );
 }

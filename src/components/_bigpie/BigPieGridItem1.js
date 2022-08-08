@@ -6,11 +6,8 @@ import { Card, Box, Typography, Stack } from '@mui/material';
 import { fNumber, fPercent } from '../../utils/formatNumber';
 import { fTimeShorten } from '../../utils/formatTime';
 // components
-import CircleIconWrapper from './CircleIconWrapper';
 import SquareIconWrapper from './SquareIconWrapper';
 import IconLinkBox from '../_share/IconLinkBox';
-
-import { path, PATH_ALPHA_LINK, PATH_FN_LINK, PATH_NAVER_LINK, PATH_HANKYUNG_LINK } from '../../routes/paths';
 
 BigPieGridItem1.propTypes = {
   movingAverage: PropTypes.number,
@@ -23,6 +20,7 @@ BigPieGridItem1.propTypes = {
 };
 
 export default function BigPieGridItem1({
+  stoploss,
   movingAverage,
   itemCode,
   itemName,
@@ -38,7 +36,7 @@ export default function BigPieGridItem1({
       <Stack spacing={1}>
         <Box sx={{ flexGrow: 1 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <SquareIconWrapper text={`${movingAverage}손절`} />
+            <SquareIconWrapper text={`${fNumber(stoploss)}손절`} />
             <Typography variant="button">{itemName}</Typography>
           </Box>
         </Box>
