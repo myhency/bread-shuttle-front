@@ -3,7 +3,7 @@ name: Docker Image CI for Dev
 on:
   push:
     branches:
-      - 'dev'
+      - 'feature/v2-init'
 jobs:
   build:
     runs-on: ubuntu-latest
