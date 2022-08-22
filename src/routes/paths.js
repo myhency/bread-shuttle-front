@@ -142,7 +142,8 @@ export const PATH_HANKYUNG_LINK = (searchText) => {
   const param = escape(buffer.toString('binary'));
   const sdate = fDateStringFormat(new Date().setDate(new Date().getDate() - 186));
   const edate = fDateStringFormat(new Date());
-  return `http://consensus.hankyung.com/apps.analysis/analysis.list?sdate=${sdate}&edate=${edate}&now_page=1&search_value=&report_type=&pagenum=20&search_text=${param}&business_code=`;
+  // return `http://consensus.hankyung.com/apps.analysis/analysis.list?sdate=${sdate}&edate=${edate}&now_page=1&search_value=&report_type=&pagenum=20&search_text=${param}&business_code=`;
+  return `http://hkconsensus.hankyung.com/apps.analysis/analysis.list?sdate=${sdate}&edate=${edate}&now_page=1&search_text=${param}`;
 };
 export const PATH_HANKYUNG_MLINK = (searchText) =>
   `http://consensus.hankyung.com/apps.analysis/analysis.list?skinType=&search_date=6m&search_text=${searchText}`;
