@@ -75,7 +75,7 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.sevenBread.root,
         icon: ICONS.filter7,
         children: [
-          { title: '변경사항', eLink: PATH_SEVENBREAD_CHANGES },
+          // { title: '변경사항', eLink: PATH_SEVENBREAD_CHANGES },
           { title: '실시간 현황', path: PATH_DASHBOARD.sevenBread.realtime },
           { title: '리스트 조회', path: PATH_DASHBOARD.sevenBread.list }
         ]
