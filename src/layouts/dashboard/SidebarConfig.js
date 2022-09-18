@@ -35,7 +35,9 @@ const ICONS = {
   description: getIcon('ic_description'),
   telegram: getIcon('ic_telegram'),
   filter7: getIcon('ic_filter_7'),
-  bookmarks: getIcon('ic_bookmarks')
+  bookmarks: getIcon('ic_bookmarks'),
+  viewlist: getIcon('ic_view_list'),
+  info: getIcon('ic_info')
 };
 
 const sidebarConfig = [
@@ -48,10 +50,10 @@ const sidebarConfig = [
       {
         title: '안내',
         path: PATH_DASHBOARD.general.ecommerce,
-        icon: ICONS.trendingup,
+        icon: ICONS.info,
         children: [
-          { title: '사용법', eLink: PATH_BREADSHUTTLE_MANUAL_LINK },
-          { title: '가입안내', eLink: PATH_NEW_USER_LINK }
+          { title: `Cloud's pick서비스 매뉴얼`, eLink: PATH_BREADSHUTTLE_MANUAL_LINK }
+          // { title: '가입안내', eLink: PATH_NEW_USER_LINK }
         ]
       }
     ]
