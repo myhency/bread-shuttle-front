@@ -157,3 +157,4 @@ export const PATH_SEVENBREAD_CHANGES = 'https://tidy-field-695.notion.site/15372
 export const PATH_NEW_USER_LINK =
   'https://docs.google.com/forms/d/e/1FAIpQLScWGUGnPzVgwMkHk02BDKlptvOHDEsgHdfXMU84KnPBQZYIIg/viewform';
 export const PATH_BIGPIE_CHANGES = 'https://lively-flamingo-301.notion.site/v22-07-b640868684a54b2382250e4c66f51a0e';
+export const PATH_CONTACT_US_LINK = 'http://pf.kakao.com/_kbKxfj/chat';

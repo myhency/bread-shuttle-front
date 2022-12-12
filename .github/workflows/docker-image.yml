@@ -31,6 +31,6 @@ jobs:
           NAME: hencyyeo
           REPO: bread-shuttle-front
         run: |
-          docker build --platform linux/amd64 -t $REPO:v0.0.6-rc25 .
-          docker tag $REPO:v0.0.6-rc25 $NAME/$REPO:v0.0.6-rc25
-          docker push $NAME/$REPO:v0.0.6-rc25
+          docker build --platform linux/amd64 -t $REPO:v0.0.6-rc26 .
+          docker tag $REPO:v0.0.6-rc26 $NAME/$REPO:v0.0.6-rc26
+          docker push $NAME/$REPO:v0.0.6-rc26
