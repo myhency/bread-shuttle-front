@@ -15,7 +15,8 @@ import {
   ListItemText,
   ListItemIcon,
   ListSubheader,
-  ListItemButton
+  ListItemButton,
+  Stack
 } from '@mui/material';
 import useAuth from '../hooks/useAuth';
 // import { fontSize } from '@mui/system';
@@ -95,6 +96,7 @@ function NavItem({ item, isShow, additionalLinks }) {
 
   useEffect(() => {
     if (item.title === '즐겨찾기') setOpen(true);
+    if (item.title === '안내') setOpen(true);
   }, []);
 
   if (children) {

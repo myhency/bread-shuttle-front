@@ -142,7 +142,8 @@ export const PATH_HANKYUNG_LINK = (searchText) => {
   const param = escape(buffer.toString('binary'));
   const sdate = fDateStringFormat(new Date().setDate(new Date().getDate() - 186));
   const edate = fDateStringFormat(new Date());
-  return `http://consensus.hankyung.com/apps.analysis/analysis.list?sdate=${sdate}&edate=${edate}&now_page=1&search_value=&report_type=&pagenum=20&search_text=${param}&business_code=`;
+  // return `http://consensus.hankyung.com/apps.analysis/analysis.list?sdate=${sdate}&edate=${edate}&now_page=1&search_value=&report_type=&pagenum=20&search_text=${param}&business_code=`;
+  return `http://hkconsensus.hankyung.com/apps.analysis/analysis.list?sdate=${sdate}&edate=${edate}&now_page=1&search_text=${param}`;
 };
 export const PATH_HANKYUNG_MLINK = (searchText) =>
   `http://consensus.hankyung.com/apps.analysis/analysis.list?skinType=&search_date=6m&search_text=${searchText}`;
@@ -156,3 +157,4 @@ export const PATH_SEVENBREAD_CHANGES = 'https://tidy-field-695.notion.site/15372
 export const PATH_NEW_USER_LINK =
   'https://docs.google.com/forms/d/e/1FAIpQLScWGUGnPzVgwMkHk02BDKlptvOHDEsgHdfXMU84KnPBQZYIIg/viewform';
 export const PATH_BIGPIE_CHANGES = 'https://lively-flamingo-301.notion.site/v22-07-b640868684a54b2382250e4c66f51a0e';
+export const PATH_CONTACT_US_LINK = 'http://pf.kakao.com/_kbKxfj/chat';

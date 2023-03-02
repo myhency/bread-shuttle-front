@@ -65,6 +65,7 @@ function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
+    console.log('alsdkfjalsdfjlaskdfjlaskdjflasdkjf');
     const initialize = async () => {
       try {
         const accessToken = window.localStorage.getItem('accessToken');
@@ -75,17 +76,39 @@ function AuthProvider({ children }) {
           const response = await axios.get('/api/v1/platform/auth/user/my-info');
           const user = response.data.data;
 
-          dispatch({
-            type: 'INITIALIZE',
-            payload: {
-              isAuthenticated: true,
-              user: {
-                ...user,
-                displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '회원님',
-                paymentEndDate: user.paymentEndDate
+          console.log(user);
+
+          const today = new Date();
+          const paymentEndDate = new Date(user.paymentEndDate);
+          const formattedToday = new Date(`${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`);
+          const formattedPaymentEndDate = new Date(
+            `${paymentEndDate.getFullYear()}-${paymentEndDate.getMonth()}-${paymentEndDate.getDate()}`
+          );
+          const unixTimestampForToday = Math.floor(formattedToday / 1000);
+          const unixTimestampForPaymentEndDate = Math.floor(formattedPaymentEndDate / 1000);
+
+          if ((unixTimestampForPaymentEndDate - unixTimestampForToday) / 3600 / 24 >= 0) {
+            dispatch({
+              type: 'INITIALIZE',
+              payload: {
+                isAuthenticated: true,
+                user: {
+                  ...user,
+                  displayName: user.role === 'ROLE_ADMIN' ? '주식훈련소 스탭님' : '회원님',
+                  paymentEndDate: user.paymentEndDate
+                }
               }
-            }
-          });
+            });
+          } else {
+            setSession(null);
+            dispatch({
+              type: 'INITIALIZE',
+              payload: {
+                isAuthenticated: false,
+                user: null
+              }
+            });
+          }
         } else {
           dispatch({
             type: 'INITIALIZE',

@@ -17,7 +17,7 @@ import { Link, Stack, Alert, Checkbox, TextField, IconButton, InputAdornment, Fo
 import { LoadingButton } from '@mui/lab';
 // routes
 import { useTheme } from '@mui/material/styles';
-import { PATH_AUTH, PATH_NEW_USER_LINK } from '../../../routes/paths';
+import { PATH_AUTH, PATH_CONTACT_US_LINK, PATH_NEW_USER_LINK } from '../../../routes/paths';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
@@ -159,6 +159,15 @@ export default function LoginForm() {
           sx={{ mt: '1rem', backgroundColor: theme.palette.primary.light }}
         >
           서비스 가입신청
+        </LoadingButton>
+        <LoadingButton
+          fullWidth
+          size="large"
+          variant="contained"
+          onClick={() => window.open(PATH_CONTACT_US_LINK, '_blank')}
+          sx={{ mt: '1rem', backgroundColor: theme.palette.info.light }}
+        >
+          가입상담
         </LoadingButton>
       </Form>
     </FormikProvider>
