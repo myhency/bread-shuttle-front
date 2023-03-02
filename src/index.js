@@ -56,6 +56,7 @@ import { AuthProvider } from './contexts/JWTContext';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { PaymentProvider } from './contexts/PaymentContext';
 
 // ----------------------------------------------------------------------
 
@@ -68,9 +69,11 @@ ReactDOM.render(
             <CollapseDrawerProvider>
               <BrowserRouter>
                 <AuthProvider>
-                  <DatabaseProvider>
-                    <App />
-                  </DatabaseProvider>
+                  <PaymentProvider>
+                    <DatabaseProvider>
+                      <App />
+                    </DatabaseProvider>
+                  </PaymentProvider>
                 </AuthProvider>
               </BrowserRouter>
             </CollapseDrawerProvider>

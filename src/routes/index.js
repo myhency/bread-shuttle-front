@@ -14,6 +14,7 @@ import AuthGuard from '../guards/AuthGuard';
 import RoleBasedGuard from '../guards/RoleBasedGuard';
 // components
 import LoadingScreen from '../components/LoadingScreen';
+import PaymentGuard from '../guards/PaymentGuard';
 
 // ----------------------------------------------------------------------
 
@@ -84,32 +85,88 @@ export default function Router() {
           path: 'bigpie',
           children: [
             { element: <Navigate to="/dashboard/bigpie/realtime" replace /> },
-            { path: 'realtime', element: <BigPieRealTime /> },
-            { path: 'list', element: <BigPieList /> }
+            {
+              path: 'realtime',
+              element: (
+                <PaymentGuard>
+                  <BigPieRealTime />
+                </PaymentGuard>
+              )
+            },
+            {
+              path: 'list',
+              element: (
+                <PaymentGuard>
+                  <BigPieList />
+                </PaymentGuard>
+              )
+            }
           ]
         },
         {
           path: 'sevenBread',
           children: [
             { element: <Navigate to="/dashboard/sevenBread/realtime" replace /> },
-            { path: 'realtime', element: <SevenBreadRealTime /> },
-            { path: 'list', element: <SevenBreadList /> }
+            {
+              path: 'realtime',
+              element: (
+                <PaymentGuard>
+                  <SevenBreadRealTime />
+                </PaymentGuard>
+              )
+            },
+            {
+              path: 'list',
+              element: (
+                <PaymentGuard>
+                  <SevenBreadList />
+                </PaymentGuard>
+              )
+            }
           ]
         },
         {
           path: 'tradingVolume',
           children: [
             { element: <Navigate to="/dashboard/tradingVolume/list" replace /> },
-            { path: 'list', element: <TradingVolumeList /> },
-            { path: 'search', element: <TradingVolumeSearch /> },
-            { path: 'theme', element: <TradingVolumeTheme /> }
+            {
+              path: 'list',
+              element: (
+                <PaymentGuard>
+                  <TradingVolumeList />
+                </PaymentGuard>
+              )
+            },
+            {
+              path: 'search',
+              element: (
+                <PaymentGuard>
+                  <TradingVolumeSearch />
+                </PaymentGuard>
+              )
+            },
+            {
+              path: 'theme',
+              element: (
+                <PaymentGuard>
+                  <TradingVolumeTheme />
+                </PaymentGuard>
+              )
+            }
           ]
         },
         {
           path: 'user',
           children: [
             { element: <Navigate to="/dashboard/tradingVolume/list" replace /> },
-            { path: ':id/edit', element: <UserSettings /> }
+            {
+              path: ':id/edit',
+              element: (
+                <PaymentGuard>
+                  <UserSettings />
+                </PaymentGuard>
+              )
+            }
           ]
         }
       ]
