@@ -14,7 +14,6 @@ PaymentGuard.propTypes = {
 
 export default function PaymentGuard({ children }) {
   const { paymentState, getPayment, _pathname } = usePayment();
-  const { logout } = useAuth();
   const { pathname } = useLocation();
   const [requestedLocation, setRequestedLocation] = useState(null);
 
@@ -24,10 +23,6 @@ export default function PaymentGuard({ children }) {
     getPayment();
   }, [_pathname]);
 
-  const logoutFunc = async () => {
-    await logout();
-  };
-
   if (paymentState !== 'PAYMENT' && paymentState !== 'INIT') {
     if (pathname !== requestedLocation) {
       setRequestedLocation(pathname);
@@ -35,7 +30,7 @@ export default function PaymentGuard({ children }) {
     // logoutFunc();
     setSession(null);
     window.alert(
-      '기간이 만료되었습니다. 농협 352-1625-3653-73 (브레드스톡)으로 입금해주시면 자동 연장 처리됩니다.\n 로그인 화면으로 이동합니다.'
+      '기간이 만료되었습니다. 농협 352-1625-3653-73 (브레드스톡)으로 입금해주시면 자동 연장 처리됩니다.\n로그인 화면으로 이동합니다.'
     );
     window.location.reload();
   }
